@@ -786,17 +786,45 @@
   function markSearchOpen() {
     var header = document.querySelector('#root header');
     var open = false;
+    var searchBox = null;
     if (header) {
       var nodes = header.querySelectorAll('div');
       for (var i = 0; i < nodes.length; i++) {
         var cls = nodes[i].className || '';
         if (cls.indexOf('inset-x-4') !== -1 && cls.indexOf('absolute') !== -1) {
           open = true;
+          searchBox = nodes[i];
           break;
         }
       }
     }
     document.documentElement.classList.toggle('gz-acc-search-open', open);
+
+    if (open && searchBox && !searchBox.querySelector('.gz-search-close-btn')) {
+      var closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'gz-search-close-btn';
+      closeBtn.setAttribute('aria-label', 'بستن جستجو');
+      closeBtn.innerHTML = '&#x2715;';
+      closeBtn.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var inp = searchBox.querySelector('input');
+        if (inp && inp.value) {
+          inp.value = '';
+          inp.dispatchEvent(new Event('input', { bubbles: true }));
+          inp.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        var toggleBtn = header.querySelector('button.sm\\:hidden, button[class*="sm:hidden"]');
+        if (toggleBtn) {
+          toggleBtn.click();
+        } else {
+          document.documentElement.classList.remove('gz-acc-search-open');
+          searchBox.style.display = 'none';
+        }
+      });
+      searchBox.appendChild(closeBtn);
+    }
   }
 
   function tuneSearchInputs() {
@@ -808,6 +836,16 @@
       el.setAttribute('autocapitalize', 'off');
       el.setAttribute('autocorrect', 'off');
       el.setAttribute('spellcheck', 'false');
+      if (!el.dataset.gzEscBound) {
+        el.dataset.gzEscBound = '1';
+        el.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') {
+            var header = document.querySelector('#root header');
+            var toggleBtn = header && header.querySelector('button.sm\\:hidden, button[class*="sm:hidden"]');
+            if (toggleBtn) toggleBtn.click();
+          }
+        });
+      }
     }
   }
 
@@ -951,5 +989,13 @@
       }, 180);
     }).observe(root, { childList: true, subtree: true });
     document.addEventListener('focusin', keepFocusedInView, true);
+    document.addEventListener('focusout', function () {
+      window.setTimeout(function () {
+        var main = document.querySelector('#root main');
+        if (main) {
+          main.scrollTop = main.scrollTop;
+        }
+      }, 150);
+    }, true);
   });
 })();
