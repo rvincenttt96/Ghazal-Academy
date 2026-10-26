@@ -51,7 +51,7 @@ if ($user) {
         '<link rel="modulepreload" href="/assets/index-DMmAISFC.js?v=clock-fix1" crossorigin="anonymous">' .
         '<link rel="preload" href="/term-menu.js?v=term-tags-9" as="script">' .
         '<link rel="preload" href="/payroll.js?v=pay-boot4" as="script">' .
-        '<link rel="preload" href="/acc-ui.js?v=mobi3" as="script">' .
+        '<link rel="preload" href="/acc-ui.js?v=mobi4" as="script">' .
         '<link rel="preload" href="/bookstore.js?v=books3" as="script">';
 }
 
