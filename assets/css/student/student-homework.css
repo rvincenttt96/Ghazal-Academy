@@ -1,0 +1,261 @@
+/* ============= صفحه تکالیف دانش‌آموز - Glassmorphism Red Theme ============= */
+
+/* متغیرهای رنگ */
+:root {
+    --red-primary: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-light: #ffcdd2;
+    --card-bg: rgba(12, 10, 31, 0.85);
+    --card-border: rgba(211, 47, 47, 0.3);
+    --text-primary: #ffd1d1;
+    --text-light: rgba(255, 255, 255, 0.7);
+}
+
+/* هدر صفحه */
+.dashboard-header h1 {
+    font-weight: 800;
+    font-size: 2.2rem;
+    color: var(--text-primary) !important;
+    margin-bottom: 2rem;
+}
+
+/* کارت‌ها */
+.card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 
+        0 8px 25px rgba(211, 47, 47, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    overflow: hidden;
+    margin-bottom: 24px;
+    color: var(--text-primary) !important;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border: none !important;
+    padding: 1.25rem 1.5rem !important;
+    border-radius: 16px 16px 0 0 !important;
+}
+
+.card-header h5 {
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin: 0;
+    color: white !important;
+}
+
+.card-body {
+    padding: 1.5rem !important;
+}
+
+/* جدول با اسکرول */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -1.5rem;
+    padding: 0 1.5rem;
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, var(--red-dark), var(--red-primary));
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, var(--red-primary), #ff5252);
+}
+
+/* جدول تکالیف */
+.table {
+    margin: 0;
+    min-width: 1200px;
+    white-space: nowrap;
+    border-collapse: collapse;
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+}
+
+.table thead th {
+    background: rgba(211, 47, 47, 0.3) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600;
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    vertical-align: middle;
+}
+
+.table tbody td {
+    padding: 0.75rem;
+    vertical-align: middle;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    min-width: 80px;
+    color: var(--text-light) !important;
+}
+
+/* استایل سلول‌های وضعیت */
+.bg-success {
+    background: rgba(76, 175, 80, 0.2) !important;
+    color: #a5d6a7 !important;
+    border: 1px solid rgba(76, 175, 80, 0.4) !important;
+}
+
+.bg-warning {
+    background: rgba(255, 152, 0, 0.2) !important;
+    color: #ffe082 !important;
+    border: 1px solid rgba(255, 152, 0, 0.4) !important;
+}
+
+.bg-danger {
+    background: rgba(244, 67, 54, 0.2) !important;
+    color: #ffcccb !important;
+    border: 1px solid rgba(244, 67, 54, 0.4) !important;
+}
+
+.bg-secondary {
+    background: rgba(108, 117, 125, 0.2) !important;
+    color: #cfd8dc !important;
+    border: 1px solid rgba(108, 117, 125, 0.4) !important;
+}
+
+/* محتوای سلول */
+.table td div {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary) !important;
+}
+
+.table td small {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    color: var(--text-light) !important;
+}
+
+/* حالت خالی */
+.text-muted {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* ریسپانسیو */
+@media (max-width: 1200px) {
+    .table {
+        min-width: 1000px;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .card {
+        margin: 0 10px;
+    }
+    
+    .card-body {
+        padding: 1.25rem !important;
+    }
+    
+    .table-responsive {
+        margin: 0 -1.25rem;
+        padding: 0 1.25rem;
+    }
+    
+    .table {
+        min-width: 800px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .card-header {
+        padding: 1rem 1.25rem !important;
+    }
+    
+    .card-header h5 {
+        font-size: 1.15rem;
+    }
+    
+    .card-body {
+        padding: 1rem !important;
+    }
+    
+    .table-responsive {
+        margin: 0 -1rem;
+        padding: 0 1rem;
+    }
+    
+    .table {
+        min-width: 600px;
+        font-size: 0.85rem;
+    }
+    
+    .table td,
+    .table thead th {
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .dashboard-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .card {
+        margin: 0 5px;
+        border-radius: 12px !important;
+    }
+    
+    .card-header {
+        padding: 0.75rem 1rem !important;
+    }
+    
+    .card-header h5 {
+        font-size: 1rem;
+    }
+    
+    .card-body {
+        padding: 0.75rem !important;
+    }
+    
+    .table-responsive {
+        margin: 0 -0.75rem;
+        padding: 0 0.75rem;
+    }
+    
+    .table {
+        min-width: 500px;
+        font-size: 0.8rem;
+    }
+    
+    .table td,
+    .table thead th {
+        padding: 0.4rem;
+    }
+    
+    .table td div {
+        font-size: 0.8rem;
+    }
+    
+    .table td small {
+        font-size: 0.7rem;
+    }
+}

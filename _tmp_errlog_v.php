@@ -1,0 +1,23 @@
+<?php
+header('Content-Type: text/plain; charset=utf-8');
+$root = __DIR__;
+$checks = [];
+$checks['error-log'] = is_file($root.'/includes/error-log.php');
+$checks['error-ping'] = is_file($root.'/error-ping.php');
+require_once $root.'/includes/error-log.php';
+$checks['error-log-fn'] = function_exists('ghazal_error_report');
+$cfg = is_file($root.'/includes/rollcall-config.php') ? require $root.'/includes/rollcall-config.php' : [];
+$el = is_array($cfg) ? ($cfg['error_logs'] ?? []) : [];
+$checks['config-error-logs'] = !empty($el['channel_id']) && (!empty($el['bot_token']) || !empty($el['webhook']));
+$checks['channel_id_len'] = strlen((string)($el['channel_id'] ?? ''));
+$checks['token_len'] = strlen((string)($el['bot_token'] ?? ''));
+$checks['has_webhook'] = !empty($el['webhook']);
+$db = @file_get_contents($root.'/includes/db.php');
+$checks['db-include'] = $db && strpos($db, 'error-log.php') !== false;
+$sms = @file_get_contents($root.'/includes/sms.php');
+$checks['sms-hook'] = $sms && strpos($sms, 'ghazal_error_sms_fail') !== false;
+$alo = @file_get_contents($root.'/includes/alocom.php');
+$checks['alocom-hook'] = $alo && strpos($alo, 'ghazal_error_report') !== false;
+$id = @file_get_contents($root.'/includes/identity-sync.php');
+$checks['welcome-nophone'] = $id && strpos($id, 'SMS-NO-PHONE') !== false;
+echo json_encode($checks, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);

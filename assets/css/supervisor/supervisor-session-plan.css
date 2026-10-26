@@ -1,0 +1,143 @@
+/* ============= صفحه برنامه جلسه سوپروایزر - Glassmorphism Red Theme ============= */
+
+/* متغیرهای رنگ */
+:root {
+    --red-primary: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-light: #ffcdd2;
+    --card-bg: rgba(12, 10, 31, 0.85);
+    --card-border: rgba(211, 47, 47, 0.3);
+    --text-primary: #ffd1d1;
+    --text-light: rgba(255, 255, 255, 0.7);
+}
+
+/* کارت اصلی */
+.session-main-card,
+.session-details-card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 
+        0 8px 25px rgba(211, 47, 47, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 24px;
+    color: var(--text-primary) !important;
+}
+
+.session-main-card .card-header,
+.session-details-card .card-header {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border: none !important;
+    border-radius: 16px 16px 0 0 !important;
+    padding: 1.25rem 1.5rem !important;
+    font-weight: 600;
+    color: white !important;
+}
+
+/* کارت‌های کلاس */
+.session-class-card {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease;
+    height: 100%;
+    color: var(--text-primary) !important;
+}
+
+.session-class-card:hover {
+    background: rgba(211, 47, 47, 0.15) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(211, 47, 47, 0.3) !important;
+    border-color: var(--red-primary) !important;
+}
+
+/* جدول برنامه‌ها */
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 24px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.session-table {
+    margin: 0;
+    min-width: 600px;
+    border-collapse: collapse;
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+}
+
+.session-table thead {
+    background: rgba(211, 47, 47, 0.3) !important;
+}
+
+.session-table thead th {
+    background: rgba(211, 47, 47, 0.3) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600;
+    white-space: nowrap;
+    text-align: center;
+    padding: 14px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.session-table tbody tr {
+    border-bottom: 1px solid var(--card-border);
+    transition: background-color 0.2s ease;
+}
+
+.session-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.session-table tbody tr:hover {
+    background: rgba(211, 47, 47, 0.1) !important;
+}
+
+.session-table tbody td {
+    padding: 14px 12px;
+    vertical-align: middle;
+    text-align: center;
+    color: var(--text-light) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* هشدارها */
+.alert-info {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    margin-bottom: 20px !important;
+    color: var(--text-light) !important;
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    .card-header {
+        padding: 1rem !important;
+        text-align: center;
+    }
+    
+    .session-table {
+        min-width: 550px;
+    }
+    
+    .session-table thead th,
+    .session-table tbody td {
+        padding: 12px 8px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .session-table {
+        min-width: 500px;
+    }
+    
+    .session-class-card h6 {
+        font-size: 0.95rem;
+    }
+}

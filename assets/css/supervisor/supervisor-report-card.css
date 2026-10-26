@@ -1,0 +1,291 @@
+/* ============= صفحه کارنامه سوپروایزر - Glassmorphism Red Theme ============= */
+
+/* متغیرهای رنگ */
+:root {
+    --red-primary: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-light: #ffcdd2;
+    --card-bg: rgba(12, 10, 31, 0.85);
+    --card-border: rgba(211, 47, 47, 0.3);
+    --text-primary: #ffd1d1;
+    --text-light: rgba(255, 255, 255, 0.7);
+}
+
+/* تب‌ها */
+.nav-tabs {
+    background: rgba(25, 20, 50, 0.6) !important;
+    backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    padding: 8px !important;
+    margin-bottom: 24px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    padding: 10px 20px !important;
+    margin: 0 4px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    color: var(--text-primary) !important;
+}
+
+.nav-link.active {
+    background: var(--red-primary) !important;
+    color: white !important;
+}
+
+/* کارت لیست کلاس‌ها */
+.report-card-class {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    transition: all 0.2s ease;
+    color: var(--text-primary) !important;
+}
+
+.report-card-class:hover {
+    border-color: var(--red-primary) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3) !important;
+}
+
+.class-header h5 {
+    color: var(--text-primary) !important;
+    margin: 0;
+}
+
+.class-header small {
+    color: var(--text-light) !important;
+}
+
+/* کارت اصلی */
+.card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 
+        0 8px 25px rgba(211, 47, 47, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 24px;
+    color: var(--text-primary) !important;
+}
+
+.card-header.bg-danger {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border: none !important;
+    border-radius: 16px 16px 0 0 !important;
+    padding: 1rem 1.5rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+}
+
+.card-header h1 {
+    color: white !important;
+    margin: 0 !important;
+    font-size: 1.5rem !important;
+}
+
+/* جدول کارنامه */
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.report-card-table {
+    margin: 0;
+    min-width: 1400px;
+    border-collapse: collapse;
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+}
+
+.report-card-table thead th {
+    background: rgba(211, 47, 47, 0.3) !important;
+    color: var(--text-primary) !important;
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    vertical-align: middle;
+}
+
+.report-card-table tbody tr {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border-bottom: 1px solid var(--card-border);
+    transition: background-color 0.2s ease;
+}
+
+.report-card-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.report-card-table tbody tr:hover {
+    background: rgba(211, 47, 47, 0.1) !important;
+}
+
+.report-card-table td {
+    padding: 12px 8px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-light) !important;
+}
+
+/* فیلدهای ورودی */
+.report-card-table .form-control {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    text-align: center;
+    padding: 6px 8px !important;
+    width: 70px !important;
+    border-radius: 6px !important;
+    font-size: 0.9rem;
+}
+
+.report-card-table .form-control:focus {
+    border-color: var(--red-primary) !important;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2) !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* نمره کل */
+.total-score {
+    font-weight: bold;
+    color: #a5d6a7 !important;
+}
+
+/* دکمه‌ها */
+.btn-primary {
+    background: var(--red-primary) !important;
+    border: none !important;
+    color: white !important;
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: var(--red-dark) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4) !important;
+}
+
+.btn-light {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    padding: 10px 20px !important;
+    border-radius: 8px !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 140px;
+}
+
+.btn-light:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+/* بج‌های وضعیت */
+.badge.bg-success {
+    background: rgba(76, 175, 80, 0.2) !important;
+    color: #a5d6a7 !important;
+    border: 1px solid rgba(76, 175, 80, 0.4) !important;
+    padding: 4px 10px !important;
+    border-radius: 20px !important;
+    font-weight: 500;
+}
+
+/* کارت خالی */
+.card-body.text-center.py-5 {
+    padding: 60px 20px !important;
+}
+
+.card-body.text-center.py-5 h4 {
+    color: var(--text-primary) !important;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+/* ریسپانسیو */
+@media (max-width: 1200px) {
+    .report-card-table {
+        min-width: 1200px;
+    }
+    
+    .report-card-table thead th,
+    .report-card-table tbody td {
+        padding: 10px 6px;
+        font-size: 0.85rem;
+    }
+    
+    .report-card-table .form-control {
+        width: 60px !important;
+        padding: 5px 6px !important;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .report-card-table {
+        min-width: 1000px;
+    }
+    
+    .card-header {
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+    
+    .btn-light {
+        width: 100% !important;
+        margin-top: 12px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .report-card-table {
+        min-width: 800px;
+    }
+    
+    .report-card-table thead th,
+    .report-card-table tbody td {
+        padding: 8px 4px;
+        font-size: 0.8rem;
+    }
+    
+    .report-card-table .form-control {
+        width: 50px !important;
+        padding: 4px 4px !important;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .report-card-table {
+        min-width: 600px;
+    }
+    
+    .card-header h1 {
+        font-size: 1.2rem !important;
+    }
+}

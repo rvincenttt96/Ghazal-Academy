@@ -1,0 +1,144 @@
+/* ============= صفحه ایجاد فرم بازدید - Glassmorphism Red Theme ============= */
+
+/* متغیرهای رنگ */
+:root {
+    --red-primary: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-light: #ffcdd2;
+    --card-bg: rgba(12, 10, 31, 0.85);
+    --card-border: rgba(211, 47, 47, 0.3);
+    --text-primary: #ffd1d1;
+    --text-light: rgba(255, 255, 255, 0.7);
+}
+
+/* هدر داشبورد */
+.dashboard-header h1 {
+    color: var(--text-primary) !important;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-header small {
+    color: var(--text-light) !important;
+}
+
+/* کارت اصلی */
+.card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 
+        0 8px 25px rgba(211, 47, 47, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 24px;
+    color: var(--text-primary) !important;
+}
+
+.card-body {
+    padding: 1.5rem !important;
+}
+
+/* فیلدهای فرم */
+.form-label {
+    font-weight: 500;
+    color: var(--text-light) !important;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--red-primary) !important;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2) !important;
+}
+
+.form-check-input {
+    width: 18px !important;
+    height: 18px !important;
+    margin-top: 6px !important;
+    accent-color: var(--red-primary) !important;
+}
+
+.form-check-label {
+    color: var(--text-light) !important;
+    margin-left: 8px !important;
+}
+
+/* بخش‌های مشاهده */
+.observation-section {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    margin-bottom: 24px !important;
+}
+
+.observation-section h5 {
+    color: var(--text-primary) !important;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* دکمه‌ها */
+.btn-primary {
+    background: var(--red-primary) !important;
+    border: none !important;
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+    min-width: 180px;
+}
+
+.btn-primary:hover {
+    background: var(--red-dark) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4) !important;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+    min-width: 120px;
+}
+
+.btn-secondary:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem !important;
+    }
+    
+    .observation-section {
+        padding: 16px !important;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .observation-section .row > div {
+        margin-bottom: 16px;
+    }
+}

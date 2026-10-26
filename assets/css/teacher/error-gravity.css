@@ -1,0 +1,164 @@
+/* ============= صفحه Error Gravity - Glassmorphism Red Theme ============= */
+
+/* متغیرهای رنگ */
+:root {
+    --red-primary: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-light: #ffcdd2;
+    --card-bg: rgba(12, 10, 31, 0.85);
+    --card-border: rgba(211, 47, 47, 0.3);
+    --text-primary: #ffd1d1;
+    --text-light: rgba(255, 255, 255, 0.7);
+}
+
+/* کارت اصلی */
+.error-card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 
+        0 8px 25px rgba(211, 47, 47, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 24px;
+    color: var(--text-primary) !important;
+}
+
+.error-card .card-header {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border: none !important;
+    border-radius: 16px 16px 0 0 !important;
+    padding: 1.25rem 1.5rem !important;
+    font-weight: 600;
+    color: white !important;
+}
+
+/* لیست کلاس‌ها */
+.error-class-list {
+    margin-top: 24px;
+}
+
+.error-class-item {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--text-light) !important;
+    padding: 14px 20px !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease;
+    text-decoration: none !important;
+    display: block;
+}
+
+.error-class-item:hover {
+    background: rgba(211, 47, 47, 0.15) !important;
+    transform: translateY(-2px);
+    color: var(--text-primary) !important;
+    border-color: var(--red-primary) !important;
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3) !important;
+}
+
+/* فرم ویرایش */
+.error-form .form-label {
+    font-weight: 500;
+    color: var(--text-light) !important;
+    margin-bottom: 8px;
+}
+
+.error-form .form-control {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 12px 14px !important;
+    font-size: 1rem;
+    min-height: 150px;
+}
+
+.error-form .form-control:focus {
+    border-color: var(--red-primary) !important;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2) !important;
+}
+
+/* دکمه‌های اقدامات */
+.error-action-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+    min-width: 160px;
+}
+
+.error-action-btn:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+/* دکمه ذخیره (قرمز) */
+.error-save-btn {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border: none !important;
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+    min-width: 180px;
+}
+
+.error-save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4) !important;
+}
+
+/* هشدارها */
+.alert-info {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--text-light) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    margin-top: 24px !important;
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    .card-header {
+        padding: 1rem !important;
+        text-align: center;
+    }
+    
+    .error-form .form-control {
+        font-size: 1.15rem;
+        min-height: 120px;
+    }
+    
+    .error-action-btn,
+    .error-save-btn {
+        width: 100%;
+        margin-bottom: 8px;
+        min-width: auto;
+    }
+    
+    body {
+        overflow-x: hidden;
+    }
+    
+    .error-class-item {
+        margin-bottom: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .error-class-item {
+        padding: 12px 16px !important;
+        font-size: 0.95rem;
+    }
+    
+    .error-form .form-control {
+        padding: 10px 12px !important;
+    }
+}

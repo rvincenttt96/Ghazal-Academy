@@ -1,0 +1,243 @@
+/* ============= صفحه جزئیات فرم بازدید - Glassmorphism Red Theme ============= */
+
+/* متغیرهای رنگ */
+:root {
+    --red-primary: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-light: #ffcdd2;
+    --card-bg: rgba(12, 10, 31, 0.85);
+    --card-border: rgba(211, 47, 47, 0.3);
+    --text-primary: #ffd1d1;
+    --text-light: rgba(255, 255, 255, 0.7);
+}
+
+/* کارت اصلی */
+.card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 
+        0 8px 25px rgba(211, 47, 47, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 24px;
+    color: var(--text-primary) !important;
+}
+
+.card-header.bg-primary {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border: none !important;
+    border-radius: 16px 16px 0 0 !important;
+    padding: 1.25rem 1.5rem !important;
+    font-weight: 600;
+    color: white !important;
+}
+
+/* اطلاعات عمومی */
+.general-info-card {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    margin-bottom: 32px !important;
+}
+
+.general-info-card .col-md-3 {
+    text-align: center;
+    padding: 12px;
+}
+
+.general-info-card strong {
+    color: var(--text-primary) !important;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.general-info-card br + * {
+    color: var(--text-light) !important;
+    font-weight: 500;
+}
+
+/* بخش‌های مشاهده */
+.observation-section {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    margin-bottom: 24px !important;
+}
+
+.observation-section h5 {
+    color: var(--text-primary) !important;
+    font-weight: 700;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--card-border);
+    margin-bottom: 20px;
+}
+
+/* لیست آیتم‌ها */
+.list-unstyled {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.list-unstyled li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.list-unstyled li:last-child {
+    border-bottom: none;
+}
+
+.list-unstyled li:hover {
+    background: rgba(211, 47, 47, 0.1);
+    border-radius: 6px;
+    padding-left: 8px;
+}
+
+/* آیکون‌های وضعیت */
+.fas.fa-check {
+    color: #4caf50 !important;
+    margin-right: 12px;
+    font-size: 14px;
+    background: rgba(76, 175, 80, 0.2);
+    padding: 4px 8px;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(76, 175, 80, 0.4);
+}
+
+.fas.fa-times {
+    color: #f44336 !important;
+    margin-right: 12px;
+    font-size: 14px;
+    background: rgba(244, 67, 54, 0.2);
+    padding: 4px 8px;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(244, 67, 54, 0.4);
+}
+
+/* بخش کامنت‌ها */
+.comments-section {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+    margin-top: 12px !important;
+}
+
+.comments-section strong {
+    color: var(--text-primary) !important;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.comments-section p {
+    color: var(--text-light) !important;
+    margin: 0;
+    line-height: 1.6;
+    min-height: 24px;
+}
+
+/* ارزیابی کلی */
+.overall-evaluation {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    margin-bottom: 24px !important;
+}
+
+.overall-evaluation h5 {
+    color: var(--text-primary) !important;
+    font-weight: 700;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--card-border);
+    margin-bottom: 20px;
+}
+
+/* یادداشت‌های اضافی */
+.additional-notes {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    margin-bottom: 24px !important;
+}
+
+.additional-notes strong {
+    color: var(--text-primary) !important;
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.additional-notes p {
+    color: var(--text-light) !important;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* دکمه بازگشت */
+.back-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+    min-width: 140px;
+}
+
+.back-btn:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    .card-header {
+        padding: 1rem !important;
+        text-align: center;
+    }
+    
+    .observation-section,
+    .overall-evaluation,
+    .additional-notes,
+    .general-info-card {
+        padding: 16px !important;
+    }
+    
+    .list-unstyled li {
+        font-size: 0.9rem;
+        padding: 8px 0;
+    }
+    
+    .back-btn {
+        width: 100%;
+        margin-top: 16px;
+    }
+    
+    .observation-section .row > div,
+    .overall-evaluation .row > div {
+        margin-bottom: 16px;
+    }
+}

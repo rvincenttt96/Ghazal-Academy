@@ -1,0 +1,260 @@
+/* ============= صفحه تکالیف - Glassmorphism Red Theme ============= */
+
+/* متغیرهای رنگ */
+:root {
+    --red-primary: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-light: #ffcdd2;
+    --card-bg: rgba(12, 10, 31, 0.85);
+    --card-border: rgba(211, 47, 47, 0.3);
+    --text-primary: #ffd1d1;
+    --text-light: rgba(255, 255, 255, 0.7);
+}
+
+/* کارت اصلی */
+.homework-main-card,
+.homework-students-card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 
+        0 8px 25px rgba(211, 47, 47, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 24px;
+    color: var(--text-primary) !important;
+}
+
+.homework-main-card .card-header,
+.homework-students-card .card-header {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border: none !important;
+    border-radius: 16px 16px 0 0 !important;
+    padding: 1.25rem 1.5rem !important;
+    font-weight: 600;
+    color: white !important;
+}
+
+/* کارت‌های کلاس‌ها */
+.homework-class-card {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease;
+    height: 100%;
+    color: var(--text-primary) !important;
+}
+
+.homework-class-card:hover {
+    background: rgba(211, 47, 47, 0.15) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(211, 47, 47, 0.3) !important;
+    border-color: var(--red-primary) !important;
+}
+
+/* دکمه‌های تاریخ */
+.homework-dates .btn {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--text-light) !important;
+    border-radius: 8px !important;
+    padding: 6px 12px !important;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+.homework-dates .btn:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    transform: translateY(-2px);
+    border-color: var(--red-primary) !important;
+}
+
+/* فیلد تاریخ */
+#homework_date {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    font-size: 1rem;
+}
+
+/* جدول دانش‌آموزان */
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.homework-table {
+    margin: 0;
+    min-width: 600px;
+    border-collapse: collapse;
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+}
+
+.homework-table thead th {
+    background: rgba(211, 47, 47, 0.3) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600;
+    white-space: nowrap;
+    text-align: center;
+    padding: 14px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.homework-table tbody tr {
+    border-bottom: 1px solid var(--card-border);
+    transition: background-color 0.2s ease;
+}
+
+.homework-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.homework-table tbody tr:hover {
+    background: rgba(211, 47, 47, 0.1) !important;
+}
+
+.homework-table tbody td {
+    padding: 14px 12px;
+    vertical-align: middle;
+    text-align: center;
+    color: var(--text-light) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* دکمه‌های وضعیت تکلیف */
+.btn-homework {
+    min-width: 80px;
+    padding: 6px 10px;
+    font-weight: 600;
+    border-radius: 8px !important;
+    border: 2px solid;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    background: rgba(0, 0, 0, 0.2) !important;
+}
+
+.btn-complete {
+    color: #a5d6a7 !important;
+    border-color: rgba(76, 175, 80, 0.3) !important;
+}
+.btn-complete.active {
+    background: rgba(76, 175, 80, 0.2) !important;
+    border-color: #4caf50 !important;
+}
+
+.btn-incomplete {
+    color: #ffe082 !important;
+    border-color: rgba(255, 152, 0, 0.3) !important;
+}
+.btn-incomplete.active {
+    background: rgba(255, 152, 0, 0.2) !important;
+    border-color: #ff9800 !important;
+}
+
+.btn-not-submitted {
+    color: #ffcccb !important;
+    border-color: rgba(244, 67, 54, 0.3) !important;
+}
+.btn-not-submitted.active {
+    background: rgba(244, 67, 54, 0.2) !important;
+    border-color: #f44336 !important;
+}
+
+.btn-homework:hover:not(.active) {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* دکمه‌های اقدامات */
+.homework-action-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+    min-width: 120px;
+}
+.homework-action-btn:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+/* مودال ویرایش */
+.modal-content {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    color: var(--text-primary) !important;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border-radius: 16px 16px 0 0 !important;
+    border: none !important;
+    color: white !important;
+}
+
+.modal-footer {
+    border: none !important;
+    padding: 1.25rem;
+    background: rgba(25, 20, 50, 0.6) !important;
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    .card-header {
+        padding: 1rem !important;
+        text-align: center;
+    }
+    
+    .homework-dates .btn {
+        width: 100%;
+        margin-bottom: 6px;
+    }
+    
+    .homework-table thead th,
+    .homework-table tbody td {
+        padding: 12px 8px;
+        font-size: 0.9rem;
+    }
+    
+    .btn-homework {
+        min-width: 70px;
+        padding: 5px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .homework-action-btn {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .homework-table {
+        min-width: 550px;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn-homework {
+        min-width: 60px;
+        padding: 4px 6px;
+        font-size: 0.75rem;
+    }
+    
+    .homework-table {
+        min-width: 500px;
+    }
+}

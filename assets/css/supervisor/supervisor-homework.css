@@ -1,0 +1,331 @@
+/* ============= صفحه تکالیف سوپروایزر - Glassmorphism Red Theme ============= */
+
+/* متغیرهای رنگ */
+:root {
+    --red-primary: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-light: #ffcdd2;
+    --card-bg: rgba(12, 10, 31, 0.85);
+    --card-border: rgba(211, 47, 47, 0.3);
+    --text-primary: #ffd1d1;
+    --text-light: rgba(255, 255, 255, 0.7);
+}
+
+/* تب‌ها */
+.nav-tabs {
+    background: rgba(25, 20, 50, 0.6) !important;
+    backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    padding: 8px !important;
+    margin-bottom: 24px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    padding: 10px 20px !important;
+    margin: 0 4px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    color: var(--text-primary) !important;
+}
+
+.nav-link.active {
+    background: var(--red-primary) !important;
+    color: white !important;
+}
+
+/* کارت اصلی */
+.card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 
+        0 8px 25px rgba(211, 47, 47, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 24px;
+    color: var(--text-primary) !important;
+}
+
+.card-body {
+    padding: 1.5rem !important;
+}
+
+/* جدول تکالیف */
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.homework-session-table {
+    margin: 0;
+    min-width: 900px;
+    border-collapse: collapse;
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+}
+
+.homework-session-table thead th {
+    background: rgba(211, 47, 47, 0.3) !important;
+    color: var(--text-primary) !important;
+    padding: 12px 16px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    white-space: nowrap;
+}
+
+.homework-session-table tbody tr {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border-bottom: 1px solid var(--card-border);
+    transition: background-color 0.2s ease;
+}
+
+.homework-session-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.homework-session-table tbody tr:hover {
+    background: rgba(211, 47, 47, 0.1) !important;
+}
+
+.homework-session-table td {
+    padding: 12px 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-light) !important;
+    white-space: nowrap;
+}
+
+.homework-session-table td:first-child,
+.homework-session-table td:nth-child(2) {
+    text-align: right;
+    font-weight: 600;
+    color: var(--text-primary) !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    min-width: 120px;
+}
+
+/* سلول‌های جلسه */
+.session-cell {
+    padding: 10px 8px !important;
+    cursor: pointer;
+    border-radius: 8px !important;
+    transition: all 0.2s ease;
+    background: rgba(0, 0, 0, 0.2) !important;
+    min-width: 65px;
+    color: var(--text-primary) !important;
+}
+
+.session-cell:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+.session-date {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+    color: var(--text-primary) !important;
+}
+
+.session-stats {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    color: var(--text-light) !important;
+}
+
+/* رنگ‌بندی وضعیت */
+.text-success { color: #a5d6a7 !important; }
+.text-danger { color: #ffcccb !important; }
+.text-warning { color: #ffe082 !important; }
+.text-muted { color: rgba(255, 255, 255, 0.3) !important; }
+
+/* سلول‌های خالی */
+.text-center.text-muted {
+    padding: 10px 8px !important;
+    background: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 8px !important;
+    min-width: 65px;
+}
+
+/* مودال جزئیات */
+.modal-content {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    color: var(--text-primary) !important;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border-radius: 16px 16px 0 0 !important;
+    border: none !important;
+    color: white !important;
+    padding: 16px 20px !important;
+}
+
+.modal-header .btn-close {
+    color: white !important;
+    opacity: 0.8 !important;
+}
+
+.modal-header .btn-close:hover {
+    opacity: 1 !important;
+    color: white !important;
+}
+
+/* هدر اطلاعات در مودال */
+.homework-header {
+    background: rgba(211, 47, 47, 0.15) !important;
+    border-left: 3px solid var(--red-primary) !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 20px !important;
+}
+
+.homework-header h6 {
+    color: var(--red-primary) !important;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.homework-header p {
+    color: var(--text-light) !important;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* جدول در مودال */
+.modal .table {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.modal .table thead th {
+    background: rgba(211, 47, 47, 0.3) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600;
+    padding: 12px 16px;
+    border: none !important;
+}
+
+.modal .table tbody tr {
+    border-bottom: 1px solid var(--card-border) !important;
+}
+
+.modal .table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.modal .table td {
+    color: var(--text-light) !important;
+    padding: 12px 16px;
+    border: none !important;
+}
+
+/* اسکرول‌بار */
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, var(--red-dark), var(--red-primary));
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, var(--red-primary), #ff5252);
+}
+
+/* ریسپانسیو */
+@media (max-width: 1200px) {
+    .homework-session-table {
+        min-width: 800px;
+    }
+    
+    .homework-session-table thead th,
+    .homework-session-table tbody td {
+        padding: 10px 8px;
+        font-size: 0.85rem;
+    }
+    
+    .session-cell {
+        min-width: 60px;
+        padding: 8px 6px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .homework-session-table {
+        min-width: 700px;
+    }
+    
+    .nav-link {
+        padding: 8px 12px !important;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 10px !important;
+    }
+    
+    .homework-session-table {
+        min-width: 600px;
+    }
+    
+    .homework-session-table thead th,
+    .homework-session-table tbody td {
+        padding: 8px 6px;
+        font-size: 0.8rem;
+    }
+    
+    .session-cell {
+        min-width: 55px;
+        padding: 8px 6px !important;
+    }
+    
+    .nav-tabs {
+        overflow-x: auto;
+        padding: 6px !important;
+    }
+    
+    .nav-link {
+        margin: 0 2px !important;
+        min-width: 60px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .homework-session-table {
+        min-width: 500px;
+    }
+    
+    .session-cell {
+        min-width: 50px;
+        padding: 6px 4px !important;
+    }
+}
