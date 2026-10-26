@@ -1,0 +1,20 @@
+{
+    "config": {
+        "platform-check": false
+    },
+    "autoload": {
+        "classmap": [
+            "classes/",
+            "contracts/",
+            "classes/admin",
+            "classes/front",
+            "classes/front/fields"
+        ]
+    },
+    "require": {
+        "hekmatinasser/verta": "^1.10",
+        "melipayamak/php": "^0.1.0",
+        "kavenegar/php": "^1.2",
+        "sabanovin/php": "^1.0"
+    }
+}

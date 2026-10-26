@@ -1,0 +1,21 @@
+.wpast-panel-header {
+    border-bottom: 1px solid $gray-200;
+    margin-bottom: $margin;
+    padding-bottom: $padding;
+
+    h4 {
+        margin: 0;
+        display: inline-block;
+        float: left;
+        font-size: $font-size;
+        font-weight: bold;
+    }
+
+    .wpast-btn {
+        float: right;
+    }
+
+    .wpast-logout {
+        margin: 0 5px;
+    }
+}

@@ -1,0 +1,15 @@
+&.wpast-ticket-tracking {
+    .wpast-new-tickets {
+        float: right;
+    }
+
+    button.wpast-submit {
+        .wpast-loader {
+            display: none;
+            float: right;
+            margin-left: 7px;
+            position: relative;
+            top: 2px;
+        }
+    }
+}

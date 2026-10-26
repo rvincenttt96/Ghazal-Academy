@@ -1,0 +1,200 @@
+.wpast-settings .wpast-side-menu .wpast-plugin-name img {
+  margin-right: 0;
+  float: right;
+  margin-left: 10px;
+}
+
+.wpast-settings .wpast-side-menu .wpast-menu-item a {
+  border-left: none;
+  border-right: 3px solid transparent;
+}
+
+.wpast-settings .wpast-side-menu .wpast-menu-item a.wpast-active,
+.wpast-settings .wpast-side-menu .wpast-menu-item a:hover {
+  border-right-color: #F56640;
+}
+
+.wpast-settings .wpast-settings-content {
+  padding-right: 0;
+}
+
+.wpast-settings .wpast-side-menu .wpast-menu-item .wpast-menu-icon {
+  float: left;
+}
+
+.wpast-settings .wpast-description .uk-icon {
+  margin-right: 0;
+  margin-left: 3px;
+}
+
+.uk-form-custom .uk-button-default {
+  text-align: right;
+}
+
+.uk-form-custom .uk-button-default .uk-icon {
+  float: left;
+}
+
+.wpast-upload-file-wrapper .wpast-remove {
+  right: auto;
+  left: 5px;
+}
+
+.wpast-upload-file-wrapper .wpast-remove + .wpast-url {
+  left: 30px;
+  right: unset;
+}
+
+.wpast-confirm-activation:before {
+  left: auto;
+  right: 15px;
+}
+
+.wpast-settings .wpast-settings-content .wpast-save .loader {
+  margin-left: 0;
+  margin-right: 5px;
+}
+
+.wpast-pre-answers #poststuff #post-body.columns-2,
+.wpast-processes #poststuff #post-body.columns-2,
+.wpast-tickets #poststuff #post-body.columns-2 {
+  margin-left: 0;
+}
+
+.wpast-submit-ticket .wpast-start-ticket .wpast-meta .wpast-actions,
+.wpast-edit-ticket .wpast-start-ticket .wpast-meta .wpast-actions {
+  float: left;
+}
+
+.wpast-submit-ticket .wpast-start-ticket .wpast-meta .avatar,
+.wpast-edit-ticket .wpast-start-ticket .wpast-meta .avatar {
+  float: right;
+  margin-right: 0;
+  margin-left: 7px;
+}
+
+.wpast-submit-ticket #submitdiv #major-publishing-actions,
+.wpast-edit-ticket #submitdiv #major-publishing-actions {
+  right: 160px;
+  left: unset;
+}
+@media (min-width: 960px) {
+  .wpast-submit-ticket #submitdiv #major-publishing-actions,
+  .wpast-edit-ticket #submitdiv #major-publishing-actions {
+    right: 160px;
+    left: unset;
+  }
+}
+@media (min-width: 782px) and (max-width: 960px) {
+  .wpast-submit-ticket #submitdiv #major-publishing-actions,
+  .wpast-edit-ticket #submitdiv #major-publishing-actions {
+    right: 32px;
+    left: unset;
+  }
+}
+@media (max-width: 782px) {
+  .wpast-submit-ticket #submitdiv #major-publishing-actions,
+  .wpast-edit-ticket #submitdiv #major-publishing-actions {
+    right: 0;
+    left: unset;
+  }
+}
+
+.wpast-submit-ticket #wpast-replies .wpast-reply .wpast-meta .avatar,
+.wpast-edit-ticket #wpast-replies .wpast-reply .wpast-meta .avatar {
+  float: right;
+  margin-right: 0;
+  margin-left: 7px;
+}
+
+.wpast-submit-ticket #wpast-replies .wpast-reply .wpast-meta .wpast-date,
+.wpast-edit-ticket #wpast-replies .wpast-reply .wpast-meta .wpast-date {
+  float: left;
+}
+
+.wpast-submit-ticket #wpast-replies .wpast-reply .wpast-footer .wpast-actions,
+.wpast-edit-ticket #wpast-replies .wpast-reply .wpast-footer .wpast-actions {
+  float: left;
+}
+
+.wpast-submit-ticket #wpast-process-div .inside .wpast-processes li .wpast-process-title p:after,
+.wpast-edit-ticket #wpast-process-div .inside .wpast-processes li .wpast-process-title p:after {
+  right: 20px;
+  left: 0;
+  border-width: 10px 0 0 10px;
+}
+
+.wpast-submit-ticket #wpast-annotation-div .wpast-annotations li .wpast-annotation-content p:after,
+.wpast-edit-ticket #wpast-annotation-div .wpast-annotations li .wpast-annotation-content p:after {
+  right: 20px;
+  left: 0;
+  border-width: 10px 0 0 10px;
+}
+
+@media (min-width: 768px) {
+  .wpast-submit-ticket #wpast-info-div .inside .wpast-info-tabs,
+  .wpast-edit-ticket #wpast-info-div .inside .wpast-info-tabs {
+    float: right;
+  }
+}
+@media (min-width: 768px) {
+  .wpast-submit-ticket #wpast-info-div .inside .wpast-tab-panel,
+  .wpast-edit-ticket #wpast-info-div .inside .wpast-tab-panel {
+    float: left;
+  }
+}
+.wpast-submit-ticket #wpast-info-div .inside .wpast-info-tabs li a .dashicons,
+.wpast-edit-ticket #wpast-info-div .inside .wpast-info-tabs li a .dashicons {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+.wpast-submit-ticket #wpast-info-div .inside a#wpast-load-more-products .wpast-loader,
+.wpast-edit-ticket #wpast-info-div .inside a#wpast-load-more-products .wpast-loader {
+  margin-right: 5px;
+  margin-left: 0;
+}
+
+.wpast-pre-answer .wpast-show-more:not(.expand) {
+  left: 0;
+  right: auto;
+}
+.wpast-pre-answer .wpast-show-more:not(.expand):before {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.44), rgba(0, 0, 0, 0));
+  right: -69px;
+}
+
+.wpast-recorder #controls .wpast-timer {
+  flex-direction: row-reverse;
+}
+
+.wpast-recorder #controls {
+  flex-direction: row-reverse;
+}
+
+.wpast-custom-alert .wpast-custom-alert-icon {
+  left: 10px;
+  right: unset;
+}
+
+.wpast-save-holder {
+  text-align: left;
+}
+@media (min-width: 960px) {
+  .wpast-save-holder {
+    right: 160px;
+    left: unset;
+  }
+}
+@media (min-width: 782px) and (max-width: 960px) {
+  .wpast-save-holder {
+    right: 36px;
+    left: unset;
+  }
+}
+@media (max-width: 782px) {
+  .wpast-save-holder {
+    right: 0;
+    left: unset;
+  }
+}

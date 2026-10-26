@@ -1,0 +1,41 @@
+.wpast-departments {
+    .wp-heading-inline {
+        margin-bottom: 36px;
+    }
+
+    #col-left {
+        h2 {
+            margin-top: 0;
+        }
+
+        select {
+            width: 95%;
+        }
+    }
+
+    .wpast-no-answerable {
+        color: $red;
+    }
+
+    .wpast-form-field-fields {
+        display: none;
+
+        .wpast-field:not(:last-child) {
+            margin-bottom: 10px;
+        }
+
+        .wpast-field label {
+            display: inline-block;
+        }
+    }
+}
+
+.wpast-edit-department {
+    select {
+        width: 95%;
+    }
+}
+
+#wpast-edit-department {
+    max-width: 800px;
+}

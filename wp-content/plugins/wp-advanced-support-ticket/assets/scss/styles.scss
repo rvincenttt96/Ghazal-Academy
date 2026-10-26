@@ -1,0 +1,66 @@
+@import "vars";
+@import "_jTippy";
+
+.wpast-wrap {
+    font-size: $font-size !important;
+    line-height: $line-height !important;
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+    p {
+        font-size: $font-size !important;
+        line-height: $line-height !important;
+    }
+    @import "global";
+    @import "grid";
+    @import "button";
+    @import "form";
+    @import "table";
+    @import "alert";
+    @import "tooltip";
+    @import "status";
+    @import "all-tickets";
+    @import "header";
+    @import "help";
+    @import "fags";
+    @import "submit-ticket";
+    @import "view-ticket";
+    @import "tracking";
+    @import "bought-products";
+    @import "widget";
+    @import "login";
+    @import "uppy";
+    @import "recorder";
+}
+
+.wpast-menu-item {
+    position: relative;
+    .wpast-count {
+        position: absolute;
+        right: 3px;
+        bottom: 8px;
+        background: $danger;
+        display: inline-block;
+        text-align: center;
+        width: 20px;
+        height: 20px;
+        font-size: 80%;
+        border-radius: 50%;
+        color: #FFF;
+        line-height: 20px;
+        font-weight: 400;
+    }
+}
+
+.wpast-badge {
+    display: inline-block;
+    font-size: 90%;
+    border-radius: 50%;
+    background: $danger;
+    color: #fff;
+    line-height: 20px;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    padding-top: 2px;
+}

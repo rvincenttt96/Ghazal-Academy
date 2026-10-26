@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 330.001 330.001" style="enable-background:new 0 0 330.001 330.001;" xml:space="preserve" width="512" height="512"><g><path id="XMLID_197_" d="M194.999,0C194.999,0,194.999,0,194.999,0c-20.033,0-38.866,7.801-53.031,21.966  c-14.166,14.166-21.967,33-21.968,53.033v135.004c0,24.813,20.186,44.999,45.001,45c24.813-0.001,44.999-20.189,44.999-45.002  v-77.902c0-8.284-6.716-15-15-15c-8.284,0-15,6.716-15,15v77.902c0,8.272-6.73,15.001-14.999,15.002  c-8.271,0-15.001-6.729-15.001-15V74.999c0-12.02,4.682-23.321,13.181-31.82c8.5-8.5,19.799-13.18,31.818-13.18  c24.814,0,45.001,20.186,45.002,44.998v150.002c-0.002,41.355-33.646,75.001-75,75.001c-20.033,0-38.868-7.8-53.033-21.966  c-14.166-14.165-21.967-33-21.967-53.034L89.999,74.999c0-8.285-6.716-15-15-15s-15,6.716-15,15l0.002,150.001  C60,253.047,70.922,279.415,90.754,299.248c19.832,19.832,46.2,30.754,74.247,30.753c57.895,0,104.998-47.103,105-105V74.998  C270,33.644,236.354,0,194.999,0z" data-original="#000000" class="active-path" data-old_color="#000000" style="fill:#8D99A9"/><style id="stylus-1" type="text/css" class="stylus active-path">.ticket__product-domain {
+    background-color: #fea000;
+    border-color: #fea000;
+    color: #fff;
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    z-index: 99;
+}
+.ticket__product-domain a {
+    color: #fff;
+}
+.ticket__product-name {
+    background-color: #fea000;
+    border-color: #fea000;
+    color: #fff;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 99;
+    border-radius: 3px;
+    padding: 9px 20px;
+}
+.ticket__product-name a {
+    color: #fff;
+}
+.ticket__product-name a:hover {
+    color: #fff;
+}
+.predefined-answer__item {
+    height: 48px;
+    margin: 10px 5px;
+}
+@media only screen and (min-width: 801px) {
+    .predefined-answer__item {
+    padding: 0 15px;
+}
+}
+.predefined-answer__show-more {
+    height: 48px;
+}
+.predefined-answer__show-more:after {
+    height: 48px;
+}
+.predefined-answer__container {
+    height: 58px;
+}
+.record__title {
+    padding: 10px 24px;
+}
+.record__table {
+    padding: 10px 24px;
+}
+.record {
+    margin-bottom: 30px;
+}
+ul .record:nth-child(odd) {
+    background: #e6e6e652;
+}
+span.record__price.record__price--spent {
+    color: #ff4757;
+}
+.record__date span.fa-num {
+    color: #b9c3ce;
+}
+.record__col.record__col--left span.record__price.fa-num {
+    color: #10ac84;
+}
+.record__col.record__col--title span {
+    font-size: 13px;
+}</style></g> </svg>

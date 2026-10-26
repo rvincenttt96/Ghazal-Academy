@@ -1,0 +1,33 @@
+.wpast-pre-answers {
+    #poststuff #post-body.columns-2 {
+        margin-right: 0;
+    }
+}
+
+.wpast-edit-pre-answer,
+.wpast-new-pre-answer {
+    .postbox .hndle {
+        cursor: default;
+    }
+    #postdivrich {
+        #wp-content-wrap {
+            padding: 20px 0;
+        }
+    }
+    #submitdiv {
+        .regular-text {
+            width: 100%;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+#adminmenu .toplevel_page_wpast-support-ticket .wp-submenu {
+    li:nth-child(11),
+    li:nth-child(12) {
+        display: none;
+    }
+}

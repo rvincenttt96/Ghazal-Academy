@@ -1,0 +1,35 @@
+.wpast-alert {
+    position: relative;
+    padding: $padding;
+    margin: $margin 0;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+}
+
+.wpast-alert p {
+    margin-bottom: 0;
+}
+
+.wpast-alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.wpast-alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.wpast-alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.wpast-alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}

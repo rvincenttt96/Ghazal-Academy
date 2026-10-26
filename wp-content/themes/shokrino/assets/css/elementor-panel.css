@@ -1,0 +1,66 @@
+* {
+    font-style:normal !important;
+}
+.shokrino-el-icon::after {
+    content: "";
+    background-image: url("../img/shokrino-el-icon.png") !important;
+    font-size: 18px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 4px;
+    border-radius: 8px;
+    padding: 4px 5px 4px 4px;
+    background: #00b4ff;
+    color: #fff !important;
+    width: 25px;
+    height: 25px;
+    background-position: center;
+}
+#elementor-panel-categories {
+    display: grid;
+}
+#elementor-panel-category-general_category {
+    order: -1 !important;
+}
+#elementor-panel-category-shkrn_posts_el,
+#elementor-panel-category-shkrn_products_el {
+    order: -2 !important;
+}
+body,#elementor-try-safe-mode .elementor-safe-mode-button,.elementor-add-section-drag-title,.elementor-button,.elementor-panel,.elementor-safe-mode-toast .elementor-toast-content,.elementor-safe-mode-toast header h2,.elementor-templates-modal .dialog-widget-content,.tipsy-inner,.wp-picker-clear.button,button.dialog-button.dialog-cancel.dialog-confirm-cancel,button.dialog-button.dialog-ok.dialog-confirm-ok,select,.elementor-loading-title{
+    font-family:'YekanBakh' !important;
+    font-size: 15px;
+}
+input,.elementor-control-tag-area,#elementor-finder__search__input,#elementor-template-library-filter-text,.elementor-input,textarea,input#elementor-panel-elements-search-input,input#elementor-template-library-save-template-name{
+    font-family:'YekanBakh'!important;
+    font-size: 13.5px;
+}
+.elementor-panel .elementor-control-field-description, .elementor-panel .elementor-descriptor {
+    font-size: 12px;
+}
+.elementor-loading-title{
+    letter-spacing:unset !important;
+    text-indent:unset !important;
+}
+.admin_select_img_style {
+    border: 1.5px solid #2baddd !important;
+    border-radius: 20px;
+    box-shadow: 0px 5px 19px -1px rgba(61, 130, 179, 0.08);
+    margin-bottom: 2px;
+}
+@font-face {
+    font-family: 'YekanBakh';
+    src: url('./fonts/yekanbakh/YekanBakhFaNum-Medium.eot'),
+    url('./fonts/yekanbakh/YekanBakhFaNum-Medium.eot?#iefix') format("embedded-opentype"),
+    url('./fonts/yekanbakh/YekanBakhFaNum-Medium.woff') format('woff'),
+    url('./fonts/yekanbakh/YekanBakhFaNum-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'YekanBakh';
+    src: url('./fonts/yekanbakh/YekanBakhFaNum-Bold.eot'),
+    url('./fonts/yekanbakh/YekanBakhFaNum-Bold.eot?#iefix') format("embedded-opentype"),
+    url('./fonts/yekanbakh/YekanBakhFaNum-Bold.woff') format('woff'),
+    url('./fonts/yekanbakh/YekanBakhFaNum-Bold.ttf') format('truetype');
+    font-weight: 600;
+}

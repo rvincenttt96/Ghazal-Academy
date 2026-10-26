@@ -1,0 +1,92 @@
+.wpast-btn {
+    display: inline-block;
+    font-weight: 400;
+    color: $text-color;
+    text-align: center;
+    height: 42px;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 3px 15px;
+    font-size: $font-size;
+    line-height: $line-height;
+    border-radius: $border-radius;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.wpast-btn-small {
+    line-height: 26px;
+    height: 28px;
+    padding: 0 10px;
+}
+
+.wpast-btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.wpast-btn:disabled,
+.wpast-btn.disabled {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+.wpast-btn-primary {
+    color: #FFF;
+    background-color: $primary;
+    border-color: $primary;
+    &:hover, &:focus, &:active {
+        color: #FFF;
+        background-color: darken($primary, 10%);
+        border-color: darken($primary, 10%);
+    }
+}
+
+.wpast-btn-success {
+    color: #FFF;
+    background-color: $success;
+    border-color: $success;
+    &:hover, &:focus, &:active {
+        color: #FFF;
+        background-color: darken($success, 10%);
+        border-color: darken($success, 10%);
+    }
+}
+
+.wpast-btn-secondary {
+    color: #FFF;
+    background-color: $secondary;
+    border-color: $secondary;
+    &:hover, &:focus, &:active {
+        color: #FFF;
+        background-color: darken($secondary, 10%);
+        border-color: darken($secondary, 10%);
+    }
+}
+
+.wpast-btn-warning {
+    color: #FFF;
+    background-color: $warning;
+    border-color: $warning;
+    &:hover, &:focus, &:active {
+        color: #FFF;
+        background-color: darken($warning, 10%);
+        border-color: darken($warning, 10%);
+    }
+}
+
+.wpast-btn-danger {
+    color: #FFF;
+    background-color: $danger;
+    border-color: $danger;
+    &:hover, &:focus, &:active {
+        color: #FFF;
+        background-color: darken($danger, 10%);
+        border-color: darken($danger, 10%);
+    }
+}

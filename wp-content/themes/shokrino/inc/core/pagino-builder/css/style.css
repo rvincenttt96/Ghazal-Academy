@@ -1,0 +1,397 @@
+.flex-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.page-option-shkrn {
+    background: #fbfbfb;
+    margin: 15px;
+    border-radius: 15px;
+    padding: 20px;
+}
+#post-body.kalamatino {
+    display: block;
+    width: 100%;
+}
+.kalamatino #postbox-container-2 {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    row-gap: 40px;
+    justify-content: center;
+    align-items: center;
+}
+.box-top-klmtn {
+    display: flex;
+    width: 96%;
+    justify-content: center;
+    background: #fff;
+    border-radius: 30px;
+    align-items: center;
+    column-gap: 20px;
+    min-height: 200px;
+    flex-wrap: wrap;
+    padding: 12px;
+    margin: auto;
+    border: 4px solid #0096ff;
+}
+.form-klmtn-add-words h3 {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 0;
+}
+.box-top-klmtn #klmtn-save-words {
+    display: flex;
+    justify-content: center;
+    column-gap: 30px;
+    align-items: center;
+}
+.box-top-klmtn #klmtn-save-words h1 {
+    color: #e4e4e4 !important;
+}
+.box-top-klmtn #klmtn-save-words label {
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+    align-items: center;
+}
+.box-top-klmtn #klmtn-save-words label > p {
+    font-size: 18px;
+}
+.submit-klmtn {
+    padding: 8px 20px;
+    font-size: 14px;
+    background: #0096ff;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    cursor: pointer;
+}
+.form-klmtn-add-words > p {
+    font-size: 15px;
+    margin: 0;
+}
+.lite-box-spinner-saving {
+    position: fixed;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    height: 100%;
+    z-index: 99999999;
+    background: #0000009c;
+    top: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: center;
+}
+.kalamatino-icon-loader {
+    position: fixed;
+    width: 200px;
+    fill: #fff;
+}
+.table-klmtn {
+    display: flex;
+    width: 97% !important;
+    justify-content: start;
+    background: #e3e3e3 !important;
+    border-radius: 30px;
+    align-items: center;
+    column-gap: 20px;
+    flex-wrap: wrap;
+    padding: 12px;
+    margin: auto;
+    flex-direction: column;
+}
+.table-head-klmtn {
+    background: #0096ea;
+    color: white;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 16px 0;
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+.box-table-head-klmtn {
+    font-size: 15px;
+    font-weight: 600;
+}
+.table-body-klmtn {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: max-content;
+}
+.row-table-klmtn {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    background: #00000017;
+    margin: 4px auto;
+    border-radius: 11px;
+    min-height: 46px;
+}
+.icon.icon-tabler.icon-tabler-arrow-left {
+    position: absolute;
+    right: 374px;
+}
+#optionino * {
+    box-sizing: border-box;
+}
+
+:root {
+    --optionino-plugin-color: #0096ff;
+}
+
+/* TABS STYLES */
+#optionino .tab {
+    float: right;
+    width: 30%;
+    height: max-content;
+}
+#optionino .tab button {
+    display: flex;
+    background-color: transparent;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: right;
+    cursor: pointer;
+    transition: 0s;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 25px;
+    border-right: 3px solid transparent;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+#optionino .tab button:hover {
+    border-right: 3px solid var(--optionino-plugin-color);
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+#optionino .tab button.active {
+    border-right: 3px solid var(--optionino-plugin-color);
+    transition: 200ms;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    box-shadow: -5px 3px 11px -2px #36454f0d;
+}
+#optionino .tab button.active svg, .tab button:hover svg {
+    stroke: var(--optionino-plugin-color);
+}
+#optionino .tabcontent {
+    float: right;
+    padding: 5px 20px;
+    border-right: 3px solid var(--optionino-plugin-color);
+    width: 100%;
+    height: 100%;
+    border-radius: 20px 0 0 20px;
+}
+#optionino .tabcontent:not(:first-child) {
+    display: none;
+}
+/* TABS STYLES */
+/* LOADING STYLES */
+
+.lite-box-spinner-saving-optionino {
+    position: fixed;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    height: 100%;
+    z-index: 99999999;
+    background: #0000009c;
+    top: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: center;
+}
+.optionino-icon-loader {
+    position: fixed;
+}
+
+/* LOADING STYLES */
+.optionino-settings-inner-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 3%;
+    background: white;
+    border-radius: 25px;
+    min-height: 600px;
+}
+.optionino-information {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    row-gap: 10px;
+}
+.optionino-information > img {
+    width: 160px;
+    height: auto;
+}
+.optionino-tab-titles-box {
+    display: flex;
+    justify-content: right;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.optionino-title-tab-options {
+    font-size: 17px;
+    font-weight: 600;
+    color: #36454f;
+}
+.optionino-desc-tab-options {
+    color: #485660;
+}
+.optionino-tab-content-outer {
+    float: right;
+    min-height: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    row-gap: 15px;
+}
+.optionino-options-save-box {
+    display: flex;
+    justify-content: end;
+    padding: 0 3%;
+}
+.optionino-options-save-box .submit-optionino {
+    display: flex;
+    background: var(--optionino-plugin-color);
+    border: 2px solid transparent;
+    border-radius: 9px;
+    padding: 4px 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.optionino-options-save-box .submit-optionino:hover {
+    display: flex;
+    background: transparent;
+    border: 2px solid var(--optionino-plugin-color);
+    border-radius: 9px;
+    padding: 4px 20px;
+    color: var(--optionino-plugin-color);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+/* OPTIONS STYLES */
+.optionino-box-option {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+.optionino-box-option h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: var(--optionino-plugin-color);
+    padding: 15px;
+    border-radius: 11px;
+}
+.optionino-box-option p {
+    margin-top: 0;
+}
+#optionino label {
+    font-weight: bold;
+    display: inline-block;
+    color: #333;
+    font-size: .875rem;
+}
+#optionino input[type="date"], #optionino input[type="datetime-local"], #optionino input[type="datetime"], #optionino input[type="email"], #optionino input[type="month"], #optionino input[type="number"], #optionino input[type="password"], #optionino input[type="search"], #optionino input[type="tel"], #optionino input[type="text"], #optionino input[type="time"], #optionino input[type="url"], #optionino input[type="week"] {
+    height: 40px;
+    vertical-align: middle;
+    display: inline-block;
+    max-width: 100%;
+    width: 100%;
+    border: 0 none;
+    padding: 0 10px;
+    background: #fff;
+    background-color: rgb(255, 255, 255);
+    color: #666;
+    border: 1px solid #e5e5e5;
+    transition: .2s ease-in-out;
+    transition-property: all;
+    transition-property: color,background-color,border;
+    overflow: visible;
+    border-radius: 7px !important;
+}
+#optionino input[type="date"]:focus, #optionino input[type="datetime-local"]:focus, #optionino input[type="datetime"]:focus, #optionino input[type="email"]:focus, #optionino input[type="month"]:focus, #optionino input[type="number"]:focus, #optionino input[type="password"]:focus, #optionino input[type="search"]:focus, #optionino input[type="tel"]:focus, #optionino input[type="text"]:focus, #optionino input[type="time"]:focus, #optionino input[type="url"]:focus, #optionino input[type="week"]:focus {
+    border-color: var(--optionino-plugin-color);
+}
+#optionino .switch {
+    position: relative;
+    display: inline-block;
+    width: 53px;
+    height: 25px;
+}
+#optionino .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+#optionino .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+#optionino .slider::before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+#optionino input:checked + .slider {
+    background-color: #2196F3;
+}
+#optionino input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+#optionino input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+#optionino .slider.round {
+    border-radius: 34px;
+}
+#optionino .slider.round:before {
+    border-radius: 50%;
+}
+#optionino input[type="color"] {
+    opacity: 0;
+    display: block;
+    width: 32px;
+    height: 32px;
+    border: none;
+}
+#optionino #color-picker-wrapper {
+    float: left;
+}

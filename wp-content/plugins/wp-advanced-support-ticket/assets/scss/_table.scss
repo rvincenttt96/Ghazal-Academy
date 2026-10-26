@@ -1,0 +1,56 @@
+.wpast-table {
+    width: 100%;
+    color: $text-color;
+    border-collapse: collapse;
+    font-size: $font-size;
+    margin: $margin 0;
+
+    th, td {
+        padding: $padding * 2 $padding;
+        vertical-align: top;
+    }
+
+    thead th {
+        background: $gray-200;
+        font-weight: bold;
+    }
+
+    &.wpast-table-bordered {
+        border: 1px solid $gray-200;
+    }
+
+    .wpast-table-bordered th,
+    .wpast-table-bordered td {
+        border: 1px solid $gray-500;
+    }
+
+    .wpast-table-bordered thead th,
+    .wpast-table-bordered thead td {
+        border-bottom-width: 2px;
+    }
+
+    &.wpast-table-striped tbody tr:nth-of-type(even) {
+        background-color: $gray-100;
+    }
+
+    &.wpast-table-responsive {
+        @media (max-width: 768px) {
+            tr {
+                th {
+                    display: none;
+                }
+
+                td {
+                    width: 100%;
+                    display: block;
+                    border: none !important;
+                    padding-top: $padding;
+                    padding-bottom: $padding;
+                }
+            }
+            tbody tr:nth-child(1) td:nth-child(1) {
+                border-top: 1px solid $gray-200 !important;
+            }
+        }
+    }
+}

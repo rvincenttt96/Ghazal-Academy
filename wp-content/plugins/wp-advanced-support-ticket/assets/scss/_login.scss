@@ -1,0 +1,37 @@
+.wpast-login-form,
+.wpast-register-form {
+    margin: $margin 0;
+    border: 1px solid #ECECEC;
+    border-radius: $border-radius;
+    .wpast-login-title {
+        text-align: center;
+        font-size: 17px;
+        font-weight: bold;
+        line-height: $line-height;
+        margin-bottom: $margin;
+        padding: 25px;
+        border-bottom: 1px solid #ECECEC;
+    }
+    .wpast-inner {
+        padding: $padding;
+    }
+    .wpast-login, .wpast-register {
+        display: block;
+        width: 100%;
+        .wpast-loader {
+            display: none;
+            margin: 0 7px;
+        }
+    }
+    .wpast-login-footer {
+        border-top: 1px solid #ECECEC;
+        margin-top: $margin;
+        padding: $padding;
+        text-align: center;
+        background: #f8f8f8;
+    }
+}
+
+.wpast-register-form {
+    display: none;
+}

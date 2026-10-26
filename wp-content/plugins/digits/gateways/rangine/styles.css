@@ -1,0 +1,110 @@
+#rmWrapper {
+    position: fixed;
+    z-index: 10000;
+    top: 50px;
+    bottom: 50px;
+    right: 300px;
+    left: 300px;
+    background: #fff;
+    box-shadow: 0 0 5px #000;
+    border-radius: 2px;
+    /*font-family: tahoma;*/
+}
+@media(max-width:600px){
+	#rmWrapper {
+		top: 30px;
+		bottom: 30px;
+		right: 30px;
+		left: 30px;
+	}
+}
+.rmTitle {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background: #f9f9f9;
+}
+.rmTitle .close {
+    float: left;
+    color: #aaa;
+	cursor: pointer;
+	height: 19px;
+}
+.rmTitle .close:hover {
+    color: #555;
+}
+.rmFooter {
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background: #f9f9f9;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+	height: 19px;
+}
+.rmFooter .close {
+    position: absolute;
+    left: 6px;
+    top: 6px;
+}
+.rmBody {
+    position: absolute;
+    height: auto;
+    overflow: auto;
+    top: 40px;
+    bottom: 40px;
+    padding: 10px;
+    text-align: justify;
+}
+.digits_admim_conf .form-table .rangineMessageBox td {
+    padding: 6px 8px 10px 0;
+    border: 1px solid #ffc700;
+    background: #fffdf3;
+}
+.credit, .expiretime {
+    display: inline-block;
+    background: #baddba;
+    padding: 5px 10px;
+    margin: 0 10px;
+    border-radius: 0 5px 5px 0;
+    border-right: 5px solid;
+    font-size: 14px;
+    /*font-family: tahoma;*/
+}
+.demotest {
+    color: #ae26ac;
+    cursor: pointer;
+}
+.digits_admim_conf .form-table tr.news td{
+	padding: 0;
+}
+.ranginecred.hidden{
+	display:none!important;
+}
+.pattern-message {
+	background-color: #eee;
+	padding: 10px;
+	margin: 5px;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+}
+.pcodecheckresult label {
+	min-width: 100px;
+	display: inline-block;
+}
+#onlinepattern button {
+	background-color: #8af996;
+	padding: 5px 10px;
+	border-radius: 5px;
+	border: 1px solid #14b025;
+	margin: 10px auto;
+	width: 200px;
+	display: block;
+}
+#onlinepattern button.hidden {
+	display: none;
+}
+a.rangine-patternlearn {
+    margin-top: 60px;
+    display: block;
+}

@@ -1,0 +1,11 @@
+&.widget-product-support {
+    .wpast-extension {
+        width: 100%;
+        .wpast-loader {
+            display: none;
+            margin-right: 7px !important;
+            position: relative;
+            top: -1px;
+        }
+    }
+}

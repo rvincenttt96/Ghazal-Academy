@@ -1,0 +1,268 @@
+#wpast-submit-ticket {
+    &.multi-step {
+
+        .wpast-step-1,
+        .wpast-step-2 {
+            display: none;
+        }
+    }
+
+    .wpast-child-department:not(.wpast-child-department-0) {
+        display: none;
+    }
+
+    div.wpast-child-department {
+        margin: 0;
+    }
+
+    .wpast-step-2 .wpast-row:nth-child(1):not(.wpast-recordings-row) {
+        @media (min-width: 992px) {
+            .wpast-col-12 {
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 50%;
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+    }
+
+    .wpast-user-wrapper {
+        display: none;
+
+        .wpast-form-group>div {
+            position: relative;
+
+            .wpast-loader {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                display: none;
+            }
+
+            .wpast-ajax-results {
+                display: none;
+                width: 100%;
+                font-size: $font-size;
+                font-weight: normal;
+                line-height: $line-height;
+                color: $text-color;
+                background-color: $gray-100;
+                border: 1px solid #CED4DA;
+                border-radius: $border-radius;
+                position: absolute;
+                z-index: 99;
+                max-height: 256px;
+                overflow-y: auto;
+
+                ul {
+                    li {
+                        padding: 0 $padding;
+                        cursor: pointer;
+
+                        &:hover {
+                            background: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .wpast-product-wrapper {
+        display: none;
+
+        .wpast-form-group>div {
+            position: relative;
+
+            .wpast-loader {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                display: none;
+            }
+
+            .wpast-ajax-results {
+                display: none;
+                width: 100%;
+                font-size: $font-size;
+                font-weight: normal;
+                line-height: $line-height;
+                color: $text-color;
+                background-color: $gray-100;
+                border: 1px solid #CED4DA;
+                border-radius: $border-radius;
+                position: absolute;
+                z-index: 99;
+                max-height: 256px;
+                overflow-y: auto;
+
+                ul {
+                    li {
+                        padding: 0 $padding;
+                        cursor: pointer;
+
+                        &:hover {
+                            background: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .wpast-order-wrapper {
+        display: none;
+    }
+
+    .wpast-description-wrapper {
+        display: none;
+
+        .wpast-description {
+            padding: $padding;
+            border-radius: $border-radius;
+            background-color: #FFFDE4;
+            border: 1px solid #F6E8A1;
+            color: #A37731;
+        }
+    }
+
+    .wpast-fields-wrapper {
+        margin-bottom: $margin;
+        display: none;
+
+        >div {
+            padding: $padding 0;
+            background: $gray-100;
+            border: 1px solid $gray-200;
+        }
+
+        label {
+            display: inline-block;
+        }
+
+        .wpast-field-wrapper {
+            display: none;
+        }
+    }
+
+    .wpast-upload-wrapper .wpast-upload {
+        text-align: center;
+        border: 1px dashed #00BFD6;
+        background-color: rgba(0, 191, 214, .05);
+        padding: $padding;
+
+        .wpast-max-size,
+        .wpast-extensions {
+            padding-bottom: 5px;
+        }
+
+        input[type=file] {
+            display: none;
+        }
+    }
+
+    .wpast-help-links-wrapper {
+        position: relative;
+        z-index: 1059;
+        background-color: #fff;
+        margin-bottom: $margin;
+        &:hover + .wpast-help-links-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+        .wpast-help-links {
+            margin: $margin 0;
+            li {
+                position: relative;
+                &:before {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    content: '';
+                    display: inline-block;
+                    width: 8px;
+                    height: 8px;
+                    border: 1px solid #fff;
+                    border-radius: 5px;
+                    background-color: $primary;
+                    transition: all 150ms ease-in-out;
+                }
+                &:hover:before {
+                    border-color: $primary;
+                }
+                a {
+                    text-indent: 15px;
+                    &:hover {
+                        color: $primary;
+                    }
+                }
+            }
+        }
+    }
+
+    .wpast-help-links-overlay {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1058;
+        background-color: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 150ms ease-in-out;
+        backdrop-filter: blur(3px);
+    }
+
+    button.wpast-submit {
+        .wpast-loader {
+            display: none;
+            float: right;
+            margin-left: 7px;
+            position: relative;
+            top: 2px;
+        }
+    }
+}
+
+#wpast-submit-ticket,
+#wpast-submit-ticket-reply {
+    .wpast-recorder {
+        height: 350px;
+    }
+
+    .wpast-upload-wrapper .wpast-upload {
+        text-align: center;
+        border: 1px dashed #00BFD6;
+        background-color: rgba(0, 191, 214, .05);
+        padding: $padding;
+
+        .wpast-max-size,
+        .wpast-extensions {
+            padding-bottom: 5px;
+        }
+
+        input[type=file] {
+            display: none;
+        }
+    }
+
+    button.wpast-submit {
+        .wpast-send {
+            margin-right: 7px;
+            width: 26px;
+            height: 26px;
+        }
+
+        .wpast-loader {
+            display: none;
+            float: right;
+            margin-left: 7px;
+            position: relative;
+            top: 2px;
+            width: 28px;
+            height: 28px;
+        }
+    }
+}

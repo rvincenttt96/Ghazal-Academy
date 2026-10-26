@@ -1,0 +1,28 @@
+#wpast-uppy-area {
+    .uppy-Root {
+        font-family: inherit;
+    }
+
+    .uppy-Dashboard-AddFiles-title {
+        font-size: inherit !important;
+    }
+
+    .uppy-Dashboard-AddFiles-info {
+        display: none !important;
+    }
+
+    .uppy-Dashboard-browse {
+        color: rgba(34,117,215,.9);
+    }
+
+    .uppy-DashboardContent-back,
+    .uppy-DashboardContent-addMore {
+        background: none;
+        color: #2275d7;
+    }
+
+    .uppy-DashboardItem-action--remove {
+        color: #1f1f1f;
+        background: none;
+    }
+}

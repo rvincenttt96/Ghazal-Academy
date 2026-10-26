@@ -1,0 +1,115 @@
+.error-text {
+    color: #b52230;
+    padding: 8px 10px;
+    text-align: center;
+    background: #f8d7da;
+    font-weight: 600;
+    display: none;
+    font-size: 15px;
+    border-radius: 8px;
+}
+.success-text {
+    color: #427e1b;
+    padding: 8px 10px;
+    text-align: center;
+    background: #dff8d7;
+    border: 1px solid #d1f5c6;
+    font-weight: 600;
+    display: none;
+    font-size: 15px;
+    border-radius: 8px;
+}
+.otp-pnlt {
+    display: none;
+}
+.timer-otp {
+    position: absolute;
+    right: 186px;
+    top: 8px;
+    cursor: pointer;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box-timer-otp-pnlt {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+}
+#countdown-pnlt {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    position: relative;
+}
+#countdown-number-pnlt {
+    color: #000;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+#countdown-svg-pnlt {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    transform: rotateY(-180deg) rotateZ(-90deg);
+}
+#countdown-svg-pnlt path {
+    transition: 0.5s all ease-in-out;
+    opacity: 0;
+}
+#countdown-cross-pnlt {
+    visibility: hidden;
+}
+#countdown-circle-pnlt {
+    stroke-dasharray: 75px;
+    stroke-dashoffset: 0px;
+    stroke-linecap: round;
+    stroke-width: 1px;
+    stroke: #000;
+    fill: none;
+    animation: countdown 60s linear forwards;
+    transition: 0.5s all ease-in-out;
+    opacity: 1;
+}
+@keyframes countdown {
+    from {
+        stroke-dashoffset: 0px;
+    }
+    to {
+        stroke-dashoffset: 75px;
+    }
+}
+.otp-box-pnlt {
+    position: relative;
+}
+.loading .pnlt-loading-popup {
+    display: flex;
+}
+.pnlt-loading-popup {
+    display: none;
+    background: #0027452e;
+    position: fixed;
+    backdrop-filter: blur(2px);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+}
+.pnlt-loading-popup > svg {
+    width: 100px;
+    height: 100px;
+}
+#btn-submit-pnlt {
+    width: 100%;
+    padding: 15px 5px;
+    border-radius: 10px;
+}

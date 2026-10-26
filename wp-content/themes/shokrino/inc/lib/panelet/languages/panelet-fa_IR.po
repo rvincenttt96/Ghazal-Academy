@@ -1,0 +1,1051 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Panelet\n"
+"POT-Creation-Date: 2023-10-23 23:45+0330\n"
+"PO-Revision-Date: 2023-10-23 23:46+0330\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: panelet.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: inc/classes/woo.class.php:28
+msgid ""
+"If you have shopped with us before, please enter your details below. If you "
+"are a new customer, please proceed to the Billing section."
+msgstr ""
+
+#: inc/core.php:39
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: inc/core.php:106 inc/core.php:107
+msgid "First name"
+msgstr "نام"
+
+#: inc/core.php:111
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+#: inc/core.php:116
+msgid "Display name"
+msgstr "نام نمایشی"
+
+#: inc/core.php:120 woocommerce/myaccount/form-login.php:94
+msgid "Email address"
+msgstr "آدرس ایمیل"
+
+#: inc/core.php:125
+msgid "Save changes"
+msgstr "ذخیره تغییرات"
+
+#: inc/sdo-config.php:10 inc/sdo-config.php:15 inc/sdo-config.php:16
+msgid "Panelet Options"
+msgstr "تنظیمات پنلت"
+
+#: inc/sdo-framework/inc/classes/ajax.class.php:32
+msgid "Data saved successfully!"
+msgstr ""
+
+#: inc/sdo-framework/inc/classes/ajax.class.php:34
+msgid "Invalid dev name!"
+msgstr ""
+
+#: inc/sdo-framework/inc/classes/ajax.class.php:37
+msgid "Invalid data received!"
+msgstr ""
+
+#: inc/sdo-framework/inc/classes/builder.class.php:60
+msgid "save changes"
+msgstr "ذخیره تغییرات"
+
+#: inc/sdo-framework/inc/classes/builder.class.php:77
+msgid "Version: "
+msgstr ""
+
+#: inc/sdo-framework/inc/classes/core.class.php:27
+msgid "<div class=\"error\"><p>Configuration with ID \""
+msgstr ""
+
+#: inc/sdo-framework/inc/classes/core.class.php:42
+msgid "<div class=\"error\"><p>Tab ID \""
+msgstr ""
+
+#: inc/sdo-framework/inc/classes/core.class.php:68
+msgid "Field ID \""
+msgstr ""
+
+#: inc/sdo-framework/inc/classes/core.class.php:118
+msgid ""
+"Powered by <a href=\"http://shokrino.com/\" target=\"_blank"
+"\">ShokrinoDevOptions Framework</a>"
+msgstr ""
+
+#: inc/templates/custom-login-form.php:19
+msgid "شماره موبایل"
+msgstr ""
+
+#: inc/templates/custom-login-form.php:23
+msgid "کد تایید"
+msgstr ""
+
+#: inc/templates/custom-login-form.php:41
+msgid "ثبت نام"
+msgstr ""
+
+#: inc/templates/custom-login-form.php:43
+msgid "ورود یا ثبت نام"
+msgstr ""
+
+#: inc/templates/default-login-form.php:2
+#: woocommerce/myaccount/form-login.php:41
+msgid "Username or email address"
+msgstr "نام کاربری یا ایمیل"
+
+#: inc/templates/default-login-form.php:6 woocommerce/global/form-login.php:39
+#: woocommerce/myaccount/form-login.php:45
+#: woocommerce/myaccount/form-login.php:101
+msgid "Password"
+msgstr "رمز عبور"
+
+#: inc/templates/default-login-form.php:14 woocommerce/global/form-login.php:48
+#: woocommerce/myaccount/form-login.php:53
+msgid "Remember me"
+msgstr "مرا بخاطر بسپار"
+
+#: inc/templates/default-login-form.php:17
+#: woocommerce/myaccount/form-login.php:56
+msgid "Log in"
+msgstr "ورود به حساب کاربری"
+
+#: inc/templates/default-login-form.php:20 woocommerce/global/form-login.php:55
+#: woocommerce/myaccount/form-login.php:59
+msgid "Lost your password?"
+msgstr "رمز عبور را فراموش کرده اید؟"
+
+#: inc/templates/login-register.php:27
+msgid "Go to Homepage"
+msgstr "رفتن به صفحه اصلی"
+
+#: inc/templates/panel.php:121
+msgid "Admin"
+msgstr ""
+
+#: inc/templates/panel.php:123
+msgid "User"
+msgstr "کاربر"
+
+#: panelet.php:48
+msgid ""
+"Panelet requires WooCommerce to be active. Please activate WooCommerce to "
+"use the plugin."
+msgstr ""
+
+#: woocommerce/global/form-login.php:35
+#: woocommerce/myaccount/form-lost-password.php:28
+msgid "Username or email"
+msgstr "نام کاربری یا ایمیل"
+
+#: woocommerce/global/form-login.php:52 woocommerce/myaccount/form-login.php:32
+msgid "Login"
+msgstr "ورود"
+
+#. translators: 1: user display name 2: logout url
+#: woocommerce/myaccount/dashboard.php:35
+#, php-format
+msgid "Hello %1$s (not %1$s? <a href=\"%2$s\">Log out</a>)"
+msgstr ""
+
+#. translators: 1: Orders URL 2: Address URL 3: Account URL.
+#: woocommerce/myaccount/dashboard.php:45
+#, php-format
+msgid ""
+"From your account dashboard you can view your <a href=\"%1$s\">recent "
+"orders</a>, manage your <a href=\"%2$s\">billing address</a>, and <a href="
+"\"%3$s\">edit your password and account details</a>."
+msgstr ""
+
+#. translators: 1: Orders URL 2: Addresses URL 3: Account URL.
+#: woocommerce/myaccount/dashboard.php:48
+#, php-format
+msgid ""
+"From your account dashboard you can view your <a href=\"%1$s\">recent "
+"orders</a>, manage your <a href=\"%2$s\">shipping and billing addresses</a>, "
+"and <a href=\"%3$s\">edit your password and account details</a>."
+msgstr ""
+
+#: woocommerce/myaccount/downloads.php:42
+msgid "No downloads available yet."
+msgstr "هیچ فایل دانلودی فعلا دردسترس نیست."
+
+#: woocommerce/myaccount/downloads.php:42 woocommerce/myaccount/orders.php:100
+msgid "Browse products"
+msgstr "مرور محصولات"
+
+#: woocommerce/myaccount/form-add-payment-method.php:54
+#: woocommerce/myaccount/payment-methods.php:77
+msgid "Add payment method"
+msgstr ""
+
+#: woocommerce/myaccount/form-add-payment-method.php:60
+msgid ""
+"New payment methods can only be added during checkout. Please contact us if "
+"you require assistance."
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-address.php:20
+#: woocommerce/myaccount/my-address.php:26
+#: woocommerce/myaccount/my-address.php:35
+msgid "Billing address"
+msgstr "آدرس فرم پرداخت"
+
+#: woocommerce/myaccount/form-edit-address.php:20
+#: woocommerce/myaccount/my-address.php:27
+msgid "Shipping address"
+msgstr "آدرس محل ارسال"
+
+#: woocommerce/myaccount/form-edit-address.php:46
+msgid "Save address"
+msgstr "ذخیره آدرس"
+
+#: woocommerce/myaccount/form-login.php:78
+#: woocommerce/myaccount/form-login.php:115
+msgid "Register"
+msgstr "ثبت نام"
+
+#: woocommerce/myaccount/form-login.php:87
+msgid "Username"
+msgstr "نام کاربری"
+
+#: woocommerce/myaccount/form-login.php:107
+msgid "A link to set a new password will be sent to your email address."
+msgstr "لینکی برای تعیین رمز عبور جدید به آدرس ایمیل شما ارسال می شود."
+
+#: woocommerce/myaccount/form-lost-password.php:25
+msgid ""
+"Lost your password? Please enter your username or email address. You will "
+"receive a link to create a new password via email."
+msgstr ""
+"رمز عبور خود را فراموش کرده اید؟ لطفا نام کاربری یا آدرس ایمیل خود را وارد "
+"نمایید. لینکی برای ایجاد رمز عبور جدید از طریق ایمیل دریافت خواهید کرد."
+
+#: woocommerce/myaccount/form-lost-password.php:38
+msgid "Reset password"
+msgstr "بازنشانی رمز عبور"
+
+#: woocommerce/myaccount/form-reset-password.php:25
+msgid "Enter a new password below."
+msgstr "یک رمز عبور جدید در کادر زیر بنویسید."
+
+#: woocommerce/myaccount/form-reset-password.php:28
+msgid "New password"
+msgstr "رمز عبور جدید"
+
+#: woocommerce/myaccount/form-reset-password.php:32
+msgid "Re-enter new password"
+msgstr "رمز عبور جدید را دوباره بنویسید"
+
+#: woocommerce/myaccount/form-reset-password.php:45
+msgid "Save"
+msgstr "ذخیره"
+
+#: woocommerce/myaccount/lost-password-confirmation.php:20
+msgid "Password reset email has been sent."
+msgstr "ایمیل بازنشانی رمز عبور ارسال شد."
+
+#: woocommerce/myaccount/lost-password-confirmation.php:25
+msgid ""
+"A password reset email has been sent to the email address on file for your "
+"account, but may take several minutes to show up in your inbox. Please wait "
+"at least 10 minutes before attempting another reset."
+msgstr ""
+"یک ایمیل بازنشانی رمز عبور به آدرس ایمیل موجود در اطلاعات حساب کاربری شما "
+"ارسال شده است، اما ممکن است چند دقیقه طول بکشد تا در صندوق ورودی شما نمایش "
+"داده شود. لطفاً حداقل 10 دقیقه قبل از تلاش برای ثبت بازنشانی مجدد صبر کنید."
+
+#: woocommerce/myaccount/my-address.php:46
+msgid "The following addresses will be used on the checkout page by default."
+msgstr "آدرس های زیر به طور پیش فرض در صفحه پرداخت استفاده می شود."
+
+#: woocommerce/myaccount/my-address.php:63
+msgid "Edit"
+msgstr "ویرایش"
+
+#: woocommerce/myaccount/my-address.php:63
+msgid "Add"
+msgstr "افزودن"
+
+#: woocommerce/myaccount/my-address.php:67
+msgid "You have not set up this type of address yet."
+msgstr "شما هنوز این نوع آدرس را تنظیم نکرده اید."
+
+#: woocommerce/myaccount/my-downloads.php:29
+msgid "Available downloads"
+msgstr "دانلود های دردسترس"
+
+#. translators: %s product name
+#: woocommerce/myaccount/my-downloads.php:39
+#, php-format
+msgid "%s download remaining"
+msgid_plural "%s downloads remaining"
+msgstr[0] "%s تعداد دانلود های باقیمانده"
+msgstr[1] "%s تعداد دانلود باقیمانده"
+
+#: woocommerce/myaccount/my-orders.php:14
+msgid "Order"
+msgstr "سفارش"
+
+#: woocommerce/myaccount/my-orders.php:15
+msgid "Date"
+msgstr "تاریخ"
+
+#: woocommerce/myaccount/my-orders.php:16
+msgid "Status"
+msgstr "وضعیت"
+
+#: woocommerce/myaccount/my-orders.php:17
+msgid "Total"
+msgstr "مجموع"
+
+#: woocommerce/myaccount/my-orders.php:37
+msgid "Recent orders"
+msgstr "سفارشات اخیر"
+
+#: woocommerce/myaccount/my-orders.php:63 woocommerce/myaccount/orders.php:49
+msgctxt "hash before order number"
+msgid "#"
+msgstr "#"
+
+#. translators: 1: formatted order total 2: total order items
+#: woocommerce/myaccount/my-orders.php:75 woocommerce/myaccount/orders.php:61
+#, php-format
+msgid "%1$s for %2$s item"
+msgid_plural "%1$s for %2$s items"
+msgstr[0] "%1$s برای %2$s موارد"
+msgstr[1] "%1$s برای %2$s مورد"
+
+#: woocommerce/myaccount/orders.php:89
+msgid "Previous"
+msgstr "قبلی"
+
+#: woocommerce/myaccount/orders.php:93
+msgid "Next"
+msgstr "بعدی"
+
+#: woocommerce/myaccount/orders.php:100
+msgid "No order has been made yet."
+msgstr "هنوز سفارشی انجام نشده است."
+
+#. translators: 1: credit card type 2: last 4 digits
+#: woocommerce/myaccount/payment-methods.php:49
+#, php-format
+msgid "%1$s ending in %2$s"
+msgstr ""
+
+#: woocommerce/myaccount/payment-methods.php:70
+#, fuzzy
+#| msgid "No users found."
+msgid "No saved methods found."
+msgstr "کاربری یافت نشد"
+
+#. translators: 1: order number 2: order date 3: order status
+#: woocommerce/myaccount/view-order.php:28
+#, php-format
+msgid "Order #%1$s was placed on %2$s and is currently %3$s."
+msgstr "سفارش #%1$s در %2$s انجام شد و در حال حاضر %3$s است."
+
+#: woocommerce/myaccount/view-order.php:37
+msgid "Order updates"
+msgstr "درخواست آپدیت"
+
+#: woocommerce/myaccount/view-order.php:43
+msgid "l jS \\o\\f F Y, h:ia"
+msgstr "l jS \\o\\f F Y, h:ia"
+
+#. Plugin Name of the plugin/theme
+msgid "Panelet"
+msgstr "پنلت"
+
+#. Plugin URI of the plugin/theme
+msgid "https://shokrino.com/panelet"
+msgstr "https://shokrino.ir/panelet"
+
+#. Description of the plugin/theme
+msgid "The most beautiful and fastest persian WooCommerce user panel plugin"
+msgstr "زیباترین و سریعترین افزونه پنل کاربری ایرانی سازگار با ووکامرس"
+
+#. Author of the plugin/theme
+#, fuzzy
+#| msgid "Shokrino"
+msgid "Shokrino Team"
+msgstr "تیم شکرینو"
+
+#. Author URI of the plugin/theme
+#, fuzzy
+#| msgid "https://shokrino.ir"
+msgid "https://shokrino.com"
+msgstr "https://shokrino.ir"
+
+#, fuzzy
+#~| msgid "notification"
+#~ msgid "Notification Bar"
+#~ msgstr "اعلان"
+
+#, fuzzy
+#~| msgid "Credit Options"
+#~ msgid "Header Options"
+#~ msgstr "تنظیمات اعتبار"
+
+#, fuzzy
+#~| msgid "Settings"
+#~ msgid "Settings saved."
+#~ msgstr "تنظیمات"
+
+#~ msgid "Saving..."
+#~ msgstr "درحال ذخیره سازی"
+
+#, fuzzy
+#~| msgid "No downloads available yet."
+#~ msgid "No data available."
+#~ msgstr "هیچ فایل دانلودی فعلا دردسترس نیست."
+
+#, fuzzy
+#~| msgid "Please provide a valid image"
+#~ msgid "Please enter %s or more characters"
+#~ msgstr "لطفا یک تصویر معتبر انتخاب کنید"
+
+#, fuzzy
+#~| msgid "No products found"
+#~ msgid "No results found."
+#~ msgstr "محصولی یافت نشد"
+
+#, fuzzy
+#~| msgid "Description"
+#~ msgid "Direction"
+#~ msgstr "توضیحات"
+
+#, fuzzy
+#~| msgid "Wallet Info"
+#~ msgid "all"
+#~ msgstr "اطلاعات کیف پول"
+
+#~ msgid "None"
+#~ msgstr "هیچ کدام"
+
+#, fuzzy
+#~| msgid "Add balance"
+#~ msgid "Add Gallery"
+#~ msgstr "افزایش موجودی"
+
+#, fuzzy
+#~| msgid "add New"
+#~ msgid "Add New"
+#~ msgstr "افزودن جدید"
+
+#, fuzzy
+#~| msgid "Edit"
+#~ msgid "Edit Link"
+#~ msgstr "ویرایش"
+
+#, fuzzy
+#~| msgid "notifications"
+#~ msgid "Active"
+#~ msgstr "اعلان ها"
+
+#, fuzzy
+#~| msgid "Disable"
+#~ msgid "Enabled"
+#~ msgstr "غیر فعال"
+
+#, fuzzy
+#~| msgid "Disable"
+#~ msgid "Disabled"
+#~ msgstr "غیر فعال"
+
+#, fuzzy
+#~| msgid "Wallet Info"
+#~ msgid "Text Transform"
+#~ msgstr "اطلاعات کیف پول"
+
+#, fuzzy
+#~| msgid "Description"
+#~ msgid "Text Decoration"
+#~ msgstr "توضیحات"
+
+#, fuzzy
+#~| msgid "Please provide a valid image"
+#~ msgid "Please enter a valid email address."
+#~ msgstr "لطفا یک تصویر معتبر انتخاب کنید"
+
+#, fuzzy
+#~| msgid "Please provide a valid image"
+#~ msgid "Please enter a valid number."
+#~ msgstr "لطفا یک تصویر معتبر انتخاب کنید"
+
+#, fuzzy
+#~| msgid "Please provide a valid image"
+#~ msgid "Please enter a valid URL."
+#~ msgstr "لطفا یک تصویر معتبر انتخاب کنید"
+
+#~ msgid ""
+#~ "This is a test text to preview the notification bar of Panelet plugin"
+#~ msgstr "این یک متن تستی برای پیشنمایش نوار اعلان افزونه پنلت است"
+
+#~ msgid "Click"
+#~ msgstr "کلیک کنید"
+
+#~ msgid ""
+#~ "Please activate \"terawallet\" plugin for add wallet to woo user panel"
+#~ msgstr ""
+#~ "افزونه \"terawallet\" نصب شده است اما فعال نیست . برای اضافه کردن کیف پول "
+#~ "به پنل کاربری ووکامرس آن را فعال نمایید"
+
+#~ msgid "Activate to plugin"
+#~ msgstr "فعالسازی"
+
+#~ msgid ""
+#~ "Please install and activate \"terawallet\" plugin for add wallet to woo "
+#~ "user panel"
+#~ msgstr ""
+#~ "لطفا افزونه \"terawallet\" را برای اضافه کردن کیف پول به پنل کاربری "
+#~ "ووکامرس ، نصب و فعال نمایید"
+
+#~ msgid "Your Orders"
+#~ msgstr "سفارش های شما"
+
+#~ msgid "Download files"
+#~ msgstr "دانلود فایل ها"
+
+#~ msgid "Edit Profile"
+#~ msgstr "ویرایش اطلاعات پروفایل"
+
+#~ msgid "Edit Addresses"
+#~ msgstr "ویرایش آدرس ها"
+
+#~ msgid "Log Out"
+#~ msgstr "خروج از حساب کاربری"
+
+#~ msgid "Order Number"
+#~ msgstr "شماره سفارش"
+
+#~ msgid " "
+#~ msgstr " "
+
+#~ msgid "Upload Profile Avater"
+#~ msgstr "آپلود تصویر پروفایل"
+
+#~ msgid "Please provide a valid image"
+#~ msgstr "لطفا یک تصویر معتبر انتخاب کنید"
+
+#~ msgid "No products found"
+#~ msgstr "محصولی یافت نشد"
+
+#~ msgid "Bought products"
+#~ msgstr "محصولات خریداری شده"
+
+#~ msgid "All rights reserved | 2022"
+#~ msgstr "1401 | تمامی حقوق محفوظ است"
+
+#~ msgid "Home"
+#~ msgstr "صفحه اصلی سایت"
+
+#~ msgid "Shop"
+#~ msgstr "صفحه محصولات"
+
+#~ msgid "Blog"
+#~ msgstr "وبلاگ"
+
+#~ msgid "Cart"
+#~ msgstr "سبد خرید"
+
+#~ msgid "Administrator"
+#~ msgstr "مدیر سایت"
+
+#~ msgid "Site User"
+#~ msgstr "کاربر سایت"
+
+#~ msgid "Edit profile"
+#~ msgstr "ویرایش پروفایل"
+
+#~ msgid "Logout"
+#~ msgstr "خروج از حساب"
+
+#~ msgid "Public messages"
+#~ msgstr "پیام های عمومی"
+
+#~ msgid "This messages sent to all users"
+#~ msgstr "این پیام ها برای همه کاربران سایت ارسال شده است"
+
+#~ msgid "No notifications found"
+#~ msgstr "اعلانی یافت نشد"
+
+#~ msgid "Private messages"
+#~ msgstr "پیام های خصوصی"
+
+#~ msgid "This messages only sent for you"
+#~ msgstr "این پیام ها فقط برای شما ارسال شده است"
+
+#~ msgid "Description"
+#~ msgstr "توضیحات"
+
+#~ msgid "notification box"
+#~ msgstr "جعبه اعلانات"
+
+#~ msgid "notification options"
+#~ msgstr "تنظیمات اعلان ها"
+
+#~ msgid "Private messages shows only for selected users"
+#~ msgstr ""
+#~ "پیام های خصوصی فقط به کاربران خاصی که انتخاب شده اند نمایش داده میشود"
+
+#~ msgid "Public"
+#~ msgstr "عمومی"
+
+#~ msgid "Private"
+#~ msgstr "خصوصی"
+
+#~ msgid ""
+#~ "Select the user that you want to send notification to them.(hold CTRL key "
+#~ "for multi select)"
+#~ msgstr ""
+#~ "کاربری که میخواهید پیام برای آن ارسال شود را انتخاب کنید.(برای انتخاب چند "
+#~ "نفر کلید ctrl را نگه داشته و انتخاب کنید)"
+
+#~ msgid "Wallet Info"
+#~ msgstr "اطلاعات کیف پول"
+
+#~ msgid "get your wallet information"
+#~ msgstr "اطلاعات کلی کیف پول شما"
+
+#~ msgid "Add balance"
+#~ msgstr "افزایش موجودی"
+
+#~ msgid "Increase your wallet balance"
+#~ msgstr "موجودی کیف پول خود را افزایش دهید"
+
+#~ msgid "Transfer balance"
+#~ msgstr "انتقال موجودی"
+
+#~ msgid "Transfer balance to other users"
+#~ msgstr "انتقال موجودی به دیگر کاربران سایت"
+
+#~ msgid "Transactions History"
+#~ msgstr "تاریخچه تراکنش ها"
+
+#~ msgid "list of wallet Transactions"
+#~ msgstr "لیست تراکنش های کیف پول شما"
+
+#~ msgid "current balance:"
+#~ msgstr "موجودی فعلی:"
+
+#~ msgid "your Display Name"
+#~ msgstr "نام نمایشی شما"
+
+#~ msgid "your User ID"
+#~ msgstr "آی دی کاربری شما"
+
+#~ msgid "your email"
+#~ msgstr "ایمیل ثبت شده شما"
+
+#~ msgid "Enter amount"
+#~ msgstr "مقدار را وارد کنید"
+
+#~ msgid ""
+#~ "Enter the amount of credit you want to add to your wallet and then click "
+#~ "the \"Add\" button to be taken to the payment page."
+#~ msgstr ""
+#~ "مقدار اعتبار مورد نظر که میخواهید به کیف پول خود اضافه کنید ، وارد کنید و "
+#~ "سپس کلید \"افزودن\" را بزنید تا به صفحه پرداخت منتقل شوید."
+
+#~ msgid "Select whom to transfer"
+#~ msgstr "فردی را که میخواهید به آن موجودی منتقل شود ، انتخاب کنید"
+
+#~ msgid "(Email)"
+#~ msgstr "(جستجو با ایمیل)"
+
+#~ msgid "Amount"
+#~ msgstr "مقدار"
+
+#~ msgid "What's this for"
+#~ msgstr "توضیحات انتقال"
+
+#~ msgid "Proceed to transfer"
+#~ msgstr "اقدام به انتقال"
+
+#~ msgid "No transactions found"
+#~ msgstr "انتقالی یافت نشد"
+
+#~ msgid "Your Wallet"
+#~ msgstr "کیف پول من"
+
+#~ msgid "Site user"
+#~ msgstr "کاربر سایت"
+
+#~ msgid "welcome to"
+#~ msgstr "به پنل کاربری وبسایت"
+
+#~ msgid "site user panel"
+#~ msgstr "خوش آمدید"
+
+#~ msgid "Your Coupon:"
+#~ msgstr "کد تخفیف شما:"
+
+#~ msgid "Registered from"
+#~ msgstr "عضویت از"
+
+#~ msgid "days ago"
+#~ msgstr "روز پیش"
+
+#~ msgid "Registered today"
+#~ msgstr "امروز ثبت نام شده اید"
+
+#~ msgid "Registered yesterday"
+#~ msgstr "دیروز ثبت نام شده اید"
+
+#~ msgid "Registered"
+#~ msgstr "ثبت نام شده اید"
+
+#~ msgid "Admin Notice"
+#~ msgstr "پیام مدیر سایت"
+
+#~ msgid "Public Notifications"
+#~ msgstr "اعلان های عمومی"
+
+#~ msgid "Private Notifications"
+#~ msgstr "اعلان های خصوصی"
+
+#~ msgid "Products"
+#~ msgstr "محصولات"
+
+#~ msgid "Current wallet balance:"
+#~ msgstr "موجودی کیف پول:"
+
+#~ msgid "Current wallet balance"
+#~ msgstr "موجودی کیف پول"
+
+#~ msgid "Disable"
+#~ msgstr "غیر فعال"
+
+#~ msgid "Back to home"
+#~ msgstr "بازگشت به خانه"
+
+#~ msgid "Spot player courses"
+#~ msgstr "لیست دوره های اسپات پلیر"
+
+#~ msgid "View Product"
+#~ msgstr "مشاهده محصول"
+
+#~ msgid ""
+#~ "No downloady files found . if your courses are protected , they will show "
+#~ "at top of this message."
+#~ msgstr ""
+#~ "هیچ فایل دانلودی برای شما وجود ندارد. اگر دوره خریداری شده شما محافظت شده "
+#~ "باشد ، بالای این پیام نمایش داده خواهد شد."
+
+#~ msgid ""
+#~ "This will be how your name will be displayed in the account section and "
+#~ "in reviews"
+#~ msgstr ""
+#~ "به این ترتیب نام شما در بخش حساب کاربری و در بررسی ها نمایش داده می شود"
+
+#~ msgid "Password change"
+#~ msgstr "تغییر رمز عبور"
+
+#~ msgid ""
+#~ "Only fill in the following sections if you need to change your password, "
+#~ "otherwise there is no need to fill them in."
+#~ msgstr ""
+#~ "فقط درصورتی که نیاز به تغییر پسورد دارید بخش های زیر را پر کنید و در غیر "
+#~ "این صورت نیازی به پر کردن آنها نیست."
+
+#~ msgid "Current password (leave blank to leave unchanged)"
+#~ msgstr "رمز عبور فعلی (برای تغییر نکردن ، خالی بگذارید)"
+
+#~ msgid "New password (leave blank to leave unchanged)"
+#~ msgstr "رمز عبور جدید (برای تغییر نکردن ، خالی بگذارید)"
+
+#~ msgid "Confirm new password"
+#~ msgstr "ثبت رمز عبور جدید"
+
+#, fuzzy
+#~| msgid "Disable"
+#~ msgid "Enable/Disable"
+#~ msgstr "غیر فعال"
+
+#, fuzzy
+#~| msgid "Username or email"
+#~ msgid "Usernames as referral ID"
+#~ msgstr "نام کاربری یا ایمیل"
+
+#, fuzzy
+#~| msgid "Transfer balance"
+#~ msgid "Remaining balance"
+#~ msgstr "انتقال موجودی"
+
+#~ msgid "No transactions found."
+#~ msgstr "تراکنشی یافت نشد"
+
+#, fuzzy
+#~| msgid "Username or email address"
+#~ msgid "User email address"
+#~ msgstr "نام کاربری یا ایمیل"
+
+#~ msgid "Wallet transaction type."
+#~ msgstr "نوع تراکنش های کیف پول"
+
+#~ msgid "Wallet transaction amount."
+#~ msgstr "مقدار تراکنش های کیف پول"
+
+#~ msgid "Wallet transaction details."
+#~ msgstr "جزئیات تراکنش های کیف پول"
+
+#, fuzzy
+#~| msgid "Transactions History"
+#~ msgid "Transactions per page"
+#~ msgstr "تاریخچه تراکنش ها"
+
+#, fuzzy
+#~| msgid "Your Wallet"
+#~ msgid "TeraWallet"
+#~ msgstr "کیف پول من"
+
+#, fuzzy
+#~| msgid "Your Wallet"
+#~ msgid "Woo Wallet"
+#~ msgstr "کیف پول من"
+
+#, fuzzy
+#~| msgid "Your Wallet"
+#~ msgid "to customer wallet"
+#~ msgstr "کیف پول من"
+
+#, fuzzy
+#~| msgid "Site User"
+#~ msgid "Search Users"
+#~ msgstr "کاربر سایت"
+
+#~ msgid "Current wallet balance: "
+#~ msgstr "موجودی کیف پول:"
+
+#, fuzzy
+#~| msgid "Transactions History"
+#~ msgid "Transaction details"
+#~ msgstr "تاریخچه تراکنش ها"
+
+#, fuzzy
+#~| msgid "Your Wallet"
+#~ msgid "WooCommerce Wallet"
+#~ msgstr "کیف پول من"
+
+#, fuzzy
+#~| msgid "Your Wallet"
+#~ msgid "My Wallet"
+#~ msgstr "کیف پول من"
+
+#, fuzzy
+#~| msgid "list of wallet Transactions"
+#~ msgid "Wallet Transactions"
+#~ msgstr "لیست تراکنش های کیف پول شما"
+
+#, fuzzy
+#~| msgid "Wallet Info"
+#~ msgid "Wallet endpoints"
+#~ msgstr "اطلاعات کیف پول"
+
+#, fuzzy
+#~| msgid "Current wallet balance"
+#~ msgid "Wallet Balance"
+#~ msgstr "موجودی کیف پول"
+
+#, fuzzy
+#~| msgid "%1$s for %2$s item"
+#~| msgid_plural "%1$s for %2$s items"
+#~ msgctxt "user autocomplete result"
+#~ msgid "%1$s (%2$s)"
+#~ msgstr "%1$s برای %2$s موارد"
+
+#~ msgid "Wallet refund #"
+#~ msgstr "بازپرداخت کیف پول #"
+
+#~ msgid "No transactions available"
+#~ msgstr "هیچ تراکنشی فعلا دردسترس نیست."
+
+#, fuzzy
+#~| msgid "First name"
+#~ msgid "First"
+#~ msgstr "نام"
+
+#, fuzzy
+#~| msgid "Last name"
+#~ msgid "Last"
+#~ msgstr "نام خانوادگی"
+
+#, fuzzy
+#~| msgid "No products found"
+#~ msgid "No matching records found"
+#~ msgstr "محصولی یافت نشد"
+
+#, fuzzy
+#~| msgid "Wallet Info"
+#~ msgid "Wallet payment"
+#~ msgstr "اطلاعات کیف پول"
+
+#, fuzzy
+#~| msgid "notifications"
+#~ msgid "Instructions"
+#~ msgstr "اعلان ها"
+
+#, fuzzy
+#~| msgid "Current wallet balance"
+#~ msgid "Insufficient wallet balance"
+#~ msgstr "موجودی کیف پول"
+
+#, fuzzy
+#~| msgid "Products"
+#~ msgid "Product image"
+#~ msgstr "محصولات"
+
+#, fuzzy
+#~| msgid "Transfer balance"
+#~ msgid "Transfer charge type"
+#~ msgstr "انتقال موجودی"
+
+#, fuzzy
+#~| msgid "Cart"
+#~ msgid "Cart wise"
+#~ msgstr "سبد خرید"
+
+#, fuzzy
+#~| msgid "Products"
+#~ msgid "Product wise"
+#~ msgstr "محصولات"
+
+#, fuzzy
+#~| msgid "None"
+#~ msgctxt "Tax status"
+#~ msgid "None"
+#~ msgstr "هیچ کدام"
+
+#, fuzzy
+#~| msgid "Wallet Info"
+#~ msgctxt "Wallet Top-up widget"
+#~ msgid "Wallet Top-up"
+#~ msgstr "اطلاعات کیف پول"
+
+#, fuzzy
+#~| msgid "Current wallet balance"
+#~ msgid "Low Wallet Balance"
+#~ msgstr "موجودی کیف پول"
+
+#~ msgid "Your {site_title} wallet balance is low."
+#~ msgstr "موجودی کیف پول {site_title} شما کم است."
+
+#, fuzzy
+#~| msgid "parent notification"
+#~ msgid "Enable this email notification"
+#~ msgstr "اعلان سطح بالاتر"
+
+#, fuzzy
+#~| msgid "Increase your wallet balance"
+#~ msgid "Threshold for low wallet balance"
+#~ msgstr "موجودی کیف پول خود را افزایش دهید"
+
+#, fuzzy
+#~| msgid "Available downloads"
+#~ msgid "Available placeholders: %s"
+#~ msgstr "دانلود های دردسترس"
+
+#, fuzzy
+#~| msgid "Email address"
+#~ msgid "Email heading"
+#~ msgstr "آدرس ایمیل"
+
+#, fuzzy
+#~| msgid "Email address"
+#~ msgid "Email type"
+#~ msgstr "آدرس ایمیل"
+
+#, fuzzy
+#~| msgid "list of wallet Transactions"
+#~ msgid "New wallet transaction"
+#~ msgstr "لیست تراکنش های کیف پول شما"
+
+#~ msgid "Cashback Options"
+#~ msgstr "تنظیمات  کش بک"
+
+#, fuzzy
+#~| msgid "list of wallet Transactions"
+#~ msgid "Export Transactions"
+#~ msgstr "لیست تراکنش های کیف پول شما"
+
+#~ msgid "Your %s wallet balance is low."
+#~ msgstr "موجودی کیف پول %s شما کم است."
+
+#~ msgid "Current Balance: %s"
+#~ msgstr "موجودی کیف پول: %s"
+
+#, fuzzy
+#~| msgid "Current wallet balance"
+#~ msgid "Current wallet balance is"
+#~ msgstr "موجودی کیف پول"
+
+#, fuzzy
+#~| msgid "Current wallet balance:"
+#~ msgid "Current balance :"
+#~ msgstr "موجودی کیف پول:"
+
+#, fuzzy
+#~| msgid "Wallet Info"
+#~ msgid "Wallet topup"
+#~ msgstr "اطلاعات کیف پول"
+
+#, fuzzy
+#~| msgid "Transactions History"
+#~ msgid "Transactions"
+#~ msgstr "تاریخچه تراکنش ها"
+
+#, fuzzy
+#~| msgid "Add balance"
+#~ msgid "Balance"
+#~ msgstr "افزایش موجودی"
+
+#, fuzzy
+#~| msgid "Status"
+#~ msgid "Statistics"
+#~ msgstr "وضعیت"
+
+#~ msgid "add New notification"
+#~ msgstr "افزودن اعلان جدید"
+
+#~ msgid "new notificaton"
+#~ msgstr "اعلان جدید"
+
+#~ msgid "edit notification"
+#~ msgstr "ویرایش اعلان"
+
+#~ msgid "show notification"
+#~ msgstr "نمایش اعلان"
+
+#~ msgid "search in notifications"
+#~ msgstr "جستجو در اعلان ها"
+
+#~ msgid "notification not found"
+#~ msgstr "اعلان یافت نشد"
+
+#~ msgid "notification not found in trash"
+#~ msgstr "اعلان در زباله دان یافت نشد"
+
+#~ msgid "<p class='first-text-days'>"
+#~ msgstr "<p class='first-text-days'>"

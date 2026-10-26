@@ -1,0 +1,284 @@
+.zhaket-ai-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+
+
+
+.zhaket-ai-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+}
+
+.zhaket-ai-modal-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.zhaket-ai-modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+}
+
+.zhaket-ai-modal-close:hover {
+    background: #e0e0e0;
+    color: #000;
+}
+
+.zhaket-ai-modal-body {
+    padding: 20px;
+    overflow-y: visible;
+    flex: 1;
+}
+
+.zhaket-ai-form-group {
+    margin-bottom: 20px;
+}
+.zhaket-ai-modal-overlay{
+    color: #3c434a;
+}
+.zhaket-ai-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #1d2327!important;
+    font-size: 14px;
+}
+
+.zhaket-ai-form-group textarea,
+.zhaket-ai-form-group select,
+.zhaket-ai-form-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.zhaket-ai-dimensions-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.zhaket-ai-dimensions-inputs input {
+    flex: 1;
+}
+
+.dimensions-separator {
+    font-size: 18px;
+    color: #666;
+    font-weight: 500;
+}
+
+.zhaket-ai-preset-sizes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.preset-size-btn {
+    padding: 6px 12px;
+    background: #f0f0f1;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.preset-size-btn:hover {
+    background: #e0e0e0;
+    border-color: #2271b1;
+}
+
+.preset-size-btn.active {
+    background: #2271b1;
+    color: #fff;
+    border-color: #2271b1;
+}
+
+.zhaket-ai-advanced-toggle {
+    margin-bottom: 15px;
+}
+
+.zhaket-ai-toggle-btn {
+    background: none;
+    border: none;
+    color: #2271b1;
+    cursor: pointer;
+    padding: 8px 0;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.zhaket-ai-toggle-btn:hover {
+    color: #135e96;
+}
+
+.zhaket-ai-toggle-btn .toggle-icon {
+    transition: transform 0.2s;
+}
+
+.zhaket-ai-toggle-btn.expanded .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.zhaket-ai-advanced-options {
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+    margin-top: 10px;
+}
+
+.zhaket-ai-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.zhaket-ai-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid;
+    transition: all 0.2s;
+}
+
+.zhaket-ai-btn-cancel {
+    background: #fff;
+    border-color: #8c8f94;
+    color: #2c3338;
+}
+
+.zhaket-ai-btn-cancel:hover {
+    background: #f0f0f1;
+}
+
+
+
+.zhaket-ai-btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.zhaket-ai-btn-submit .btn-loader {
+    display: inline-block;
+}
+
+/* Streaming progress indicator */
+.zhaket-ai-streaming-indicator {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    background: #f0f6fc;
+    border: 1px solid #2271b1;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #2271b1;
+}
+
+.zhaket-ai-streaming-indicator.active {
+    display: block;
+}
+
+.zhaket-ai-streaming-indicator .streaming-text {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.mce-i-zhaket-fa-icon{
+    background-image:url(../img/ai-icon.png)!important;
+    background-size:cover!important;
+}
+
+.zhaket-ai-cta-btn,.zhaket-ai-content-cta-btn{
+    background: #FF9606!important;
+    border-radius: 6px!important;
+    border: 2px solid white;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.17)!important;
+    color: white!important;
+    height: 46px;
+    transition: all 0.2s;
+    padding: 0 15px!important;
+    width: 100%!important;
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center!important;
+    gap: 7px;
+    font-size: 13px!important;
+    padding-top: 0px!important;
+    box-sizing: border-box!important;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.zhaket-ai-cta-btn .btn-loader{
+    margin-top: 0px!important;
+}
+
+.zhaket-ai-cta-btn:hover,.zhaket-ai-content-cta-btn:hover
+{
+    background: #d47900 !important;
+}
+.zhaket-ai-cta-btn img,.zhaket-ai-content-cta-btn img{
+    margin-top: -11px!important;
+    border: none!important;
+    background-image:none!important;
+}
+.zhaket-ai-toolbar-btn{
+    background:transparent!important;
+}
+.zhaket-ai-toolbar-btn:before{
+    background:none!important;
+}
+
+.w-\[150px\]{
+    width:150px;
+}
+.zhaket-ai-plus-svg{
+    transition: all 100ms;
+}
+
+.zhaket-ai-plus-svg:focus{
+    box-shadow:none;
+    outline:none;
+}
+
+.zhaket-ai-plus-svg svg path{
+    fill: #FF9606;
+}
+
+.zhaket-ai-plus-svg:hover svg path{
+    fill: #d47900;
+}

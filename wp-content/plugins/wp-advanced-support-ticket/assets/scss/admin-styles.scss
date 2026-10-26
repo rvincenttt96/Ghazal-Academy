@@ -1,0 +1,15 @@
+@import "admin-vars";
+@import "admin-global";
+@import "admin-tickets";
+@import "admin-exporter";
+@import "admin-submit";
+@import "admin-departments";
+@import "admin-process";
+@import "admin-fields";
+@import "admin-answer";
+@import "admin-settings";
+@import "recorder";
+
+.license-input #license-message {
+    // display: none !important;
+}

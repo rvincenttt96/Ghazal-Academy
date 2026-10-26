@@ -1,0 +1,276 @@
+@import "vars";
+
+.wpast-wrap .wpast-panel-header h4 {
+    float: right;
+}
+
+.wpast-wrap .wpast-panel-header .wpast-btn {
+    float: left;
+}
+
+.wpast-wrap .wpast-panel-header .wpast-btn {
+    float: left;
+}
+
+.wpast-wrap .wpast-custom-select {
+    padding: 3px 10px 3px 30px;
+    background: #ffffff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23c6cdd2' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat left 10px center/8px 10px;
+}
+
+.wpast-wrap .wpast-status {
+    border-radius: 0 14px 14px 14px;
+}
+
+.wpast-wrap .wpast-status .wpast-status-color {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+.wpast-wrap.wpast-all-tickets .wpast-filter-container #wpast-filter {
+    margin-left: unset;
+    margin-right: auto;
+}
+
+.wpast-wrap.wpast-all-tickets .wpast-tickets-list .wpast-ticket-item {
+    border-right-width: 3px;
+    border-left-width: 1px;
+}
+
+.wpast-wrap.wpast-all-tickets .wpast-tickets-list .wpast-ticket-item > div {
+    padding-right: 0;
+    padding-left: $padding;
+}
+
+.wpast-wrap.wpast-all-tickets .wpast-tickets-list .wpast-ticket-item .wpast-item-user img.avatar {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+@media (max-width: 992px) {
+    .wpast-wrap.wpast-all-tickets .wpast-tickets-list .wpast-ticket-item:nth-child(odd) {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-ticket-title .wpast-all-tickets,
+.wpast-wrap.wpast-view-ticket .wpast-ticket-title .wpast-ticket-tracking {
+    margin-right: 0;
+    margin-left: $margin;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-ticket-title .wpast-all-tickets img,
+.wpast-wrap.wpast-view-ticket .wpast-ticket-title .wpast-ticket-tracking img {
+    transform: rotate(180deg);
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-main-content #wpast-submit-ticket-reply {
+    right: 38px;
+    left: unset;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-main-content .wpast-reply-toggle a img {
+    margin-left: 5px;
+    margin-right: 0;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-main-content .wpast-reply-toggle a:nth-child(2) .wpast-loader {
+    margin-right: 5px;
+    margin-left: 0;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-main-content .wpast-total-ath .wpast-voice {
+    border-left: 1px solid #e3eaf2;
+    border-right: none;
+    margin-left: 10px;
+    margin-right: 0;
+    padding-right: 0;
+    padding-left: 10px;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-main-content .wpast-total-ath #wpast-sidebar-toggle {
+    float: left;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-sidabar .wpast-time img {
+    margin-left: 15px;
+    margin-right: 0;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-sidabar .wpast-creator .avatar {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-sidabar .wpast-user .avatar {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-sidabar .wpast-ticket-department .wpast-icon {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-main-content .wpast-ticket .wpast-ticket-content .wpast-ath-file a {
+    padding-right: 0;
+    padding-left: 10px;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-main-content .wpast-ticket .wpast-ticket-content .wpast-ath-file a .wpast-icon-download {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-main-content .wpast-ticket .wpast-ticket-content {
+    border-radius: $ticket-radius $ticket-radius 0 $ticket-radius;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-main-content .wpast-ticket.wpast-from-admin .wpast-ticket-content,
+.wpast-wrap.wpast-view-ticket .wpast-main-content .wpast-ticket.wpast-from-vendor .wpast-ticket-content {
+    margin-left: unset;
+    margin-right: auto;
+    border-radius: $ticket-radius $ticket-radius $ticket-radius 0;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-sidabar .wpast-product .wp-post-image {
+    float: right;
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-sidabar .wpast-product-container .wpast-support-info .wpast-extension .wpast-loader {
+    margin-left: 7px;
+    margin-right: 0;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-sidabar .wpast-product-container .wpast-support-info .wpast-extension .wpast-loader {
+    float: left;
+    margin-right: 7px;
+    margin-left: 0;
+}
+
+.wpast-wrap.wpast-view-ticket .wpast-sidabar .wpast-product-container .wpast-support-info > div span:last-child {
+    text-align: left;
+}
+
+.wpast-wrap.wpast-bought-products ul.wpast-products li .wp-post-image {
+    float: right;
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+.wpast-wrap.wpast-bought-products ul.wpast-products li .wpast-support-info .wpast-extension {
+    margin-right: 7px;
+    margin-left: 0;
+}
+
+.wpast-wrap.wpast-bought-products ul.wpast-products li .wpast-support-info .wpast-extension .wpast-loader {
+    float: left;
+    margin-right: 7px;
+    margin-left: 0;
+}
+
+.wpast-wrap .wpast-fags li h5:after {
+    left: 10px;
+    right: auto;
+}
+
+.wpast-wrap .wpast-recorder .wpast-timer {
+    flex-direction: row-reverse;
+}
+
+.wpast-wrap .wpast-recorder #controls {
+    flex-direction: row-reverse;
+}
+
+.wpast-wrap .wpast-checkbox, .wpast-wrap .wpast-radio {
+    margin: 0 0 0 5px;
+}
+
+.wpast-wrap .wpast-checkbox, .wpast-wrap .wpast-radio {
+    margin: 0 0 0 5px;
+}
+
+.wpast-wrap #wpast-submit-ticket button.wpast-submit .wpast-loader, .wpast-wrap #wpast-submit-ticket-reply button.wpast-submit .wpast-loader {
+    float: left;
+    margin-right: 7px;
+    margin-left: 0;
+}
+
+.wpast-wrap #wpast-submit-ticket .wpast-user-wrapper .wpast-form-group > div .wpast-loader {
+    left: 10px;
+    right: auto;
+}
+
+.wpast-wrap #wpast-submit-ticket .wpast-product-wrapper .wpast-form-group > div .wpast-loader {
+    left: 10px;
+    right: auto;
+}
+
+.wpast-wrap.widget-product-support .wpast-extension .wpast-loader {
+    margin-left: 7px !important;
+    margin-right: 0 !important;
+}
+
+.uppy-DashboardContent-addMore svg {
+    margin-right: unset;
+    margin-left: 4px;
+}
+
+.uppy-StatusBar-statusIndicator {
+    margin-right: unset;
+    margin-left: 7px;
+}
+
+.uppy-DashboardItem-fileInfo {
+    padding-right: unset;
+    padding-left: 5px;
+}
+
+.uppy-size--md .uppy-StatusBar-content {
+    padding-left: unset;
+    padding-right: 15px;
+}
+
+.uppy-StatusBar-actions {
+    left: 10px;
+    right: unset;
+}
+
+.uppy-StatusBar-status {
+    padding-right: unset;
+    padding-left: 0.3em;
+}
+
+.uppy-StatusBar-spinner {
+    margin-right: unset;
+    margin-left: 10px;
+}
+
+.uppy-DashboardItem.is-complete .uppy-DashboardItem-progress {
+    left: -8px;
+    right: auto;
+}
+
+.uppy-DashboardItem {
+    padding-right: 10px;
+    padding-left: 0;
+}
+
+.wpast-wrap #wpast-tracking-form button.wpast-submit .wpast-loader {
+    float: left;
+    margin-right: 7px;
+    margin-left: 0;
+}
+
+.wpast-wrap #wpast-submit-ticket button.wpast-submit .wpast-send,
+.wpast-wrap #wpast-submit-ticket-reply button.wpast-submit .wpast-send {
+    margin-left: 7px;
+    margin-right: 0;
+}
+
+.wpast-wrap #wpast-submit-ticket .wpast-help-links-wrapper .wpast-help-links li:before {
+    right: 0;
+    left: unset;
+}

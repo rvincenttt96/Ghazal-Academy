@@ -1,0 +1,182 @@
+.wpast-tickets {
+    #poststuff #post-body.columns-2 {
+        margin-right: 0;
+    }
+
+    .filter-box {
+        margin-top: 5px;
+
+        select,
+        input {
+            max-width: 140px;
+        }
+
+        .wpast-datepicker {
+            max-width: 110px;
+        }
+
+        span.select2.select2-container {
+            width: 146px !important;
+
+            .select2-selection--single {
+                height: 30px;
+            }
+        }
+
+        .select2-container--default .select2-selection--single {
+            border-color: #7e8993;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: #696969;
+        }
+    }
+
+    #delete-all {
+        margin-top: 5px;
+    }
+
+    .wp-list-table {
+        @media (min-width: 768px) {
+            .column-title {
+                width: 22%;
+            }
+        }
+
+        .row-actions {
+            color: #989D9F;
+        }
+
+        .column-preview {
+            width: 40px;
+            .dashicons {
+                font-size: 16px;
+            }
+        }
+
+        .column-creator_id,
+        .column-product,
+        .column-order_id,
+        .column-vendor_id {
+            .row-actions {
+                a {
+                    color: #A4AAAC;
+                }
+            }
+        }
+
+        th#status {
+            width: 100px;
+        }
+
+        .wpast-status {
+            display: inline-block;
+            padding: 2px 10px;
+            line-height: 20px;
+            white-space: nowrap;
+            border-radius: 3px;
+            color: #ffffff;
+        }
+
+        .wpast-priority {
+            &.wpast-priority-low {
+                color: #7F9199;
+            }
+
+            &.wpast-priority-medium {
+                color: #37444A;
+            }
+
+            &.wpast-priority-high {
+                font-weight: 500;
+                color: #27ae60;
+            }
+        }
+    }
+}
+
+#wpast-ticket-preview {
+    .wpast-modal-header .wpast-modal-title {
+        width: calc(100% - 32px);
+    }
+    .wpast-modal-content {
+        .wpast-start-ticket,
+        .wpast-reply {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+            .wpast-meta {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .wpast-user {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    font-weight: bold;
+                }
+                .wpast-date {
+                    color: #797979;
+                }
+            }
+            .wpast-content {
+                text-align: justify;
+                img {
+                    max-width: 100%;
+                    height: auto;
+                    &.alignright {
+                        padding: 4px;
+                        margin: 0 0 2px 7px;
+                        display: inline;
+                    }
+                    &.alignleft {
+                        padding: 4px;
+                        margin: 0 7px 2px 0;
+                        display: inline;
+                    }
+                    &.centered {
+                        display: block;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                }
+                .aligncenter {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                .alignright {
+                    float: right;
+                }
+                .alignleft {
+                    float: left;
+                }
+            }
+            .wpast-voice-file {
+                audio {
+                    height: 36px;
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+            }
+            .wpast-ath-file {
+                display: flex;
+                gap: 5px;
+                a {
+                    padding: 2px 7px;
+                    border-radius: 3px;
+                    font-size: 90%;
+                    border: 1px solid #2271b1;
+                    background: #f6f7f7;
+                    color: #2271b1;
+                }
+            }
+        }
+        .wpast-replies-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 110%;
+        }
+    }
+}

@@ -1,0 +1,135 @@
+@font-face {
+	font-family: 'Yekan';
+	src: url('../fonts/Yekan.eot');
+	src: url('../fonts/Yekan.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/Yekan.woff') format('woff'),
+	url('../fonts/Yekan.ttf') format('truetype'),
+	url('../fonts/Yekan.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+    font-family: 'Iransans-digits';
+    src: url('../fonts/Iransans.eot');
+    src: url('../fonts/Iransans.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Iransans.woff') format('woff'),
+    url('../fonts/Iransans.ttf') format('truetype'),
+    url('../fonts/Iransans.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Shabnam';
+    src: url('../fonts/Shabnam.woff') format('woff'),
+    url('../fonts/Shabnam.ttf') format('truetype'),
+    url('../fonts/Shabnam.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+/*
+.dig_bdy_container *{
+	font-family: Yekan;
+}*/
+.dig_popmessage .dig_firele {
+    right: 0;
+}
+html[dir="rtl"] .dig_lasele {
+    left: 0;
+    right: 0;
+    padding-right: 0;
+    padding-left: 17px;
+}
+.dig_popdismiss {
+    right: auto;
+    left: 10px;
+}
+.minput{
+	direction: rtl!important;
+}
+img.dig_captcha {
+    left: 0;
+    right: auto;
+}
+.dig-custom-field .dig_opt_mult_con .dig_input_wrapper {
+    padding-right: 25px;
+    padding-left: 0;
+}
+.digits-form_button_ic {
+    transform: rotate(180deg);
+}
+.digits_ui .dig-box {
+    text-align: right;
+}
+.digits-form_tab-bar .digits-form_tab-item {
+     font-size: 14px;
+ }
+.digits_otp_info {
+    position: absolute;
+    left: 0;
+    right: auto;
+    padding-right: 0;
+    padding-left: 16px;
+}
+.digits_password_eye{
+    right: auto;
+    left: 14px;
+}
+.digits-form_input_row .digits-field-type_tac .selected .dig_input_wrapper::after {
+    background-color: #000000 ;
+}
+.digits-input-wrapper {
+    border-bottom: solid 1px;
+}
+.dig_ma-box .button {
+background-color: #e0d9e9;
+}
+
+
+.dig_popmessage {
+    left: unset !important;
+    right: 24px !important;
+}
+
+.dig_critical_msg .dig_popmessage_contents {
+    background: #d3f2f5;
+    border: 1px solid #d3f2f5 ;
+}
+
+.dig_critical_msg .dig_lase_snap {
+    color: #000000;
+    font-family: 'Shabnam' !important;
+}
+.dig_lase_snap {
+    font-size: 18px !important;
+}
+.dig_critical_msg .dig_lase_message {
+    font-family: 'Shabnam' !important;
+    text-align: justify ;
+}
+.dig_lase_message {
+    font-size: 16px ;
+}
+.dig_popmessage {
+    line-height: 24px ;
+}
+.dig_success_msg .dig_popmessage_contents {
+    background: #e6dbff;
+}
+.dig_success_msg .dig_lase_snap {
+    color: #ffffff;
+}
+.dig_success_msg .dig_lase_message {
+    color: #ffffff;
+}
+.digits-form_input_row .digits-field-type_tac .selected .dig_input_wrapper::after {
+    background-color: #000000 ;
+}
+
+.dig-admin_hint {
+    background-color: #fffdf3;
+    border: 1px solid #ffc700;
+}
+.digits_back_icon {
+    left: 41px;
+    transform: scaleX(-1);
+}

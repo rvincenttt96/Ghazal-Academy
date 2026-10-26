@@ -1,0 +1,310 @@
+&.wpast-all-tickets {
+    .wpast-statues-box {
+        .wpast-status-item {
+            > a {
+                display: block;
+                text-align: center;
+                border-radius: $border-radius;
+                border: 1px solid $gray-200;
+                padding: $padding;
+                box-shadow: $box-shadow;
+                background: #ffffff;
+
+                .wpast-status-icon {
+                    position: relative;
+                    display: inline-block;
+
+                    img {
+                        width: 32px;
+                        height: 32px;
+                    }
+
+                    span {
+                        position: absolute;
+                        display: inline-block;
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 8px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        right: -5px;
+                    }
+                }
+
+                .wpast-status-count {
+                    font-size: 150%;
+                }
+            }
+
+            @media (max-width: 768px) {
+                -ms-flex-preferred-size: unset;
+                flex-basis: unset;
+                margin-bottom: 20px;
+                max-width: 50%;
+                width: 50%;
+            }
+        }
+    }
+
+    .wpast-filter-container {
+        margin-top: 30px;
+        @media (min-width: 768px) {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .wpast-total-count {
+            font-weight: bold;
+        }
+
+        #wpast-filter {
+            margin-left: auto;
+        }
+
+        .wpast-custom-select {
+            width: auto;
+        }
+
+        @media (max-width: 768px) {
+            .wpast-custom-select, .wpast-btn {
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    .wpast-tickets-list {
+        margin: 10px 0;
+        line-height: 26px;
+
+        .wpast-ticket-item {
+            background: #ffffff;
+            border-radius: $border-radius;
+            box-shadow: $box-shadow;
+            padding: ($padding * 2) $padding;
+            border: 1px solid $gray-200;
+            border-left-width: 3px;
+            display: flex;
+            flex-wrap: wrap;
+
+            > div {
+                flex: 1 1 0;
+                padding-right: $padding;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            > div:first-child {
+                justify-content: start;
+            }
+
+            &.wpast-not-viewed {
+                .wpast-item-title .wpast-ticket-title {
+                    font-weight: bold;
+                    color: #000;
+                }
+            }
+
+            .wpast-item-title {
+                .wpast-ticket-title {
+                    font-size: 110%;
+                    margin-bottom: 10px;
+                }
+
+                .wpast-item-inner > div {
+                    display: flex;
+                    align-items: center;
+
+                    .wpast-ticket-department {
+                        display: inline-block;
+                        background: $gray-100;
+                        color: $gray-500;
+                        padding: 0 $padding;
+                        line-height: $line-height;
+                        border-radius: $line-height / 2;
+
+                        img {
+                            width: 12px;
+                            height: 12px;
+                        }
+                    }
+
+                    .wpast-rating {
+                        margin: 0 5px;
+
+                        &:before {
+                            display: inline-block;
+                            position: relative;
+                            content: '';
+                            width: 18px;
+                            height: 18px;
+                            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAFF2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDE5LTAxLTE4VDEyOjI0OjU2KzAzOjMwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOS0wMS0xOFQxMjoyNjoyMCswMzozMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOS0wMS0xOFQxMjoyNjoyMCswMzozMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjEiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJEb3QgR2FpbiAyMCUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NzM0MmJlMGItOWRkZS0xMTRiLWE3OTAtZTdhZDM1ZmMzMDJmIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjczNDJiZTBiLTlkZGUtMTE0Yi1hNzkwLWU3YWQzNWZjMzAyZiIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjczNDJiZTBiLTlkZGUtMTE0Yi1hNzkwLWU3YWQzNWZjMzAyZiI+IDx4bXBNTTpIaXN0b3J5PiA8cmRmOlNlcT4gPHJkZjpsaSBzdEV2dDphY3Rpb249ImNyZWF0ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6NzM0MmJlMGItOWRkZS0xMTRiLWE3OTAtZTdhZDM1ZmMzMDJmIiBzdEV2dDp3aGVuPSIyMDE5LTAxLTE4VDEyOjI0OjU2KzAzOjMwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+GqVKZgAAAetJREFUKJE1ks1LlFEUh59z750ZZ/w2iyKhGhjKKOkD2hThKiRoEa0KVwotQndByxb9CSEtahUURFuhsFq0mLKoVYQIGVlCamY5ofPOvO89p8Xo2Z6Hh9/h/KSKAG14QFCSkTQ2XzhaU8QAqeJwRGp4lGK+bT3G5i7NBCVQQAEH4GiwxirLbI7JD7fixxRFCNs+qbY4AotEf2heb6gPU4sViQdJEWzH1LL10DtBIjM8s6RrohvbWW0bA11ZV/dJbmeTDoh3OqfyK/EDNWokINUxV2FQ+q2DZvOTH4eA0X4/GYpFrcuqfGVB3n7klJtI58JSXFiL/RiBjBN842+5tJfB5IHNymyHPNZaOuowNujFCEQOs0yNduKjRrtek1msqK99bJzPUhAKeAIeaPpYJcg5SxxQl2FLw8tcbwGH4XEkpH02I4kbtmTnui294FfcWZ32GB7BiGfstN/vNxXDGSC4Tpv3650YYECKrbn5Rs8/tqjjIpGIHtVC21yZDMpS8fwm/ewLv459Z4klnKJE9Ag/45+kP3/XP0+nG/dy+6RuC7uPH2CAAVwgkMNX/EYy/uV9bshd19FsoO9d/qZs5sslSpQI0npP2S6zR2/5pyBwyV9kMhuRV9pqwZsWdJWce2i47egC6BVyPMHgP9Lq0P1+bJJTAAAAAElFTkSuQmCC');
+                            top: 5px;
+                        }
+
+                        &.wpast-active:before {
+                            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDE5LTAxLTE4VDEyOjMxOjM3KzAzOjMwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOS0wMS0xOFQxMjozMTo1NSswMzozMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOS0wMS0xOFQxMjozMTo1NSswMzozMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5YzkxZDM4MS0yNTc4LWY1NDgtYTUwMC1jZGVkYjMzMWU2MTIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OWM5MWQzODEtMjU3OC1mNTQ4LWE1MDAtY2RlZGIzMzFlNjEyIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6OWM5MWQzODEtMjU3OC1mNTQ4LWE1MDAtY2RlZGIzMzFlNjEyIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo5YzkxZDM4MS0yNTc4LWY1NDgtYTUwMC1jZGVkYjMzMWU2MTIiIHN0RXZ0OndoZW49IjIwMTktMDEtMThUMTI6MzE6MzcrMDM6MzAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE4IChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5H2/OXAAACIElEQVQ4jY2TMWtUURCFv5n3NnGTuNkQVkgVMTaxEhuNhSmNQgoxIjYBQWzEIoWF/8DCIkWwMIitjWCRShD8C3ZpxEYUiXGLSGSz995jcXc3u9lgHJjinTdz7jl37pi2l8DbIAMKhkOLEA34OAgDbmAOIVJm1MAAEqQjPKZXOOA6P4BHy2SWP33gBOuQqsyJLeDMIZsjcIVkkGyIZJCopwAIBzlNq4e436cdoB0GGY4lEvmaWk1oNWdwu4u6lX6H/b0Z9vfATiICkGCiVjI+uYrSVA9PaYqx2irjtRJpqM20ff0BHuuIBmbTmBqYNxAXUaoOVvs+8AnFH4ifmO1ivkOMzRKLt8GWMGVvAnR0dF21aQxYOJxyp9b8vSPdgLR+jMmTwx2kDZJueh73wRqt8CQ/yv8IA9ojkMJTPD5GFrMOM2jG5xykW8D3E4lU7lL/fI/27rPuNmQiCUYcZmvvmBzZJA5PpReFwZ5eMvrtDaOBrouSIgEVqAPN3xA4g//DYhKMhzq/LuU9swQVcGQgz+L+pEmCrh3zcPtsAc4iGqmRiqxIhpMKSJ6T4izGfO/kJDC2MNsiBkixc9M2j+wccnJ/gWe8lxcAQ4JK8ZVTxSOkZRSWqU48pFL9giKAYcz39zqe6MsVAKJtcHr0KtPVF4QEoQXTs5tMNC4Tw3oeU1rp7y373BvSW6TXWGULCVLq/SIFUNrByjWUPoDXOtsrgL8Ei9wkwrfhhAAAAABJRU5ErkJggg==');
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            .wpast-item-user {
+                img.avatar {
+                    border-radius: 50%;
+                    margin-right: 10px;
+                    max-width: 36px;
+                    height: auto;
+                }
+
+                .wpast-reply-count {
+                    display: inline-block;
+                    position: relative;
+                    margin: 0 10px;
+
+                    span {
+                        position: absolute;
+                        background: $danger;
+                        color: #ffffff;
+                        border: 2px solid #ffffff;
+                        right: -50%;
+                        top: 0;
+                        line-height: 16px;
+                        padding: 1px 6px;
+                        border-radius: 10px;
+                        font-size: 12px;
+                        min-width: 20px;
+                        height: 20px;
+                    }
+
+                    &.wpast-reply-0 img {
+                        opacity: 0.25;
+                    }
+                }
+            }
+
+            .wpast-item-date {
+                .wpast-date,
+                .wpast-reply-date {
+                    width: 100%;
+                }
+
+                .wpast-reply-date span {
+                    color: $gray-500;
+                    border-bottom: 1px dotted $gray-500;
+                    line-height: 26px;
+                    cursor: help;
+                }
+            }
+
+            .wpast-item-actions {
+                .wpast-btn {
+                    background: transparent;
+                    border-color: $gray-500;
+                    color: $gray-500;
+
+                    &:hover {
+                        color: #ffffff;
+                        background: $gray-500;
+                    }
+                }
+            }
+        }
+
+        .wpast-ticket-item:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .wpast-tickets-list {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+
+            .wpast-ticket-item {
+                display: block;
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 calc(50% - 5px);
+                flex: 0 0 calc(50% - 5px);
+                max-width: calc(50% - 5px);
+
+                > div {
+                    padding: 0;
+                    display: block;
+                }
+
+                > div:not(:last-child) {
+                    margin-bottom: 10px;
+                }
+
+                .wpast-item-actions .wpast-btn {
+                    display: block;
+                }
+            }
+
+            .wpast-ticket-item:nth-child(odd) {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .wpast-tickets-list {
+            .wpast-ticket-item {
+                display: block;
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 100%;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            .wpast-ticket-item:nth-child(odd) {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    ul.page-numbers {
+        text-align: center;
+
+        li {
+            display: inline-block;
+
+            .page-numbers {
+                display: inline-block;
+                border: 1px solid $gray-200;
+                box-shadow: $box-shadow;
+                padding: 0 15px;
+                border-radius: $border-radius;
+            }
+
+            .dots {
+                border: none;
+            }
+
+            .current {
+                border-color: $gray-500;
+            }
+        }
+    }
+}
+
+.wpast-access-message {
+    margin-bottom: 50px;
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 8px;
+    background: rgba($danger, 0.1);
+    color: $danger;
+    a {
+        color: $danger;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+}

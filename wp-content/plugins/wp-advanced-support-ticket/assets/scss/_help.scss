@@ -1,0 +1,15 @@
+.wpast-help-text {
+    border-radius: $border-radius;
+    padding: $padding;
+    background: $gray-100;
+    font-size: $font-size !important;
+    line-height: $line-height !important;
+    margin-bottom: $margin;
+    p {
+        font-size: $font-size !important;
+        line-height: $line-height !important;
+    }
+    p:last-child {
+        margin-bottom: 0;
+    }
+}

@@ -1,0 +1,313 @@
+.wpast-settings {
+    a {
+        color: #000;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    .uk-grid {
+        margin-left: 0;
+    }
+
+    .wpast-description {
+        color: #898989;
+        margin: 7px 0 15px 0;
+
+        a {
+            color: #898989 !important;
+        }
+
+        .uk-icon {
+            margin-right: 3px;
+            position: relative;
+            bottom: 2px;
+            color: $orange;
+        }
+    }
+}
+
+.wpast-settings {
+    .wpast-side-menu {
+        padding-left: 0;
+
+        > .uk-card-default {
+            box-shadow: none;
+        }
+
+        .uk-card {
+            background: transparent;
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+        .wpast-menu-item {
+            padding: 0;
+            margin: 0;
+
+            a {
+                text-decoration: none;
+                color: #121116;
+                display: block;
+                padding: 20px 10px;
+                border-left: 3px solid transparent;
+                transition: 200ms;
+
+                &.wpast-active, &:hover {
+                    border-left-color: $primary;
+                    background: #FFF;
+
+                    .wpast-menu-title, .wpast-menu-icon {
+                        color: $primary;
+                    }
+                }
+
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+
+            .wpast-menu-icon {
+                float: right;
+                color: #878D93;
+                position: relative;
+                top: 8px;
+                transition: 200ms;
+
+                svg {
+                    width: 26px;
+                }
+            }
+
+            .wpast-menu-title {
+                font-weight: bold;
+            }
+
+            .wpast-menu-description {
+                color: #72777C;
+                margin-top: 5px;
+            }
+        }
+
+        .wpast-plugin-name {
+            padding-bottom: 20px;
+            color: $primary;
+
+            .wpast-plugin-name {
+                padding-bottom: 6px;
+                position: relative;
+                display: inline-block;
+                top: 6px;
+            }
+
+            .wpast-version {
+                color: #7F7F7F;
+                display: inline-block;
+                margin-top: 5px;
+                font-size: 90%;
+            }
+
+            img {
+                margin-right: 10px;
+                max-width: 36px;
+                position: relative;
+                top: 3px;
+                float: left;
+            }
+        }
+    }
+}
+
+.wpast-settings {
+    .wpast-settings-content {
+        padding-left: 0;
+
+        > .uk-card-default {
+            box-shadow: none;
+        }
+
+        .wpast-settings-area {
+            display: none;
+
+            &.wpast-active {
+                display: block;
+            }
+
+            .wpast-settings-title {
+                border-bottom: 1px solid #DDD;
+                height: 66px;
+                line-height: 66px;
+
+                .wpast-title-icon {
+                    display: inline-block;
+                    border-radius: 2px;
+                    width: 56px;
+                    height: 56px;
+                    color: $primary;
+                    background: transparentize($primary, 0.75);
+                    position: relative;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        width: 56px;
+                        height: 2px;
+                        bottom: -10px;
+                        left: 0;
+                        background: $primary;
+                    }
+
+                    .uk-icon {
+                        position: absolute;
+                        top: 15px;
+                        right: 15px;
+
+                        svg {
+                            width: 26px;
+                        }
+                    }
+                }
+
+                strong {
+                    position: relative;
+                    bottom: 19px;
+                    margin-left: 17px;
+                    height: 30px;
+                    line-height: 30px;
+                }
+            }
+
+            .uk-margin:hover .wpast-view-page {
+                display: inline-block;
+            }
+
+            .wpast-view-page {
+                font-weight: normal;
+                display: none;
+            }
+        }
+
+        #wpast-default-email {
+            display: none;
+        }
+
+        .wpast-default-email {
+            margin-top: 10px;
+        }
+
+        .wpast-pattern-wrapper {
+            //display: none;
+        }
+
+        .wpast-save {
+            .loader {
+                display: none;
+                margin-left: 7px;
+            }
+        }
+    }
+}
+
+.wpast-settings {
+    .wpast-shop-logo-wrapper {
+        .uk-form-custom {
+            width: 100%;
+        }
+    }
+}
+
+.wpast-settings {
+    .wpast-settings-info.wpast-active + .wpast-save {
+        display: none;
+    }
+
+    .wpast-settings-info {
+        .wpast-version {
+            margin: 10px 0;
+        }
+
+        .wpast-other-products {
+            border-top: 1px solid #DDD;
+            margin-top: 30px;
+
+            > .wpast-title {
+                margin: 30px 0;
+            }
+        }
+    }
+}
+
+.wpast-clipboard {
+    cursor: pointer;
+}
+
+.wpast-code-table {
+    margin-top: 10px;
+
+    code {
+        cursor: pointer;
+    }
+}
+
+#wpast-send-sms-modal {
+    #wpast-send-test-sms .loader {
+        margin-right: 5px;
+        margin-left: 0;
+        display: none;
+    }
+}
+
+.srs-item {
+    margin-bottom: 20px;
+
+    .uk-card-header {
+        position: relative;
+
+        .srs-discount {
+            background: $red;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+    }
+
+    .uk-card-body {
+        padding: 20px 10px;
+
+        .srs-title {
+            height: 40px;
+        }
+
+        .srs-price {
+            color: $orange;
+        }
+    }
+}
+
+#adminmenu .toplevel_page_wpast-support-ticket .wp-submenu li:last-child {
+    display: block !important;
+}
+
+.wpast-save-holder {
+    padding: 10px 20px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 999;
+    text-align: right;
+    @media (min-width: 960px) {
+        left: 160px;
+        width: calc(100% - 200px);
+    }
+    @media (min-width: 782px) and (max-width: 960px) {
+        left: 32px;
+        width: calc(100% - 76px);
+    }
+    @media (max-width: 782px) {
+        left: 0;
+        width: calc(100% - 40px);
+    }
+}

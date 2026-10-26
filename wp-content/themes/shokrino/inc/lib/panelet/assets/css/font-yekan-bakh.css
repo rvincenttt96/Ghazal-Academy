@@ -1,0 +1,36 @@
+/* font Persian Yekan Bakh */
+@font-face {
+    font-display:swap;
+    font-family: 'yekanbakh';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/YekanBakhFaNum-Fat.woff') format('woff');
+  }
+  @font-face {
+    font-display:swap;
+    font-family: 'yekanbakh';
+    font-style: normal;
+    font-weight: 800;
+    src: url('../fonts/YekanBakh-Heavyer.woff') format('woff');
+  }
+  @font-face {
+    font-display:swap;
+    font-family: 'yekanbakh';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/YekanBakhFaNum-Bold.woff') format('woff');
+  }
+  @font-face {
+    font-display:swap;
+    font-family: 'yekanbakh';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/YekanBakhFaNum-Medium.woff') format('woff');
+  }
+  @font-face {
+    font-display:swap;
+    font-family: 'yekanbakh';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/YekanBakhFaNum-Light.woff') format('woff');
+  }

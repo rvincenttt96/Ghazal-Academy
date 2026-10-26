@@ -1,0 +1,2585 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Advanced Support Ticket\n"
+"POT-Creation-Date: 2025-01-18 13:14+0330\n"
+"PO-Revision-Date: 2025-01-18 13:14+0330\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: support-ticket.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+
+#: classes/admin/admin-ajax.php:258 classes/admin/admin-ajax.php:292
+#: templates/admin/submit-page.php:302 templates/admin/submit-page.php:469
+msgid "View file"
+msgstr "مشاهده فایل"
+
+#: classes/admin/admin-ajax.php:266 classes/labels-manager.php:132
+#: templates/admin/settings/template.php:40
+msgid "Replies"
+msgstr "پاسخ‌ها"
+
+#: classes/admin/admin-menu.php:22 classes/admin/admin-menu.php:23
+msgid "Support ticket"
+msgstr "تیکت‌ها"
+
+#: classes/admin/answer-menu.php:25 classes/admin/answer-menu.php:26
+#: classes/admin/answer-menu.php:42 templates/admin/answer-page.php:8
+#: templates/admin/edit-answer-page.php:4
+msgid "Pre answers"
+msgstr "پاسخ‌های آماده"
+
+#: classes/admin/answers-list.php:72 classes/admin/processes-list.php:69
+#: classes/admin/tickets-list.php:107 classes/labels-manager.php:32
+#: templates/admin/submit-page.php:348
+msgid "No items found!"
+msgstr "موردی یافت نشد!"
+
+#: classes/admin/answers-list.php:103 classes/admin/processes-list.php:98
+#: classes/admin/tickets-list.php:166 includes/admin/hooks.php:73
+#: includes/admin/hooks.php:156
+msgid "ID"
+msgstr "شناسه"
+
+#: classes/admin/answers-list.php:107 classes/admin/processes-list.php:102
+#: classes/admin/tickets-list.php:170 classes/admin/tickets-list.php:228
+#: classes/admin/tickets-list.php:246 templates/admin/department-page.php:83
+#: templates/admin/field-page.php:70 templates/admin/submit-page.php:69
+#: templates/admin/submit-page.php:481 templates/admin/submit-page.php:521
+msgid "Edit"
+msgstr "ویرایش"
+
+#: classes/admin/answers-list.php:112 classes/admin/processes-list.php:107
+#: classes/admin/tickets-list.php:178 classes/assets-manager.php:105
+#: templates/admin/annotations.php:14 templates/admin/processes.php:14
+msgid "Are you sure you want to delete?"
+msgstr "آیا از حذف اطمینان دارید؟"
+
+#: classes/admin/answers-list.php:112 classes/admin/answers-list.php:144
+#: classes/admin/processes-list.php:107 classes/admin/processes-list.php:138
+#: classes/admin/tickets-list.php:178 classes/admin/tickets-list.php:326
+#: templates/admin/annotations.php:14 templates/admin/department-page.php:84
+#: templates/admin/field-page.php:71 templates/admin/processes.php:14
+msgid "Delete"
+msgstr "حذف"
+
+#: classes/admin/answers-list.php:124 classes/admin/processes-list.php:119
+#: classes/admin/tickets-list.php:279 classes/labels-manager.php:37
+#: classes/support-widget.php:106 includes/admin/hooks.php:73
+#: templates/admin/edit-process-page.php:38
+#: templates/admin/settings/emails.php:58 templates/admin/settings/sms.php:145
+#: templates/admin/settings/sms.php:185 templates/admin/settings/sms.php:244
+#: templates/admin/settings/template.php:16
+msgid "Title"
+msgstr "عنوان"
+
+#: classes/admin/answers-list.php:125 includes/admin/hooks.php:73
+#: includes/admin/hooks.php:156 templates/admin/edit-process-page.php:43
+#: templates/admin/settings/emails.php:63 templates/admin/settings/sms.php:149
+#: templates/admin/settings/sms.php:250
+msgid "Content"
+msgstr "محتوا"
+
+#: classes/admin/answers-list.php:126 classes/admin/processes-list.php:120
+#: templates/admin/department-page.php:38 templates/admin/department-page.php:71
+#: templates/admin/department-page.php:121
+#: templates/admin/edit-answer-page.php:35 templates/admin/edit-department.php:61
+#: templates/admin/edit-field.php:56 templates/admin/edit-process-page.php:125
+#: templates/admin/field-page.php:42 templates/admin/field-page.php:59
+#: templates/admin/field-page.php:84
+msgid "Position"
+msgstr "موقعیت"
+
+#: classes/admin/answers-list.php:174
+msgid "Pre answer successfully deleted."
+msgstr "پاسخ آماده با موفقیت حذف شد."
+
+#: classes/admin/answers-list.php:197
+msgid "Pre answer(s) successfully deleted."
+msgstr "پاسخ آماده با موفقیت حذف شد."
+
+#: classes/admin/department-menu.php:25 classes/admin/department-menu.php:26
+msgid "Departments"
+msgstr "دپارتمان‌ها"
+
+#: classes/admin/department-menu.php:51
+msgid "Department successfully deleted."
+msgstr "دپارتمان با موفقیت حذف شد."
+
+#: classes/admin/department-menu.php:79
+msgid "Department successfully updated."
+msgstr "دپارتمان با موفقیت بروز  شد."
+
+#: classes/admin/department-menu.php:103
+msgid "Department successfully inserted."
+msgstr "دپارتمان با موفقیت درج  شد."
+
+#: classes/admin/edit-answer-menu.php:22 classes/admin/edit-answer-menu.php:23
+#: templates/admin/edit-answer-page.php:3
+msgid "Edit pre answer"
+msgstr "ویرایش پاسخ آماده"
+
+#: classes/admin/edit-answer-menu.php:43
+msgid "Pre answer successfully updated."
+msgstr "پاسخ آماده با موفقیت بروز  شد."
+
+#: classes/admin/edit-menu.php:38 classes/admin/edit-menu.php:39
+#: templates/admin/submit-page.php:14
+msgid "Edit ticket"
+msgstr "ویرایش تیکت"
+
+#: classes/admin/edit-menu.php:144
+msgid "Ticket successfully save and sent."
+msgstr "تیکت با موفقیت ذخیره و ارسال شد."
+
+#: classes/admin/edit-process-menu.php:22 classes/admin/edit-process-menu.php:23
+#: templates/admin/edit-process-page.php:3
+msgid "Edit process"
+msgstr "ویرایش پروسه"
+
+#: classes/admin/edit-process-menu.php:42
+msgid "Process successfully updated."
+msgstr "پروسه با موفقیت بروز شد."
+
+#: classes/admin/field-menu.php:24 classes/admin/field-menu.php:25
+#: includes/admin/hooks.php:73 templates/admin/department-page.php:46
+#: templates/admin/edit-department.php:77 templates/admin/settings/fields.php:10
+#: templates/admin/settings/settings-page.php:36
+msgid "Fields"
+msgstr "فیلدها"
+
+#: classes/admin/field-menu.php:44
+msgid "Field successfully deleted."
+msgstr "فیلد با موفقیت حذف شد."
+
+#: classes/admin/field-menu.php:73
+msgid "Field successfully updated."
+msgstr "فیلد با موفقیت بروز شد."
+
+#: classes/admin/field-menu.php:99
+msgid "Field successfully inserted."
+msgstr "فیلد با موفقیت درج  شد."
+
+#: classes/admin/new-answer-menu.php:18 classes/admin/new-answer-menu.php:19
+#: templates/admin/answer-page.php:9 templates/admin/edit-answer-page.php:3
+msgid "New pre answer"
+msgstr "پاسخ آماده جدید"
+
+#: classes/admin/new-answer-menu.php:38
+msgid "Pre answer successfully inserted."
+msgstr "پاسخ آماده با موفقیت درج  شد."
+
+#: classes/admin/new-answer-menu.php:38 classes/admin/new-process-menu.php:37
+#: classes/admin/submit-menu.php:58
+msgid "View"
+msgstr "مشاهده"
+
+#: classes/admin/new-process-menu.php:18 classes/admin/new-process-menu.php:19
+#: templates/admin/edit-process-page.php:3 templates/admin/process-page.php:9
+msgid "New process"
+msgstr "پروسه جدید"
+
+#: classes/admin/new-process-menu.php:37
+msgid "Process successfully inserted."
+msgstr "پروسه با موفقیت درج  شد."
+
+#: classes/admin/order-mtb.php:23
+msgid "Support info"
+msgstr "اطلاعات پشتیبانی"
+
+#: classes/admin/order-mtb.php:49 classes/admin/tickets-list.php:266
+msgid "Products"
+msgstr "محصولات"
+
+#: classes/admin/order-mtb.php:59 classes/admin/order-mtb.php:76
+#: classes/admin/order-mtb.php:85 classes/admin/product-mtb.php:36
+#: classes/admin/product-mtb.php:45
+msgid "Expire days"
+msgstr "روزهای انقضا"
+
+#: classes/admin/order-mtb.php:63 classes/admin/order-mtb.php:80
+#: classes/admin/order-mtb.php:89 classes/admin/product-mtb.php:40
+#: classes/admin/product-mtb.php:49 templates/admin/settings/woocommerce.php:89
+msgid "Maximum count"
+msgstr "حداکثر تعداد"
+
+#: classes/admin/order-mtb.php:68 classes/admin/product-mtb.php:43
+msgid "Extension support"
+msgstr "تمدید پشتیبانی"
+
+#: classes/admin/order-mtb.php:70 classes/admin/product-mtb.php:34
+#: classes/admin/tickets-list.php:284 classes/assets-manager.php:108
+#: classes/labels-manager.php:81 includes/admin/hooks.php:73
+#: templates/admin/edit-process-page.php:83
+#: templates/admin/settings/emails.php:103 templates/admin/settings/fields.php:67
+#: templates/admin/settings/sms.php:292 templates/admin/settings/template.php:46
+#: templates/admin/settings/woocommerce.php:30
+#: templates/admin/submit-page.php:250 templates/admin/ticket-page.php:106
+msgid "Product"
+msgstr "محصول"
+
+#: classes/admin/order-mtb.php:83 classes/admin/tickets-list.php:285
+#: classes/labels-manager.php:82 templates/admin/settings/fields.php:82
+#: templates/admin/settings/woocommerce.php:36
+#: templates/admin/ticket-page.php:108
+msgid "Order"
+msgstr "سفارش"
+
+#: classes/admin/process-menu.php:25 classes/admin/process-menu.php:26
+#: classes/admin/process-menu.php:42 includes/admin/hooks.php:73
+#: templates/admin/edit-process-page.php:4 templates/admin/process-page.php:8
+msgid "Processes"
+msgstr "پروسه‌ها"
+
+#: classes/admin/processes-list.php:168
+msgid "Process successfully deleted."
+msgstr "پروسه با موفقیت حذف شد."
+
+#: classes/admin/processes-list.php:191
+msgid "Process(es) successfully deleted."
+msgstr "پروسه(ها) با موفقیت حذف شد."
+
+#: classes/admin/product-mtb.php:19
+msgid "Support ticket info"
+msgstr "اطلاعات تیکت پشتیبانی"
+
+#: classes/admin/product-mtb.php:36 classes/admin/product-mtb.php:40
+msgid "Leave this field blank with unlimited support."
+msgstr "جهت پشتیبانی نامحدود این فیلد را خالی رها کنید."
+
+#: classes/admin/product-mtb.php:43
+msgid "Fill in the fields below to enable product extension."
+msgstr "جهت فعال کردن قابلیت تمدید پشتیبانی محصول، فیلدهای زیر را پر نمایید."
+
+#: classes/admin/product-mtb.php:53
+msgid "Amount"
+msgstr "مبلغ"
+
+#: classes/admin/settings-menu.php:18 classes/admin/settings-menu.php:19
+#: core.php:382
+msgid "Settings"
+msgstr "پیکربندی"
+
+#: classes/admin/submit-menu.php:30 classes/labels-manager.php:46
+#: templates/admin/submit-page.php:14 templates/admin/ticket-page.php:21
+msgid "Submit new ticket"
+msgstr "ارسال تیکت جدید"
+
+#: classes/admin/submit-menu.php:31 classes/labels-manager.php:66
+#: templates/admin/settings/emails.php:10 templates/admin/settings/sms.php:16
+msgid "Submit ticket"
+msgstr "ارسال تیکت"
+
+#: classes/admin/submit-menu.php:58
+msgid "Ticket successfully insert and sent."
+msgstr "تیکت با موفقیت درج و ارسال شد."
+
+#: classes/admin/ticket-menu.php:28 classes/admin/ticket-menu.php:29
+#: classes/labels-manager.php:23 templates/admin/submit-page.php:17
+#: templates/admin/submit-page.php:168
+msgid "All tickets"
+msgstr "همه تیکت‌ها"
+
+#: classes/admin/ticket-menu.php:50 classes/labels-manager.php:136
+#: templates/admin/department-page.php:72 templates/admin/department-page.php:122
+#: templates/admin/ticket-page.php:20
+msgid "Tickets"
+msgstr "تیکت‌ها"
+
+#: classes/admin/tickets-list.php:186 includes/functions.php:284
+msgid "Trash"
+msgstr "زباله‌دان"
+
+#: classes/admin/tickets-list.php:200
+msgid "Preview"
+msgstr "پیش‌نمایش"
+
+#: classes/admin/tickets-list.php:208 templates/admin/settings/fields.php:17
+#: templates/admin/settings/fields.php:26 templates/admin/settings/fields.php:41
+#: templates/admin/settings/fields.php:62 templates/admin/settings/fields.php:77
+#: templates/admin/settings/fields.php:101
+#: templates/admin/settings/fields.php:116
+msgid "Guest user"
+msgstr "کاربر مهمان"
+
+#: classes/admin/tickets-list.php:214 classes/admin/tickets-list.php:265
+msgid "Profile"
+msgstr "مشخصات"
+
+#: classes/admin/tickets-list.php:217 templates/admin/department-page.php:100
+msgid "No user found with this ID:"
+msgstr "کاربری با این شناسه یافت نشد:"
+
+#: classes/admin/tickets-list.php:281 classes/labels-manager.php:89
+#: includes/admin/hooks.php:73 templates/admin/edit-process-page.php:61
+#: templates/admin/settings/default-email.php:11
+#: templates/admin/settings/emails.php:81 templates/admin/settings/sms.php:161
+#: templates/admin/settings/sms.php:268 templates/admin/settings/template.php:22
+#: templates/admin/submit-page.php:547
+msgid "Department"
+msgstr "دپارتمان"
+
+#: classes/admin/tickets-list.php:282 classes/assets-manager.php:107
+#: includes/admin/hooks.php:73 includes/admin/hooks.php:156
+#: templates/admin/submit-page.php:149
+msgid "Creator"
+msgstr "ایجاد کننده"
+
+#: classes/admin/tickets-list.php:283 classes/labels-manager.php:87
+#: includes/admin/hooks.php:73 templates/admin/edit-process-page.php:67
+#: templates/admin/settings/default-email.php:12
+#: templates/admin/settings/emails.php:87 templates/admin/settings/sms.php:165
+#: templates/admin/settings/sms.php:274 templates/admin/settings/template.php:52
+msgid "Status"
+msgstr "وضعیت"
+
+#: classes/admin/tickets-list.php:286 classes/assets-manager.php:109
+#: templates/admin/settings/emails.php:153
+#: templates/admin/settings/emails.php:203 templates/admin/settings/sms.php:346
+#: templates/admin/settings/sms.php:402
+msgid "Vendor"
+msgstr "فروشنده"
+
+#: classes/admin/tickets-list.php:287 classes/labels-manager.php:88
+#: includes/admin/hooks.php:73 templates/admin/edit-process-page.php:73
+#: templates/admin/settings/default-email.php:13
+#: templates/admin/settings/emails.php:93 templates/admin/settings/fields.php:52
+#: templates/admin/settings/sms.php:169 templates/admin/settings/sms.php:280
+#: templates/admin/submit-page.php:129
+msgid "Priority"
+msgstr "اولویت"
+
+#: classes/admin/tickets-list.php:288 classes/labels-manager.php:34
+#: includes/admin/hooks.php:73 includes/admin/hooks.php:156
+msgid "Create date"
+msgstr "تاریخ ایجاد"
+
+#: classes/admin/tickets-list.php:289 classes/labels-manager.php:35
+#: includes/admin/hooks.php:73
+msgid "Reply date"
+msgstr "تاریخ پاسخ"
+
+#: classes/admin/tickets-list.php:290 classes/labels-manager.php:91
+#: includes/admin/hooks.php:73 templates/admin/settings/template.php:28
+msgid "Rating"
+msgstr "امتیاز"
+
+#: classes/admin/tickets-list.php:360
+msgid "Ticket successfully move to trash."
+msgstr "تیکت با موفقیت به زباله‌دان منتقل شد."
+
+#: classes/admin/tickets-list.php:376
+msgid "Ticket successfully deleted."
+msgstr "تیکت با موفقیت حذف شد."
+
+#: classes/admin/tickets-list.php:407 classes/admin/tickets-list.php:433
+msgid "Ticket(s) successfully deleted."
+msgstr "تیکت(ها) با موفقیت حذف شد."
+
+#: classes/admin/tickets-list.php:409
+msgid "Ticket(s) status successfully changed."
+msgstr "وضعیت تیکت(ها) با موفقیت تغییر پیدا کرد."
+
+#: classes/assets-manager.php:100
+msgid "Settings successfully saved."
+msgstr "پیکربندی با موفقیت ذخیره شد."
+
+#: classes/assets-manager.php:101 classes/labels-manager.php:77
+msgid "An error has occurred!"
+msgstr "خطایی رخ داده است!"
+
+#: classes/assets-manager.php:102 templates/admin/settings/statuses.php:63
+msgid "Slug"
+msgstr "نامک"
+
+#: classes/assets-manager.php:103 templates/admin/department-page.php:14
+#: templates/admin/department-page.php:68 templates/admin/department-page.php:118
+#: templates/admin/edit-department.php:16 templates/admin/settings/fields.php:13
+#: templates/admin/settings/statuses.php:63 templates/admin/submit-page.php:173
+msgid "Name"
+msgstr "نام"
+
+#: classes/assets-manager.php:104 templates/admin/settings/statuses.php:63
+msgid "Color HEX code"
+msgstr "کد رنگ HEX"
+
+#: classes/assets-manager.php:110 includes/admin/hooks.php:73
+#: templates/admin/settings/emails.php:137
+#: templates/admin/settings/emails.php:187 templates/admin/settings/sms.php:328
+#: templates/admin/settings/sms.php:384 templates/admin/settings/template.php:34
+#: templates/admin/submit-page.php:196
+msgid "User"
+msgstr "کاربر"
+
+#: classes/assets-manager.php:111
+msgid "Users"
+msgstr "کاربران"
+
+#: classes/assets-manager.php:112 classes/labels-manager.php:33
+#: templates/admin/submit-page.php:48 templates/admin/submit-page.php:420
+msgid "Show more"
+msgstr "نمایش بیشتر"
+
+#: classes/assets-manager.php:113
+msgid "Show less"
+msgstr "نمایش کمتر"
+
+#: classes/assets-manager.php:118
+msgid "is loading..."
+msgstr "درحال بارگزاری..."
+
+#: classes/extra-support.php:29
+msgid "Extra support amount"
+msgstr "مبلغ پشتیبانی بیشتر"
+
+#: classes/extra-support.php:34
+msgid "Extra support length"
+msgstr "مدت پشتیبانی بیشتر"
+
+#: classes/front/ajax.php:435
+msgid "Support extension - "
+msgstr "تمدید پشتیبانی - "
+
+#: classes/front/ajax.php:443
+msgid "This product insert for support extension."
+msgstr "این محصول جهت تمدید پشتیبانی درج شد."
+
+#: classes/front/extension.php:130
+msgid "Change order status to completed after support extension"
+msgstr "تغییر وضعیت سفارش به تکمیل شده بعد از تمدید پشتیبانی"
+
+#: classes/front/upload-handler.php:46 templates/front/submit-ticket.php:299
+#: templates/front/view-ticket.php:190
+msgid "Megabit"
+msgstr "مگابایت"
+
+#: classes/labels-manager.php:13
+msgid "You must log in to your account to submit ticket."
+msgstr "جهت ارسال تیکت بایستی وارد اکانت خود شوید."
+
+#: classes/labels-manager.php:14
+msgid "Login"
+msgstr "ورود"
+
+#: classes/labels-manager.php:15
+msgid "Support tickets"
+msgstr "تیکت‌های پشتیبانی"
+
+#: classes/labels-manager.php:16
+msgid "Bought products"
+msgstr "محصولات"
+
+#: classes/labels-manager.php:17
+msgid "Purchase date"
+msgstr "تاریخ خرید"
+
+#: classes/labels-manager.php:18
+msgid "Expire date"
+msgstr "تاریخ انقضا"
+
+#: classes/labels-manager.php:19
+msgid "Support expired!"
+msgstr "اتمام پشتیبانی!"
+
+#: classes/labels-manager.php:20
+msgid "Remaining count"
+msgstr "تعداد باقیمانده"
+
+#: classes/labels-manager.php:21 templates/admin/settings/woocommerce.php:138
+msgid "Support extension"
+msgstr "تمدید پشتیبانی"
+
+#: classes/labels-manager.php:22 templates/admin/settings/woocommerce.php:75
+#: templates/admin/settings/woocommerce.php:92
+msgid "Unlimited"
+msgstr "نامحدود"
+
+#: classes/labels-manager.php:24 templates/admin/ticket-page.php:34
+#: templates/admin/ticket-page.php:84
+msgid "All"
+msgstr "همه"
+
+#: classes/labels-manager.php:25
+msgid "Customers"
+msgstr "مشتریان"
+
+#: classes/labels-manager.php:26
+msgid "Sent"
+msgstr "فرستاده شده"
+
+#: classes/labels-manager.php:27
+msgid "Received"
+msgstr "دریافتی"
+
+#: classes/labels-manager.php:28
+msgid "Open"
+msgstr "باز"
+
+#: classes/labels-manager.php:29
+msgid "Closed"
+msgstr "بسته"
+
+#: classes/labels-manager.php:30
+msgid "Answered"
+msgstr "پاسخ داده شده"
+
+#: classes/labels-manager.php:31
+msgid "Finished"
+msgstr "پایان یافته"
+
+#: classes/labels-manager.php:36 templates/admin/settings/template.php:84
+#: templates/admin/ticket-page.php:122
+msgid "Filter"
+msgstr "صافی"
+
+#: classes/labels-manager.php:38
+msgid "Just now"
+msgstr "هم اکنون"
+
+#: classes/labels-manager.php:39
+msgid "Year(s)"
+msgstr "سال"
+
+#: classes/labels-manager.php:40
+msgid "Month(s)"
+msgstr "ماه"
+
+#: classes/labels-manager.php:41
+msgid "Day(s)"
+msgstr "روز"
+
+#: classes/labels-manager.php:42
+msgid "Hour(s)"
+msgstr "ساعت"
+
+#: classes/labels-manager.php:43
+msgid "Minute(s)"
+msgstr "دقیقه"
+
+#: classes/labels-manager.php:44
+msgid "Second(s)"
+msgstr "ثانیه"
+
+#: classes/labels-manager.php:45
+msgid "ago"
+msgstr "قبل"
+
+#: classes/labels-manager.php:47
+msgid "Not found my answer!"
+msgstr "پاسخ سوالاتم را پیدا نکردم!"
+
+#: classes/labels-manager.php:48
+msgid "Select department:"
+msgstr "دپارتمان را انتخاب کنید:"
+
+#: classes/labels-manager.php:49
+msgid "Select ticket type:"
+msgstr "نوع تیکت را انتخاب کنید:"
+
+#: classes/labels-manager.php:50
+msgid "First select department!"
+msgstr "ابتدا دپارتمان را انتخاب نمایید!"
+
+#: classes/labels-manager.php:51
+msgid "Enter your name:"
+msgstr "نام خود را وارد کنید:"
+
+#: classes/labels-manager.php:52
+msgid "Enter your email:"
+msgstr "ایمیل خود را وارد کنید:"
+
+#: classes/labels-manager.php:53
+msgid "Enter your mobile:"
+msgstr "موبایل خود را وارد کنید:"
+
+#: classes/labels-manager.php:54
+msgid "Enter ticket title:"
+msgstr "عنوان تیکت را وارد کنید:"
+
+#: classes/labels-manager.php:55
+msgid "Select ticket priority:"
+msgstr "اولویت تیکت را انتخاب کنید:"
+
+#: classes/labels-manager.php:56
+msgid "Select product:"
+msgstr "محصول را انتخاب کنید:"
+
+#: classes/labels-manager.php:57
+msgid "Select order:"
+msgstr "سفارش را انتخاب کنید:"
+
+#: classes/labels-manager.php:58
+msgid "Select user:"
+msgstr "کاربر را انتخاب کنید:"
+
+#: classes/labels-manager.php:59
+msgid "Enter ticket content:"
+msgstr "محتوای تیکت را وارد نمایید:"
+
+#: classes/labels-manager.php:60 templates/admin/submit-page.php:135
+#: templates/admin/ticket-page.php:85
+msgid "Low"
+msgstr "کم"
+
+#: classes/labels-manager.php:61 templates/admin/submit-page.php:138
+#: templates/admin/ticket-page.php:86
+msgid "Medium"
+msgstr "متوسط"
+
+#: classes/labels-manager.php:62 templates/admin/submit-page.php:141
+#: templates/admin/ticket-page.php:87
+msgid "High"
+msgstr "بالا"
+
+#: classes/labels-manager.php:63 templates/admin/settings/upload.php:44
+msgid "Maximum size"
+msgstr "حداکثر اندازه"
+
+#: classes/labels-manager.php:64 templates/admin/settings/upload.php:52
+msgid "Allowed extensions"
+msgstr "فرمت‌های مجاز"
+
+#: classes/labels-manager.php:65
+msgid "Select file"
+msgstr "فایل را انتخاب کنید"
+
+#: classes/labels-manager.php:67
+msgid "Please select ticket type!"
+msgstr "لطفا نوع تیکت را انتخاب نمایید!"
+
+#: classes/labels-manager.php:68
+msgid "Please enter your name!"
+msgstr "لطفا نام خود را وارد نمایید!"
+
+#: classes/labels-manager.php:69
+msgid "Please enter your email!"
+msgstr "لطفا ایمیل خود را وارد نمایید!"
+
+#: classes/labels-manager.php:70
+msgid "Please enter your mobile!"
+msgstr "لطفا موبایل خود را وارد نمایید!"
+
+#: classes/labels-manager.php:71
+msgid "Email is incorrect!"
+msgstr "ایمیل صحیح نمیباشد!"
+
+#: classes/labels-manager.php:72
+msgid "Untitled"
+msgstr "بدون عنوان"
+
+#: classes/labels-manager.php:73
+msgid "Please enter ticket content!"
+msgstr "لطفا محتوای تیکت را وارد نمایید!"
+
+#: classes/labels-manager.php:74
+#, php-format
+msgid "%s is required!"
+msgstr "%s ضروری می‌باشد!"
+
+#: classes/labels-manager.php:75
+msgid "Ticket successfully submitted."
+msgstr "تیکت با موفقیت ارسال شد."
+
+#: classes/labels-manager.php:76
+msgid "View ticket"
+msgstr "مشاهده تیکت"
+
+#: classes/labels-manager.php:78
+msgid "Maximum upload file size:"
+msgstr "بیشترین حجم مجاز فایل:"
+
+#: classes/labels-manager.php:79
+msgid "You can't use this product support!"
+msgstr "شما نمی‌توانید از پشتیبانی این محصول استفاده کنید!"
+
+#: classes/labels-manager.php:80
+msgid "Please solve captcha correctly!"
+msgstr "لطفا کپچا را به درستی حل کنید!"
+
+#: classes/labels-manager.php:83
+msgid "Expire day"
+msgstr "تاریخ  انقضا"
+
+#: classes/labels-manager.php:84
+msgid "Max count"
+msgstr "تعداد حداکثر"
+
+#: classes/labels-manager.php:85
+msgid "Automation"
+msgstr "اتوماسیون"
+
+#: classes/labels-manager.php:86
+msgid "Download"
+msgstr "دانلود"
+
+#: classes/labels-manager.php:90 templates/admin/edit-process-page.php:79
+#: templates/admin/settings/default-email.php:14
+#: templates/admin/settings/emails.php:99 templates/admin/settings/sms.php:173
+#: templates/admin/settings/sms.php:286 templates/admin/settings/template.php:58
+msgid "Date"
+msgstr "تاریخ"
+
+#: classes/labels-manager.php:92 templates/admin/settings/template.php:64
+msgid "Actions"
+msgstr "عملیات"
+
+#: classes/labels-manager.php:93 classes/labels-manager.php:108
+#: templates/admin/settings/default-email.php:17
+#: templates/admin/settings/emails.php:11 templates/admin/settings/sms.php:17
+#: templates/admin/submit-page.php:401
+msgid "Submit reply"
+msgstr "ارسال پاسخ"
+
+#: classes/labels-manager.php:94
+msgid "Canceled"
+msgstr "لغوشده"
+
+#: classes/labels-manager.php:95
+msgid "Cancel ticket"
+msgstr "لغو تیکت"
+
+#: classes/labels-manager.php:96
+msgid "Ticket cancelled by user."
+msgstr "تیکت توسط کاربر لغو شد."
+
+#: classes/labels-manager.php:97
+msgid "Are you sure you want to cancel?"
+msgstr "آیا از لغو اطمینان دارید؟"
+
+#: classes/labels-manager.php:98
+msgid "Close ticket"
+msgstr "بستن تیکت"
+
+#: classes/labels-manager.php:99
+msgid "Reply successfully submitted."
+msgstr "پاسخ با موفقیت ارسال شد."
+
+#: classes/labels-manager.php:100
+msgid "Help us get the best service by rating this ticket."
+msgstr "با درج امتیاز ما را در ارائه خدمات هرچه بهتر یاری نمایید."
+
+#: classes/labels-manager.php:101
+msgid "Star"
+msgstr "ستاره"
+
+#: classes/labels-manager.php:102
+msgid "Register rating"
+msgstr "ثبت امتیاز"
+
+#: classes/labels-manager.php:103 templates/admin/submit-page.php:383
+msgid "Registered rating"
+msgstr "امتیاز درج شده"
+
+#: classes/labels-manager.php:104
+msgid "Rating successfully registered."
+msgstr "امتیاز با موفقیت درج شد."
+
+#: classes/labels-manager.php:105
+msgid "Mobile number"
+msgstr "شماره همراه"
+
+#: classes/labels-manager.php:106 classes/user-mobile-field.php:48
+msgid "Enter your mobile number to receive ticket plugin SMS."
+msgstr "جهت دریافت پیامک افزونه تیکت شماره همراه خود را وارد نمایید."
+
+#: classes/labels-manager.php:107
+msgid "Please enter a valid mobile number!"
+msgstr "لطفا یک شماره همراه معتبر وارد نمایید!"
+
+#: classes/labels-manager.php:109
+msgid "Product support extension successfully created. Please wait..."
+msgstr "محصول تمدید پشتیبانی با موفقیت ایجاد شد. لطفا صبر کنید..."
+
+#: classes/labels-manager.php:110
+msgid "Go to cart"
+msgstr "رفتن به سبد خرید"
+
+#: classes/labels-manager.php:111
+msgid "Please complete the support extension operation or empty the cart."
+msgstr "لطفا عملیات تمدید پشتیبانی را تکمیل و یا سبد خرید را خالی نمایید."
+
+#: classes/labels-manager.php:112
+msgid "You haven't bought this product yet!"
+msgstr "شما تاکنون این محصول را خرید نکرده‌اید!"
+
+#: classes/labels-manager.php:113
+msgid "Login to account"
+msgstr "ورود به حساب کاربری"
+
+#: classes/labels-manager.php:114
+msgid "Register in site"
+msgstr "ثبت‌نام در سایت"
+
+#: classes/labels-manager.php:115
+msgid "Username or email"
+msgstr "نام کاربری و یا ایمیل"
+
+#: classes/labels-manager.php:116 templates/admin/settings/upload.php:85
+msgid "Password"
+msgstr "رمزعبور"
+
+#: classes/labels-manager.php:117
+msgid "Remember me"
+msgstr "مرا بخاطر بسپار"
+
+#: classes/labels-manager.php:118 templates/admin/settings/upload.php:82
+msgid "Username"
+msgstr "نام کاربری"
+
+#: classes/labels-manager.php:119 templates/admin/settings/fields.php:37
+#: templates/admin/settings/woocommerce.php:242
+#: templates/admin/submit-page.php:175
+msgid "Email"
+msgstr "ایمیل"
+
+#: classes/labels-manager.php:120
+msgid "Confirm password"
+msgstr "تکرار رمزعبور"
+
+#: classes/labels-manager.php:121
+msgid "Register"
+msgstr "ثبت‌نام"
+
+#: classes/labels-manager.php:122
+msgid "It is necessary to fill in all the fields!"
+msgstr "پر کردن همه فیلدها ضرورری می‌باشد!"
+
+#: classes/labels-manager.php:123
+msgid "No user found with this data!"
+msgstr "کاربری با این اطلاعات یافت نشد!"
+
+#: classes/labels-manager.php:124
+msgid "Password not match!"
+msgstr "رمزهای عبور یکسان نیستند!"
+
+#: classes/labels-manager.php:125
+msgid "Password is week!"
+msgstr "رمزعبور ضعیف است!"
+
+#: classes/labels-manager.php:126 templates/admin/settings/settings-page.php:64
+#: templates/admin/settings/upload.php:5
+msgid "Upload"
+msgstr "بارگذاری"
+
+#: classes/labels-manager.php:127
+msgid "✓ Completed"
+msgstr "✔ کامل شد"
+
+#: classes/labels-manager.php:128 templates/admin/edit-process-page.php:32
+#: templates/admin/settings/emails.php:52 templates/admin/settings/misc.php:112
+#: templates/admin/settings/sms.php:141 templates/admin/settings/sms.php:238
+msgid "Token"
+msgstr "شناسه پیگیری"
+
+#: classes/labels-manager.php:129
+msgid "Ticket tracking"
+msgstr "پیگیری تیکت"
+
+#: classes/labels-manager.php:130
+#, php-format
+msgid "Showing %d tickets"
+msgstr "نمایش %d تیکت"
+
+#: classes/labels-manager.php:131 includes/admin/hooks.php:156
+#: templates/admin/edit-process-page.php:26
+#: templates/admin/settings/default-email.php:10
+#: templates/admin/settings/emails.php:46 templates/admin/settings/sms.php:137
+#: templates/admin/settings/sms.php:181 templates/admin/settings/sms.php:202
+#: templates/admin/settings/sms.php:232
+msgid "Ticket ID"
+msgstr "شناسه تیکت"
+
+#: classes/labels-manager.php:133
+msgid "Updated"
+msgstr "بروز شده"
+
+#: classes/labels-manager.php:134
+msgid "OK"
+msgstr "تایید"
+
+#: classes/labels-manager.php:135
+msgid "Logout"
+msgstr "خروج"
+
+#: classes/labels-manager.php:137
+#, php-format
+msgid "You have %s open tickets."
+msgstr "شما %s تیکت باز دارید."
+
+#: classes/labels-manager.php:138
+#, php-format
+msgid "Product ticket %s"
+msgstr "تیکت محصول %s"
+
+#: classes/labels-manager.php:139
+msgid ""
+"The user section is only accessible by the user. It seems that you are a "
+"support employee."
+msgstr ""
+"بخش کاربر فقط توسط کاربر در دسترس می‌باشد. به نظر می‌رسد شما کارمند پشتیبانی "
+"هستید."
+
+#: classes/labels-manager.php:140
+msgid "Go to admin ticket page"
+msgstr "رفتن به صفحه مدیریت تیکت"
+
+#: classes/support-widget.php:14
+msgid "Product support"
+msgstr "پشتیبانی محصول"
+
+#: classes/support-widget.php:16
+msgid "Display product support info."
+msgstr "نمایش اطلاعات پشتیبانی محصول."
+
+#: classes/support-widget.php:102
+msgid "Product purchase history"
+msgstr "سابقه خرید محصول"
+
+#: classes/support-widget.php:110 templates/admin/department-page.php:42
+#: templates/admin/edit-department.php:69
+msgid "Description"
+msgstr "توضیحات"
+
+#: core.php:102
+msgid "Ticket manager"
+msgstr "مدیر تیکت"
+
+#: includes/activate-zhk/admin-notif.php:7
+#, fuzzy, php-format
+#| msgid "To activating your %s please insert you license key"
+msgid "To activating %s, please insert your license key"
+msgstr "جهت فعال سازی %s لطفا کلید لایسنس خود را وارد نمایید"
+
+#: includes/activate-zhk/admin-notif.php:8
+#, fuzzy
+#| msgid "Active rating"
+msgid "Active License"
+msgstr "فعال بودن امتیاز"
+
+#: includes/activate-zhk/admin-notif.php:12
+#, php-format
+msgid ""
+"The PHP version of the website is lower than 7.0. Ask your host administrator "
+"to upgrade PHP version to activate %s. "
+msgstr ""
+
+#: includes/activate-zhk/admin-notif.php:19
+#, fuzzy, php-format
+#| msgid "There is something wrong with your %s license. please check it."
+msgid "Something is wrong with your %s license. Please check it."
+msgstr "مشکلی در رابطه به لایسنس %s رخ داده است. لطفا آنرا بررسی نمایید."
+
+#: includes/activate-zhk/admin-notif.php:20
+msgid "Check Now"
+msgstr "بررسی"
+
+#: includes/activate-zhk/html.php:11
+msgid "Are you sure?"
+msgstr "آیا از لغو اطمینان دارید؟"
+
+#: includes/activate-zhk/html.php:12
+#, fuzzy
+#| msgid "Something goes wrong please try again."
+msgid "Something goes wrong, please try again."
+msgstr "مشکلی رخ داده است. لطفا مجددا تلاش کنید."
+
+#: includes/activate-zhk/html.php:14
+#, fuzzy
+#| msgid "Something goes wrong please try again."
+msgid "Something is wrong, please check the console log for details"
+msgstr "مشکلی رخ داده است. لطفا مجددا تلاش کنید."
+
+#: includes/activate-zhk/html.php:16
+msgid "License key is not valid, Please enter valid license key."
+msgstr ""
+
+#: includes/activate-zhk/html.php:26
+#, fuzzy, php-format
+#| msgid "Active rating"
+msgid "%s Activation"
+msgstr "فعال بودن امتیاز"
+
+#: includes/activate-zhk/html.php:28
+msgid "Your activation key:"
+msgstr ""
+
+#: includes/activate-zhk/html.php:31
+#, fuzzy
+#| msgid "New license key"
+msgid "Recheck license"
+msgstr "کلید لایسنس جدید"
+
+#: includes/activate-zhk/html.php:32
+#, fuzzy
+#| msgid "Remove image"
+msgid "Remove / Change key"
+msgstr "حذف تصویر"
+
+#: includes/activate-zhk/html.php:39
+#, fuzzy
+#| msgid "Enter your name:"
+msgid "Enter your activation key:"
+msgstr "نام خود را وارد کنید:"
+
+#: includes/activate-zhk/html.php:42
+#, fuzzy
+#| msgid "Active"
+msgid "Activate"
+msgstr "فعال"
+
+#: includes/activate-zhk/html.php:51
+msgid "Manual:"
+msgstr ""
+
+#: includes/activate-zhk/html.php:55
+msgid ""
+"Your key is used on this website, and it is not possible to use on another "
+"website."
+msgstr ""
+
+#: includes/activate-zhk/html.php:59
+msgid ""
+"If you want to transfer a license to another domain, click on the \"Remove / "
+"Change key\", after that login to your account of zhaket.com and go to the "
+"download section and click on change domain button. Enter your new domain name "
+"and use the license key on your desired domain."
+msgstr ""
+
+#: includes/activate-zhk/html.php:64
+msgid ""
+"To use the product, you should enter the license key, to find your license "
+"key, login to your account of zhaket.com and go to downloads section, after "
+"than select product and copy your license key or click on create license "
+"button and copy your license key."
+msgstr ""
+
+#: includes/activate-zhk/html.php:68
+msgid "Each license can be activated only for one website"
+msgstr ""
+
+#: includes/activate-zhk/html.php:71
+msgid ""
+"If your license is activated on another domain, first click on the \"Remove / "
+"Change key\" on the old website, then login to your account of zhaket.com and "
+"go to the download section and click on the change domain button, enter your "
+"website domain name and use the license key to activate."
+msgstr ""
+
+#: includes/activate-zhk/html.php:79
+#, php-format
+msgid "The %s constant is set to true. WP-Cron spawning is disabled."
+msgstr ""
+
+#: includes/activate-zhk/html.php:83
+#, php-format
+msgid "The %s constant is set to true."
+msgstr ""
+
+#: includes/admin/defaults.php:28
+msgid "Enter help text here..."
+msgstr ""
+"متن راهنما را اینجا وارد نمایید. جهت حذف یا ویرایش این متن به پیکربندی افزونه "
+"> تب قالب مراجعه نمایید."
+
+#: includes/admin/defaults.php:30 includes/admin/defaults.php:31
+#: includes/admin/defaults.php:32
+msgid "Fag title: Fag content..."
+msgstr ""
+"عنوان سوالات متداول:جهت حذف یا ویرایش این متن به پیکربندی افزونه > تب قالب "
+"مراجعه نمایید."
+
+#: includes/admin/defaults.php:35 includes/admin/defaults.php:36
+#: includes/admin/defaults.php:37
+msgid "Help link title: "
+msgstr "عنوان لینک راهنما: "
+
+#: includes/admin/hooks.php:73 templates/admin/edit-process-page.php:49
+#: templates/admin/settings/emails.php:69 templates/admin/settings/sms.php:262
+msgid "User name"
+msgstr "نام کاربر"
+
+#: includes/admin/hooks.php:73
+msgid "User email"
+msgstr "ایمیل کاربر"
+
+#: includes/admin/hooks.php:73
+msgid "User mobile"
+msgstr "موبایل کاربر"
+
+#: includes/admin/hooks.php:73 includes/admin/hooks.php:156
+msgid "From admin"
+msgstr "از پنل مدیریت"
+
+#: includes/admin/hooks.php:73 includes/admin/hooks.php:156
+#: templates/admin/submit-page.php:275 templates/admin/submit-page.php:490
+msgid "Voice file"
+msgstr "فایل صوت"
+
+#: includes/admin/hooks.php:73 includes/admin/hooks.php:156
+#: templates/admin/submit-page.php:289 templates/admin/submit-page.php:429
+#: templates/admin/submit-page.php:460
+msgid "Attachment file"
+msgstr "فایل ضمیمه"
+
+#: includes/admin/hooks.php:73
+msgid "Active rating"
+msgstr "فعال بودن امتیاز"
+
+#: includes/admin/hooks.php:73
+msgid "Annotations"
+msgstr "یادداشت"
+
+#: templates/admin/answer-page.php:11 templates/admin/process-page.php:11
+#: templates/admin/ticket-page.php:24
+msgid "Search results for"
+msgstr "نتایج جستجو برای"
+
+#: templates/admin/answer-page.php:22 templates/admin/process-page.php:22
+#: templates/admin/ticket-page.php:121
+msgid "Search"
+msgstr "جستجو"
+
+#: templates/admin/department-page.php:1 templates/admin/edit-department.php:2
+#: templates/admin/edit-field.php:1 templates/admin/field-page.php:1
+msgid "No Access!"
+msgstr "دسترسی غیرمجاز!"
+
+#: templates/admin/department-page.php:3
+msgid "Ticket departments"
+msgstr "دپارتمان تیکت"
+
+#: templates/admin/department-page.php:10
+msgid "Add new department"
+msgstr "افزودن دپارتمان جدید"
+
+#: templates/admin/department-page.php:18 templates/admin/department-page.php:69
+#: templates/admin/department-page.php:119 templates/admin/edit-department.php:24
+msgid "Parent"
+msgstr "والد"
+
+#: templates/admin/department-page.php:20 templates/admin/edit-department.php:28
+#: templates/admin/settings/general.php:78 templates/admin/settings/misc.php:17
+#: templates/admin/settings/statuses.php:16 templates/admin/submit-page.php:582
+msgid "None"
+msgstr "هیچکدام"
+
+#: templates/admin/department-page.php:34 templates/admin/department-page.php:70
+#: templates/admin/department-page.php:120 templates/admin/edit-department.php:44
+msgid "Answerable users"
+msgstr "کاربران پاسخگو"
+
+#: templates/admin/department-page.php:57 templates/admin/field-page.php:46
+msgid "Add new"
+msgstr "افزودن جدید"
+
+#: templates/admin/department-page.php:103
+msgid "No answerable!"
+msgstr "بدون پاسخگو!"
+
+#: templates/admin/edit-answer-page.php:15
+#: templates/admin/edit-process-page.php:14 templates/admin/submit-page.php:28
+msgid "Enter title here"
+msgstr "عنوان را اینجا وارد کنید"
+
+#: templates/admin/edit-answer-page.php:30
+#: templates/admin/edit-answer-page.php:43
+#: templates/admin/edit-process-page.php:120
+#: templates/admin/edit-process-page.php:133
+msgid "Save"
+msgstr "ذخیره"
+
+#: templates/admin/edit-department.php:9
+msgid "Edit department"
+msgstr "ویرایش دپارتمان"
+
+#: templates/admin/edit-department.php:92 templates/admin/edit-field.php:64
+msgid "Update"
+msgstr "بروزرسانی"
+
+#: templates/admin/edit-field.php:3
+msgid "Edit field"
+msgstr "ویرایش فیلد"
+
+#: templates/admin/edit-field.php:10 templates/admin/field-page.php:14
+#: templates/admin/field-page.php:57 templates/admin/field-page.php:82
+msgid "Label"
+msgstr "برچسب"
+
+#: templates/admin/edit-field.php:18 templates/admin/field-page.php:18
+#: templates/admin/field-page.php:58 templates/admin/field-page.php:83
+msgid "Type"
+msgstr "نوع"
+
+#: templates/admin/edit-field.php:22 templates/admin/field-page.php:20
+msgid "Single line text"
+msgstr "متن تک‌خطی"
+
+#: templates/admin/edit-field.php:23 templates/admin/field-page.php:21
+msgid "Multi line text"
+msgstr "متن چندخطی"
+
+#: templates/admin/edit-field.php:24 templates/admin/field-page.php:22
+msgid "Number"
+msgstr "عددی"
+
+#: templates/admin/edit-field.php:25 templates/admin/field-page.php:23
+msgid "Dropdown"
+msgstr "لیست بازشو"
+
+#: templates/admin/edit-field.php:26 templates/admin/field-page.php:24
+msgid "Radio"
+msgstr "دکمه رادیویی"
+
+#: templates/admin/edit-field.php:27 templates/admin/field-page.php:25
+msgid "Checkbox"
+msgstr "چک‌باکس"
+
+#: templates/admin/edit-field.php:32 templates/admin/field-page.php:30
+msgid "Required"
+msgstr "ضروری"
+
+#: templates/admin/edit-field.php:35 templates/admin/settings/emails.php:33
+#: templates/admin/settings/emails.php:125
+#: templates/admin/settings/emails.php:141
+#: templates/admin/settings/emails.php:157
+#: templates/admin/settings/emails.php:175
+#: templates/admin/settings/emails.php:191
+#: templates/admin/settings/emails.php:207
+#: templates/admin/settings/general.php:142
+#: templates/admin/settings/general.php:206
+#: templates/admin/settings/general.php:225
+#: templates/admin/settings/general.php:244
+#: templates/admin/settings/general.php:253
+#: templates/admin/settings/general.php:262 templates/admin/settings/misc.php:37
+#: templates/admin/settings/misc.php:94 templates/admin/settings/sms.php:224
+#: templates/admin/settings/sms.php:314 templates/admin/settings/sms.php:332
+#: templates/admin/settings/sms.php:350 templates/admin/settings/sms.php:370
+#: templates/admin/settings/sms.php:388 templates/admin/settings/sms.php:406
+#: templates/admin/settings/upload.php:12 templates/admin/settings/upload.php:72
+#: templates/admin/settings/woocommerce.php:154
+#: templates/admin/submit-page.php:370
+msgid "Active"
+msgstr "فعال"
+
+#: templates/admin/edit-field.php:39
+msgid "Once"
+msgstr "یکبار"
+
+#: templates/admin/edit-field.php:42 templates/admin/field-page.php:34
+msgid "Get value only once from user."
+msgstr "مقدار فقط یکبار از کاربر دریافت شود."
+
+#: templates/admin/edit-field.php:47 templates/admin/field-page.php:37
+msgid "Options"
+msgstr "گزینه‌ها"
+
+#: templates/admin/edit-field.php:51 templates/admin/field-page.php:39
+msgid "Put each item in a line."
+msgstr "هر گزینه را در یک خط قرار دهید."
+
+#: templates/admin/edit-process-page.php:28
+#: templates/admin/edit-process-page.php:34
+#: templates/admin/edit-process-page.php:40
+#: templates/admin/edit-process-page.php:45
+#: templates/admin/edit-process-page.php:51
+#: templates/admin/edit-process-page.php:57
+#: templates/admin/edit-process-page.php:63
+#: templates/admin/edit-process-page.php:69
+#: templates/admin/edit-process-page.php:75
+#: templates/admin/edit-process-page.php:80
+#: templates/admin/edit-process-page.php:85
+#: templates/admin/edit-process-page.php:91
+#: templates/admin/settings/emails.php:48 templates/admin/settings/emails.php:54
+#: templates/admin/settings/emails.php:60 templates/admin/settings/emails.php:65
+#: templates/admin/settings/emails.php:71 templates/admin/settings/emails.php:77
+#: templates/admin/settings/emails.php:83 templates/admin/settings/emails.php:89
+#: templates/admin/settings/emails.php:95 templates/admin/settings/emails.php:100
+#: templates/admin/settings/emails.php:105
+#: templates/admin/settings/emails.php:111
+#: templates/admin/settings/settings-page.php:142
+#: templates/admin/settings/settings-page.php:148
+#: templates/admin/settings/settings-page.php:154
+#: templates/admin/settings/sms.php:138 templates/admin/settings/sms.php:142
+#: templates/admin/settings/sms.php:146 templates/admin/settings/sms.php:150
+#: templates/admin/settings/sms.php:154 templates/admin/settings/sms.php:158
+#: templates/admin/settings/sms.php:162 templates/admin/settings/sms.php:166
+#: templates/admin/settings/sms.php:170 templates/admin/settings/sms.php:174
+#: templates/admin/settings/sms.php:182 templates/admin/settings/sms.php:186
+#: templates/admin/settings/sms.php:190 templates/admin/settings/sms.php:234
+#: templates/admin/settings/sms.php:240 templates/admin/settings/sms.php:246
+#: templates/admin/settings/sms.php:252 templates/admin/settings/sms.php:258
+#: templates/admin/settings/sms.php:264 templates/admin/settings/sms.php:270
+#: templates/admin/settings/sms.php:276 templates/admin/settings/sms.php:282
+#: templates/admin/settings/sms.php:288 templates/admin/settings/sms.php:294
+#: templates/admin/settings/template.php:194
+msgid "Click to copy"
+msgstr "جهت کپی کلیک کنید"
+
+#: templates/admin/edit-process-page.php:55
+#: templates/admin/settings/emails.php:75 templates/admin/settings/sms.php:153
+#: templates/admin/settings/sms.php:189 templates/admin/settings/sms.php:256
+#: templates/admin/settings/template.php:192
+msgid "Recipient name"
+msgstr "نام گیرنده (عضو)"
+
+#: templates/admin/edit-process-page.php:89
+#: templates/admin/settings/emails.php:109
+msgid "Reply link"
+msgstr "لینک پاسخ"
+
+#: templates/admin/edit-process-page.php:100
+msgid "SMS content"
+msgstr "محتوای پیامک"
+
+#: templates/admin/edit-process-page.php:107 templates/admin/settings/sms.php:124
+#: templates/admin/settings/sms.php:301 templates/admin/settings/sms.php:321
+#: templates/admin/settings/sms.php:339 templates/admin/settings/sms.php:357
+#: templates/admin/settings/sms.php:377 templates/admin/settings/sms.php:395
+#: templates/admin/settings/sms.php:413
+msgid "Pattern code"
+msgstr "کد الگو"
+
+#: templates/admin/edit-process-page.php:110 templates/admin/settings/sms.php:128
+#: templates/admin/settings/sms.php:304 templates/admin/settings/sms.php:324
+#: templates/admin/settings/sms.php:342 templates/admin/settings/sms.php:360
+#: templates/admin/settings/sms.php:380 templates/admin/settings/sms.php:398
+#: templates/admin/settings/sms.php:416
+msgid "Pattern"
+msgstr "الگو"
+
+#: templates/admin/exporter-page.php:3
+msgid "Tickets exporter"
+msgstr "برون‌بری تیکت‌ها"
+
+#: templates/admin/exporter-page.php:6
+msgid "Export tickets to a CSV file"
+msgstr "برون‌بری تیکت‌ها به یک فایل CSV"
+
+#: templates/admin/exporter-page.php:7
+msgid ""
+"This tool allows you to generate and download a CSV file containing a list of "
+"all tickets."
+msgstr ""
+"این ابزار به شما اجازه می دهد که فایلی با فرمت CSV حاوی لیست همه تیکت‌ها را "
+"ایجاد و دانلود کنید."
+
+#: templates/admin/exporter-page.php:12
+msgid "Generate tickets CSV"
+msgstr "تولید CSV تیکت‌ها"
+
+#: templates/admin/exporter-page.php:17
+msgid "Generate replies CSV"
+msgstr "تولید CSV پاسخ‌ها"
+
+#: templates/admin/field-page.php:3
+msgid "Ticket fields"
+msgstr "فیلدهای تیکت"
+
+#: templates/admin/field-page.php:10
+msgid "Add new field"
+msgstr "افزودن فیلد جدید"
+
+#: templates/admin/settings/access.php:10
+#: templates/admin/settings/settings-page.php:22
+msgid "Access"
+msgstr "دسترسی"
+
+#: templates/admin/settings/access.php:13
+msgid "User roles"
+msgstr "نقش‌های کاربری"
+
+#: templates/admin/settings/access.php:24
+msgid "Select the user roles to access the ticket panel in admin section."
+msgstr "نقش‌های کاربری جهت دسترسی به تیکت در پنل مدیریت را انتخاب نمایید."
+
+#: templates/admin/settings/access.php:28
+msgid "Access limit"
+msgstr "محدودیت دسترسی"
+
+#: templates/admin/settings/access.php:32
+msgid ""
+"By selecting this option, each answerable user will only have access to their "
+"own ticket."
+msgstr ""
+"با انتخاب این گزینه هر مسئول پاسخگو فقط به تیکت‌های بخش خود دسترسی خواهد داشت."
+
+#: templates/admin/settings/access.php:38
+msgid "With this option enabled only the admin role can send new tickets."
+msgstr "با انتخاب این گزینه فقط برای نقش کاربری مدیر امکان ارسال تیکت وجود دارد."
+
+#: templates/admin/settings/access.php:44
+msgid "With this option enabled only the admin role can edit and delete tickets."
+msgstr ""
+"با انتخاب این گزینه فقط برای نقش کاربری مدیر امکان ویرایش و حذف تیکت وجود دارد."
+
+#: templates/admin/settings/default-email.php:8
+#, php-format
+msgid "Hello dear %s"
+msgstr "سلام %s عزیز"
+
+#: templates/admin/settings/default-email.php:9
+#, php-format
+msgid "User %s has sent a new support ticket for the %s product."
+msgstr "کاربر %s یک تیکت پشتیبانی جدید برای محصول %s ارسال کرده است."
+
+#: templates/admin/settings/emails.php:5
+#: templates/admin/settings/settings-page.php:50
+msgid "Emails"
+msgstr "ایمیل‌ها"
+
+#: templates/admin/settings/emails.php:8 templates/admin/settings/sms.php:14
+msgid "Global"
+msgstr "سراسری"
+
+#: templates/admin/settings/emails.php:9 templates/admin/settings/sms.php:15
+msgid "Create ticket"
+msgstr "ایجاد تیکت"
+
+#: templates/admin/settings/emails.php:16
+msgid "Email from"
+msgstr "ایمیل ارسال کننده"
+
+#: templates/admin/settings/emails.php:20
+msgid "From name"
+msgstr "نام ارسال کننده"
+
+#: templates/admin/settings/emails.php:28 templates/admin/settings/sms.php:219
+msgid "This notification will be sent to the ticket creator."
+msgstr "این اعلان برای ایجاد کننده تیکت ارسال خواهد شد."
+
+#: templates/admin/settings/emails.php:37 templates/admin/settings/emails.php:129
+#: templates/admin/settings/emails.php:145
+#: templates/admin/settings/emails.php:161
+#: templates/admin/settings/emails.php:179
+#: templates/admin/settings/emails.php:195
+#: templates/admin/settings/emails.php:211
+msgid "Subject"
+msgstr "عنوان"
+
+#: templates/admin/settings/emails.php:41 templates/admin/settings/emails.php:133
+#: templates/admin/settings/emails.php:149
+#: templates/admin/settings/emails.php:165
+#: templates/admin/settings/emails.php:183
+#: templates/admin/settings/emails.php:199
+#: templates/admin/settings/emails.php:215
+msgid "Insert default email"
+msgstr "درج ایمیل پیشفرض"
+
+#: templates/admin/settings/emails.php:121
+#: templates/admin/settings/emails.php:171 templates/admin/settings/sms.php:310
+#: templates/admin/settings/sms.php:366
+msgid "Admin"
+msgstr "مدیر"
+
+#: templates/admin/settings/fields.php:22 templates/admin/submit-page.php:177
+msgid "Mobile"
+msgstr "موبایل"
+
+#: templates/admin/settings/fields.php:32 templates/admin/settings/fields.php:47
+msgid "Register form"
+msgstr "فرم ثبت‌نام"
+
+#: templates/admin/settings/fields.php:56 templates/admin/settings/fields.php:71
+#: templates/admin/settings/fields.php:86 templates/admin/settings/fields.php:95
+#: templates/admin/settings/fields.php:110
+msgid "Logged in user"
+msgstr "کاربر وارد شده"
+
+#: templates/admin/settings/fields.php:91
+msgid "Extra fields"
+msgstr "فیلدهای اضافه"
+
+#: templates/admin/settings/fields.php:106 templates/admin/settings/upload.php:8
+msgid "File upload"
+msgstr "بارگذاری فایل"
+
+#: templates/admin/settings/general.php:19
+#: templates/admin/settings/settings-page.php:15
+#: templates/admin/submit-page.php:98
+msgid "General"
+msgstr "همگانی"
+
+#: templates/admin/settings/general.php:24
+msgid "Video tutorials"
+msgstr "ویدئوی آموزشی"
+
+#: templates/admin/settings/general.php:25
+msgid "This product has an installation and configuration instructional video."
+msgstr "این محصول دارای ویدئوی آموزشی نصب و پیکربندی می‌باشد."
+
+#: templates/admin/settings/general.php:26 templates/admin/settings/sms.php:26
+msgid "The tutorials video can be downloaded from the user panel > downloads."
+msgstr ""
+"جهت دانلود ویدئوی آموزشی به پنل کاربری ژاکت > قسمت دانلودها مراجعه نمایید."
+
+#: templates/admin/settings/general.php:27 templates/admin/settings/sms.php:27
+msgid "Do not show this message"
+msgstr "عدم نمایش این پیغام"
+
+#: templates/admin/settings/general.php:33
+msgid "Submit type"
+msgstr "نوع ارسال"
+
+#: templates/admin/settings/general.php:37
+msgid "Single step"
+msgstr "تک مرحله‌ای"
+
+#: templates/admin/settings/general.php:43
+msgid "Multi step"
+msgstr "چند مرحله‌ای"
+
+#: templates/admin/settings/general.php:49
+msgid "Only child department"
+msgstr "فقط دپارتمان فرزند"
+
+#: templates/admin/settings/general.php:54
+msgid "Default department"
+msgstr "دپارتمان پیشفرض"
+
+#: templates/admin/settings/general.php:68
+msgid "Ticket page"
+msgstr "برگه تیکت"
+
+#: templates/admin/settings/general.php:69
+msgid "View page"
+msgstr "نمایش برگه"
+
+#: templates/admin/settings/general.php:89
+msgid ""
+"Ticket item will be automatically added to the user panel on the woocommerce "
+"sites."
+msgstr "آیتم تیکت در سایت‌های ووکامرسی بصورت خودکار به پنل کاربر اضافه خواهد شد."
+
+#: templates/admin/settings/general.php:93
+msgid "For none woocommerce sites and guest ticket put this shortcode in a page:"
+msgstr ""
+"در سایت‌های غیر ووکامرسی و ارسال تیکت مهمان از این کد کوتاه استفاده نمایید:"
+
+#: templates/admin/settings/general.php:94
+#: templates/admin/settings/woocommerce.php:148
+msgid "Click to copy in clipboard."
+msgstr "جهت کپی در حافظه کلیک کنید."
+
+#: templates/admin/settings/general.php:98
+msgid "Panel URL"
+msgstr "پیوند پنل"
+
+#: templates/admin/settings/general.php:102
+msgid "If you use the user panel plugin, enter the panel link."
+msgstr "چنانچه از افزونه پنل کاربری استفاده می‌کنید پیوند پنل را وارد نمایید."
+
+#: templates/admin/settings/general.php:106
+msgid "Login URL"
+msgstr "پیوند ورود"
+
+#: templates/admin/settings/general.php:110
+msgid "Blocked departments"
+msgstr "دپارتمان‌های مسدود شده"
+
+#: templates/admin/settings/general.php:123
+msgid "Admin orderby"
+msgstr "مرتب سازی پنل مدیریت"
+
+#: templates/admin/settings/general.php:127
+#: templates/admin/settings/general.php:172
+msgid "Creation date"
+msgstr "تاریخ ایجاد"
+
+#: templates/admin/settings/general.php:133
+#: templates/admin/settings/general.php:178
+msgid "Last reply date"
+msgstr "تاریخ آخرین پاسخ"
+
+#: templates/admin/settings/general.php:138
+msgid "Support icon"
+msgstr "آیکن پشتیبانی"
+
+#: templates/admin/settings/general.php:148
+msgid "Right"
+msgstr "راست"
+
+#: templates/admin/settings/general.php:149
+msgid "Left"
+msgstr "چپ"
+
+#: templates/admin/settings/general.php:162
+msgid "Select image"
+msgstr "انتخاب تصویر"
+
+#: templates/admin/settings/general.php:163
+msgid "Remove image"
+msgstr "حذف تصویر"
+
+#: templates/admin/settings/general.php:168
+msgid "Orderby"
+msgstr "مرتب سازی"
+
+#: templates/admin/settings/general.php:183
+msgid "Tickets per page"
+msgstr "تیکت در هر صفحه"
+
+#: templates/admin/settings/general.php:187
+msgid "Replies order"
+msgstr "مرتب سازی پاسخ‌ها"
+
+#: templates/admin/settings/general.php:191
+msgid "Descending"
+msgstr "نزولی"
+
+#: templates/admin/settings/general.php:192
+msgid "Ascending"
+msgstr "صعودی"
+
+#: templates/admin/settings/general.php:202
+msgid "Auto close"
+msgstr "بستن خودکار"
+
+#: templates/admin/settings/general.php:210
+msgid "Period"
+msgstr "دوره"
+
+#: templates/admin/settings/general.php:213
+msgid ""
+"The length of time since the last ticket reply exceeds this number of days."
+msgstr "مدت زمانی که از ارسال آخرین پاسخ تیکت گذشته است."
+
+#: templates/admin/settings/general.php:217
+msgid "Text"
+msgstr "متن"
+
+#: templates/admin/settings/general.php:221
+msgid "Guest ticket"
+msgstr "تیکت مهمان"
+
+#: templates/admin/settings/general.php:229
+msgid "Public key"
+msgstr "کلید عمومی"
+
+#: templates/admin/settings/general.php:232
+msgid "Private key"
+msgstr "کلید خصوصی"
+
+#: templates/admin/settings/general.php:236
+msgid "Get from this link."
+msgstr "از این لینک دریافت کنید."
+
+#: templates/admin/settings/general.php:240
+msgid "Login form"
+msgstr "فرم ورود"
+
+#: templates/admin/settings/general.php:249
+msgid "Default rating"
+msgstr "امتیازدهی پیشفرض"
+
+#: templates/admin/settings/general.php:258
+msgid "Auto answer"
+msgstr "پاسخ خودکار"
+
+#: templates/admin/settings/labels.php:5
+#: templates/admin/settings/settings-page.php:78
+msgid "Labels"
+msgstr "برچسب‌ها"
+
+#: templates/admin/settings/labels.php:9
+msgid ""
+"These texts will be replaced by the text in the ticket panel. If a field is "
+"left blank, the default value will be displayed."
+msgstr ""
+"این متن‌ها با متن پنل تیکت جایگزین خواهند شد. اگر خالی رها شوند متن پیشفرض "
+"نمایش داده خواهد شد."
+
+#: templates/admin/settings/misc.php:11
+#: templates/admin/settings/settings-page.php:85
+msgid "Misc"
+msgstr "متفرقه"
+
+#: templates/admin/settings/misc.php:14
+msgid "Open tickets location"
+msgstr "موقعیت تیکت‌های باز"
+
+#: templates/admin/settings/misc.php:33
+msgid "Advanced editor"
+msgstr "ویرایشگر پیشرفته"
+
+#: templates/admin/settings/misc.php:42
+msgid "Banned users"
+msgstr "کاربران منع  شده"
+
+#: templates/admin/settings/misc.php:46
+msgid ""
+"Separate the users ID who were banned from posting with the English comma."
+msgstr ""
+"شناسه کاربرانی که از ارسال تیکت منع شده‌اند را با ویرگول انگلیسی از هم جدا کنید."
+
+#: templates/admin/settings/misc.php:50
+msgid "Date options"
+msgstr "گزینه‌های تاریخ"
+
+#: templates/admin/settings/misc.php:73
+msgid "Date format"
+msgstr "فرمت تاریخ"
+
+#: templates/admin/settings/misc.php:77
+msgid "Get it from this link."
+msgstr "از این لینک دریافت نمایید."
+
+#: templates/admin/settings/misc.php:81
+msgid "Auto redirect"
+msgstr "هدایت خودکار"
+
+#: templates/admin/settings/misc.php:85
+msgid "Auto redirect after submitting the ticket"
+msgstr "هدایت خودکار بعد از ارسال تیکت"
+
+#: templates/admin/settings/misc.php:90
+msgid "Open tickets alert"
+msgstr "هشدار تیکت‌های باز"
+
+#: templates/admin/settings/misc.php:99
+msgid "Show once every 24 hours."
+msgstr "در طول 24 ساعت فقط یک بار نمایش داده می‌شود."
+
+#: templates/admin/settings/misc.php:103
+msgid "Words filter"
+msgstr "صافی کلمات"
+
+#: templates/admin/settings/misc.php:107
+msgid "Put each item in separate line."
+msgstr "هر گزینه را در یک خط قرار دهید."
+
+#: templates/admin/settings/misc.php:108
+msgid "original word:filtered word"
+msgstr "کلمه اصلی:کلمه صافی‌شده"
+
+#: templates/admin/settings/misc.php:114
+msgid "Length"
+msgstr "طول"
+
+#: templates/admin/settings/misc.php:119
+msgid "Numeric"
+msgstr "عددی"
+
+#: templates/admin/settings/misc.php:125
+msgid "Small letters"
+msgstr "حروف کوچک"
+
+#: templates/admin/settings/misc.php:131
+msgid "Capital letters"
+msgstr "حروف بزرگ"
+
+#. Plugin Name of the plugin/theme
+#: templates/admin/settings/settings-page.php:8
+#: templates/admin/settings/settings-page.php:124
+msgid "WP Advanced Support Ticket"
+msgstr "تیکت پشتیبانی پیشرفته"
+
+#: templates/admin/settings/settings-page.php:10
+msgid "version"
+msgstr "نسخه"
+
+#: templates/admin/settings/settings-page.php:16
+msgid "Basic ticket settings"
+msgstr "پیکربندی پایه تیکت"
+
+#: templates/admin/settings/settings-page.php:23
+msgid "Ticket panel access level"
+msgstr "دسترسی به پنل تیکت"
+
+#: templates/admin/settings/settings-page.php:29
+#: templates/admin/settings/template.php:9
+msgid "Template"
+msgstr "قالب"
+
+#: templates/admin/settings/settings-page.php:30
+msgid "Template of ticket"
+msgstr "قالب تیکت"
+
+#: templates/admin/settings/settings-page.php:37
+msgid "Fields of tickets form"
+msgstr "فیلدهای فرم تیکت"
+
+#: templates/admin/settings/settings-page.php:43
+#: templates/admin/settings/woocommerce.php:23
+msgid "Woocommerce"
+msgstr "ووکامرس"
+
+#: templates/admin/settings/settings-page.php:44
+msgid "Woocommerce products settings"
+msgstr "پیکربندی محصولات ووکامرس"
+
+#: templates/admin/settings/settings-page.php:51
+msgid "Send email notifications"
+msgstr "ارسال اعلانات ایمیل"
+
+#: templates/admin/settings/settings-page.php:57
+#: templates/admin/settings/sms.php:11
+msgid "SMS"
+msgstr "پیامک"
+
+#: templates/admin/settings/settings-page.php:58
+msgid "Send SMS notifications"
+msgstr "ارسال اعلانات پیامک"
+
+#: templates/admin/settings/settings-page.php:65
+msgid "File upload in submit form"
+msgstr "بارگذاری فایل فرم ارسال تیکت"
+
+#: templates/admin/settings/settings-page.php:71
+#: templates/admin/settings/statuses.php:10
+#: templates/admin/settings/template.php:69
+msgid "Statuses"
+msgstr "وضعیت‌ها"
+
+#: templates/admin/settings/settings-page.php:72
+msgid "Manage and create statuses"
+msgstr "مدیریت و ایجاد وضعیت‌ها"
+
+#: templates/admin/settings/settings-page.php:79
+msgid "All text used in ticket panel"
+msgstr "تمامی متن‌ها پنل تیکت"
+
+#: templates/admin/settings/settings-page.php:86
+msgid "Misc ticket settings"
+msgstr "پیکربندی متفرقه تیکت"
+
+#: templates/admin/settings/settings-page.php:92
+msgid "Info"
+msgstr "اطلاعات"
+
+#: templates/admin/settings/settings-page.php:93
+msgid "Info about plugin"
+msgstr "اطلاعات درباره افزونه"
+
+#: templates/admin/settings/settings-page.php:119
+msgid "Information"
+msgstr "اطلاعات"
+
+#: templates/admin/settings/settings-page.php:126
+msgid "version "
+msgstr "نسخه "
+
+#: templates/admin/settings/settings-page.php:128
+msgid "By:"
+msgstr "بدست:"
+
+#. Author of the plugin/theme
+#: templates/admin/settings/settings-page.php:129
+msgid "S.Reza Salehi"
+msgstr "سید رضا صالحی"
+
+#: templates/admin/settings/settings-page.php:141
+msgid "Ticket panel"
+msgstr "پنل تیکت"
+
+#: templates/admin/settings/settings-page.php:147
+msgid "Total tickets"
+msgstr "تعداد تیکت‌ها"
+
+#: templates/admin/settings/settings-page.php:153
+msgid "Total user tickets"
+msgstr "تعداد تیکت‌های کاربر"
+
+#: templates/admin/settings/settings-page.php:162
+msgid "Save changes"
+msgstr "ذخیره تغییرات"
+
+#: templates/admin/settings/sms.php:24
+msgid "Notifications config"
+msgstr "پیکربندی اعلانات"
+
+#: templates/admin/settings/sms.php:25
+#, php-format
+msgid "To configure notifications, watch %s of the training video."
+msgstr "برای پیکربندی اعلانات %s ویدئوی آموزشی را مشاهده نمایید."
+
+#: templates/admin/settings/sms.php:25
+msgid "part 7"
+msgstr "قسمت 7"
+
+#: templates/admin/settings/sms.php:33
+msgid "SMS service"
+msgstr "سرویس دهنده پیامک"
+
+#: templates/admin/settings/sms.php:36 templates/admin/settings/sms.php:106
+#: templates/front/submit-ticket.php:84
+msgid "Please select an item."
+msgstr "لطفا یک مورد را انتخاب نمایید."
+
+#: templates/admin/settings/sms.php:91
+msgid "SMS username"
+msgstr "نام کاربری پیامک"
+
+#: templates/admin/settings/sms.php:95
+msgid "SMS password"
+msgstr "رمزعبور پیامک"
+
+#: templates/admin/settings/sms.php:99
+msgid "SMS from"
+msgstr "شماره ارسال کننده پیامک"
+
+#: templates/admin/settings/sms.php:103
+msgid "Mobile meta key"
+msgstr "کلید شماره موبایل"
+
+#: templates/admin/settings/sms.php:120
+msgid ""
+"User must register your mobile number in your profile to receive SMS. If you "
+"use another plugin to register a user's mobile number, select the mobile meta "
+"key."
+msgstr ""
+"کاربر جهت دریافت پیامک بایستی شماره همراه خود را در پروفایل خود ثبت نمایید. "
+"چنانچه از افزونه دیگری جهت دریافت شماره همراه کاربر استفاده می‌کنید، کلید شماره "
+"موبایل را انتخاب نمایید."
+
+#: templates/admin/settings/sms.php:132
+msgid "Put the code you used in the pattern into a separate line."
+msgstr "کدهایی که در الگو استفاده کرده‌اید را در یک خط مجزا قرار دهید."
+
+#: templates/admin/settings/sms.php:157
+msgid "User name (Guest)"
+msgstr "نام کاربر (مهمان)"
+
+#: templates/admin/settings/sms.php:196 templates/admin/settings/sms.php:199
+msgid "Send SMS test"
+msgstr "تست ارسال پیامک"
+
+#: templates/admin/settings/sms.php:200
+msgid ""
+"Before sending the test, please adjust the settings of the ticket create tab."
+msgstr "قبل از تست ارسال لطفا تنظیمات تب ایجاد تیکت را انجام دهید."
+
+#: templates/admin/settings/sms.php:207 templates/admin/submit-page.php:502
+msgid "Send"
+msgstr "ارسال"
+
+#: templates/admin/settings/statuses.php:13
+msgid "Default status"
+msgstr "وضعیت‌ پیشفرض"
+
+#: templates/admin/settings/statuses.php:30
+msgid "Select the default status to respond to the admin panel."
+msgstr "وضعیت پیشفرض جهت پاسخگویی در پنل مدیریت را انتخاب نمایید."
+
+#: templates/admin/settings/statuses.php:34
+msgid "Open color"
+msgstr "رنگ باز"
+
+#: templates/admin/settings/statuses.php:38
+msgid "Closed color"
+msgstr "رنگ بسته"
+
+#: templates/admin/settings/statuses.php:42
+msgid "Answered color"
+msgstr "رنگ پاسخ داده شده"
+
+#: templates/admin/settings/statuses.php:46
+msgid "Finished color"
+msgstr "رنگ پایان یافته"
+
+#: templates/admin/settings/statuses.php:50
+msgid "Canceled color"
+msgstr "رنگ لغوشده"
+
+#: templates/admin/settings/statuses.php:54
+msgid "Trash color"
+msgstr "رنگ زباله‌دان"
+
+#: templates/admin/settings/statuses.php:58
+msgid "Custom statuses"
+msgstr "وضعیت‌های سفارشی"
+
+#: templates/admin/settings/statuses.php:68
+#: templates/admin/settings/template.php:117
+#: templates/admin/settings/template.php:135
+msgid "New item"
+msgstr "مورد جدید"
+
+#: templates/admin/settings/template.php:12
+msgid "Tickets list"
+msgstr "لیست تیکت‌ها"
+
+#: templates/admin/settings/template.php:73
+#: templates/admin/settings/template.php:88
+msgid "Show"
+msgstr "نمایش"
+
+#: templates/admin/settings/template.php:79
+#: templates/admin/settings/template.php:94
+msgid "Hide"
+msgstr "مخفی"
+
+#: templates/admin/settings/template.php:99
+msgid "Help text"
+msgstr "متن راهنما"
+
+#: templates/admin/settings/template.php:103
+msgid "Fags"
+msgstr "سوالات متداول"
+
+#: templates/admin/settings/template.php:114
+#: templates/admin/settings/template.php:132
+msgid "Enter in this format:"
+msgstr "با این فرمت وارد نمایید:"
+
+#: templates/admin/settings/template.php:115
+msgid "Title:Content"
+msgstr "عنوان:محتوا"
+
+#: templates/admin/settings/template.php:121
+msgid "Help links"
+msgstr "لینک‌های راهنما"
+
+#: templates/admin/settings/template.php:133
+msgid "Title:Link"
+msgstr "عنوان:لینک"
+
+#: templates/admin/settings/template.php:139
+msgid "User ticket background color"
+msgstr "رنگ پس‌زمینه تیکت کاربر"
+
+#: templates/admin/settings/template.php:144
+msgid "User ticket text color"
+msgstr "رنگ متن تیکت کاربر"
+
+#: templates/admin/settings/template.php:149
+msgid "Admin ticket background color"
+msgstr "رنگ پس‌زمینه تیکت مدیر"
+
+#: templates/admin/settings/template.php:154
+msgid "Admin ticket text color"
+msgstr "رنگ متن تیکت مدیر"
+
+#: templates/admin/settings/template.php:159
+msgid "Vendor ticket background color"
+msgstr "رنگ پس‌زمینه تیکت فروشنده"
+
+#: templates/admin/settings/template.php:164
+msgid "Vendor ticket text color"
+msgstr "رنگ متن تیکت فروشنده"
+
+#: templates/admin/settings/template.php:169
+msgid "Message text color"
+msgstr "رنگ متن پیغام"
+
+#: templates/admin/settings/template.php:174
+msgid "Message background color"
+msgstr "رنگ پس‌زمینه پیغام"
+
+#: templates/admin/settings/template.php:179
+msgid "Custom CSS"
+msgstr "CSS سفارشی"
+
+#: templates/admin/settings/template.php:183
+msgid "Header text"
+msgstr "متن سربرگ"
+
+#: templates/admin/settings/template.php:187
+msgid "This text is displayed on the admin's ticket header."
+msgstr "این متن در سربرگ تیکت‌های مدیر نمایش داده می‌شود."
+
+#: templates/admin/settings/template.php:201
+msgid "Footer text"
+msgstr "متن پابرگ"
+
+#: templates/admin/settings/template.php:205 templates/admin/submit-page.php:316
+msgid "Message"
+msgstr "پیغام"
+
+#: templates/admin/settings/upload.php:24
+msgid "Auto proceed"
+msgstr "بارگذاری خودکار"
+
+#: templates/admin/settings/upload.php:28
+msgid "Maximum number of files"
+msgstr "بیشترین تعداد مجاز فایل"
+
+#: templates/admin/settings/upload.php:33
+msgid "Voice message"
+msgstr "پیام صوتی"
+
+#: templates/admin/settings/upload.php:39
+msgid "SSL is required to use this feature."
+msgstr "جهت استفاده از این قابلیت به SSL  نیاز هست."
+
+#: templates/admin/settings/upload.php:48
+msgid "Enter the maximum file size in MB."
+msgstr "بیشترین حجم فایل را به مگابایت وارد نمایید."
+
+#: templates/admin/settings/upload.php:56
+msgid "Separate allowed extensions with commas."
+msgstr "فرمت‌های مجاز را با ویرگول از هم جدا کنید."
+
+#: templates/admin/settings/upload.php:60
+msgid "Width"
+msgstr "عرض"
+
+#: templates/admin/settings/upload.php:64
+msgid "Height"
+msgstr "ارتفاع"
+
+#: templates/admin/settings/upload.php:68
+msgid "FTP upload"
+msgstr "بارگذاری FTP"
+
+#: templates/admin/settings/upload.php:76
+msgid "Server, for example:"
+msgstr "سرور، برای نمونه:"
+
+#: templates/admin/settings/upload.php:79
+msgid "Port"
+msgstr "پورت"
+
+#: templates/admin/settings/upload.php:88
+msgid "Structure, for example: subfolder1/subfolder12"
+msgstr "ساختار، برای نمونه: subfolder1/subfolder12"
+
+#: templates/admin/settings/woocommerce.php:26
+msgid "Support type"
+msgstr "نوع پشتیبانی"
+
+#: templates/admin/settings/woocommerce.php:41
+msgid "Support departments"
+msgstr "دپارتمان‌های پشتیبانی"
+
+#: templates/admin/settings/woocommerce.php:54
+msgid "Products support"
+msgstr "پشتیبانی محصولات"
+
+#: templates/admin/settings/woocommerce.php:58
+msgid ""
+"This option allows you to provide support only for Woocommerce products that "
+"the user has purchased."
+msgstr ""
+"این گزینه به شما اجازه می‌دهد فقط برای محصولات ووکامرس که کاربر خرید کرده است "
+"پشتیبانی ارائه دهید."
+
+#: templates/admin/settings/woocommerce.php:64
+msgid "Enabling this option only users who have purchased can submit ticket."
+msgstr ""
+"با فعال کردن این گزینه فقط کاربرانی که خرید کرده‌اند می‌توانند تیکت ارسال کنند."
+
+#: templates/admin/settings/woocommerce.php:68
+msgid ""
+"Separate the products ID who were disabled for ticket submitting with the "
+"English comma."
+msgstr ""
+"شناسه محصولاتی که برای ارسال تیکت غیرفعال شده‌اند را با ویرگول انگلیسی از هم "
+"جدا کنید."
+
+#: templates/admin/settings/woocommerce.php:72
+msgid "Expire time"
+msgstr "زمان اتمام"
+
+#: templates/admin/settings/woocommerce.php:76
+#: templates/admin/settings/woocommerce.php:93
+msgid "Limited"
+msgstr "محدود"
+
+#: templates/admin/settings/woocommerce.php:85
+msgid ""
+"Selecting a limited option should set the expiration date for Woocommerce "
+"products."
+msgstr ""
+"با انتخاب گزینه محدود بایستی برای محصولات ووکامرس مدت زمان انقضای پشتیبانی "
+"تعیین نمایید."
+
+#: templates/admin/settings/woocommerce.php:102
+msgid ""
+"Selecting a limited option should set the maximum count for Woocommerce "
+"products."
+msgstr ""
+"با انتخاب گزینه محدود بایستی برای محصولات ووکامرس تعداد حداکثر تیکت تعیین "
+"نمایید."
+
+#: templates/admin/settings/woocommerce.php:107
+msgid "Default expire days"
+msgstr "روزهای انقضای پیشفرض (سفارش)"
+
+#: templates/admin/settings/woocommerce.php:111
+msgid "Default max count"
+msgstr "بیشترین تعداد پیشفرض (سفارش)"
+
+#: templates/admin/settings/woocommerce.php:117
+msgid "Order statuses"
+msgstr "وضعیت‌های سفارش"
+
+#: templates/admin/settings/woocommerce.php:133
+msgid "Select the status of the order for which it is possible to send a ticket."
+msgstr ""
+"وضعیت‌هایی از سفارش که امکان ارسال تیکت برای آنها وجود دارد را انتخاب نمایید."
+
+#: templates/admin/settings/woocommerce.php:142
+msgid "Show bought products item in user account"
+msgstr "نمایش محصولات خریداری شده در پنل کاربری"
+
+#: templates/admin/settings/woocommerce.php:147
+msgid "Bought products shortcode:"
+msgstr "کدکوتاه محصولات خریداری شده:"
+
+#: templates/admin/settings/woocommerce.php:161
+msgid "Disable discount coupon"
+msgstr "غیرفعال‌سازی کوپن تخفیف"
+
+#: templates/admin/settings/woocommerce.php:167
+msgid "Disable shipping"
+msgstr "غیرفعال‌سازی حمل و نقل"
+
+#: templates/admin/settings/woocommerce.php:173
+msgid "Enable this option only if there is a problem with the extension process."
+msgstr "چنانچه در فرایند تمدید مشکل دارید این گزینه را فعال کنید."
+
+#: templates/admin/settings/woocommerce.php:178
+msgid "Extension disabled fields"
+msgstr "فیلدهای غیرفعال تمدید"
+
+#: templates/admin/settings/woocommerce.php:182
+msgid "First name"
+msgstr "نام"
+
+#: templates/admin/settings/woocommerce.php:188
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+#: templates/admin/settings/woocommerce.php:194
+msgid "Company"
+msgstr "شرکت"
+
+#: templates/admin/settings/woocommerce.php:200
+msgid "Country"
+msgstr "کشور"
+
+#: templates/admin/settings/woocommerce.php:206
+msgid "Address 1"
+msgstr "آدرس 1"
+
+#: templates/admin/settings/woocommerce.php:212
+msgid "Address 2"
+msgstr "آدرس 2"
+
+#: templates/admin/settings/woocommerce.php:218
+msgid "City"
+msgstr "شهر"
+
+#: templates/admin/settings/woocommerce.php:224
+msgid "State"
+msgstr "استان"
+
+#: templates/admin/settings/woocommerce.php:230
+msgid "Postcode"
+msgstr "کدپستی"
+
+#: templates/admin/settings/woocommerce.php:236
+msgid "Phone"
+msgstr "تلفن"
+
+#: templates/admin/settings/woocommerce.php:248
+msgid "Note"
+msgstr "یادداشت"
+
+#: templates/admin/settings/woocommerce.php:253
+msgid "Vendor support departments"
+msgstr "دپارتمان‌های پشتیبانی فروشنده"
+
+#: templates/admin/settings/woocommerce.php:266
+msgid "Vendor submit ticket departments"
+msgstr "دپارتمان‌های ارسال تیکت فروشنده"
+
+#: templates/admin/settings/woocommerce.php:279
+msgid "Product auto ticket"
+msgstr "تیکت خودکار محصول"
+
+#: templates/admin/settings/woocommerce.php:283
+msgid "Inactive"
+msgstr "غیرفعال"
+
+#: templates/admin/submit-page.php:90
+msgid "Ticket info"
+msgstr "اطلاعات تیکت"
+
+#: templates/admin/submit-page.php:104
+msgid "Fields data"
+msgstr "داده‌ فیلدها"
+
+#: templates/admin/submit-page.php:111
+msgid "User orders"
+msgstr "سفارشات کاربر"
+
+#: templates/admin/submit-page.php:118
+msgid "Ratings"
+msgstr "امتیاز"
+
+#: templates/admin/submit-page.php:164 templates/admin/submit-page.php:211
+msgid "View profile"
+msgstr "نمایش پروفایل"
+
+#: templates/admin/submit-page.php:234
+msgid "Registered from"
+msgstr "ثبت‌نام از"
+
+#: templates/admin/submit-page.php:264
+msgid "View product"
+msgstr "مشاهده محصول"
+
+#: templates/admin/submit-page.php:320
+msgid "Text color HEX code::Background color HEX code::Text"
+msgstr "کد رنگ متن::کد رنگ پس‌زمینه::متن"
+
+#: templates/admin/submit-page.php:357
+msgid "View all user orders"
+msgstr "نمایش همه سفارشات کاربر"
+
+#: templates/admin/submit-page.php:376
+msgid "Yes"
+msgstr "بله"
+
+#: templates/admin/submit-page.php:511
+msgid "Send notification"
+msgstr "ارسال اعلان"
+
+#: templates/admin/submit-page.php:537
+msgid "Save and send"
+msgstr "ذخیره و ارسال"
+
+#: templates/admin/submit-page.php:575
+msgid "Process"
+msgstr "پروسه"
+
+#: templates/admin/submit-page.php:601
+msgid "Annotation"
+msgstr "یادداشت"
+
+#: templates/admin/submit-page.php:607
+msgid "Add annotation"
+msgstr "افزودن یادداشت"
+
+#: templates/admin/ticket-page.php:22
+msgid "Export"
+msgstr "برون‌بری"
+
+#: templates/admin/ticket-page.php:69
+msgid "All departments"
+msgstr "همه دپارتمان‌ها"
+
+#: templates/admin/ticket-page.php:119
+msgid "Start date"
+msgstr "تاریخ شروع"
+
+#: templates/admin/ticket-page.php:120
+msgid "End date"
+msgstr "تاریخ پایان"
+
+#: templates/admin/ticket-page.php:128
+msgid "Empty trash"
+msgstr "خالی کردن زباله‌دان"
+
+#: templates/front/submit-ticket.php:113 templates/front/submit-ticket.php:138
+msgid ""
+"No child departments found! Create child department for all main departments."
+msgstr ""
+"دپارتمان فرزندی یافت نشد! برای همه دپارتمان‌های اصلی دپارتمان فرزند ایجاد "
+"نمایید."
+
+#: templates/front/submit-ticket.php:152
+msgid "No departments found! Create departments first."
+msgstr "دپارتمانی یافت نشد! ابتدا دپارتمان‌ها را ایجاد نمایید."
+
+#: templates/front/submit-ticket.php:153
+msgid "Click here"
+msgstr "اینجا کلیک کنید"
+
+#. Plugin URI of the plugin/theme
+msgid "https://zhaket.com/web/wp-advanced-support-ticket"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This is a powerful plugin to build and maintain better customer relationships."
+msgstr "این یک افزونه قدرتمند برای ایجاد و حفظ روابط بهتر مشتری است."
+
+#. Author URI of the plugin/theme
+msgid "http://sreza-salehi.ir"
+msgstr ""
+
+#~ msgid "Server"
+#~ msgstr "سرور"
+
+#~ msgid "Repair date"
+#~ msgstr "اصلاح تاریخ"
+
+#~ msgid "Repair timezone"
+#~ msgstr "اصلاح منطقه زمانی"
+
+#, fuzzy
+#~| msgid "Tickets"
+#~ msgid "Tickets."
+#~ msgstr "تیکت‌ها"
+
+#~ msgid "Register version"
+#~ msgstr "ثبت نسخه"
+
+#~ msgid ""
+#~ "You already register your license key. to re validate it, you can use this "
+#~ "form."
+#~ msgstr ""
+#~ "شما قبلا لایسنس این محصول را ثبت کرده‌اید. جهت اعتبارسنجی مجدد می‌توانید از "
+#~ "این فرم استفاده کنید."
+
+#~ msgid "Your current license:"
+#~ msgstr "لایسنس کنونی شما:"
+
+#~ msgid "Revalidate"
+#~ msgstr "اعتبارسنجی مجدد"
+
+#~ msgid "Delete and submit another license"
+#~ msgstr "حذف و ارسال لایسنس دیگر"
+
+#~ msgid "Please wait..."
+#~ msgstr "لطفا صبر کنید..."
+
+#~ msgid "Please activate plugin with your license key to all features work."
+#~ msgstr ""
+#~ "جهت برخورداری از کلیه امکانات افزونه، لطفا افزونه را با کلید لایسنس خود "
+#~ "فعال کنید."
+
+#~ msgid "License key"
+#~ msgstr "کلید لایسنس"
+
+#~ msgid "Please insert your license code"
+#~ msgstr "لطفا کلید لایسنس خود را وارد نمایید"
+
+#~ msgid "License code is valid."
+#~ msgstr "کد لایسنس معتبر است."
+
+#~ msgid "Thanks! Your license activated successfully."
+#~ msgstr "تشکر! لایسنس شما با موفقیت فعال شد."
+
+#~ msgid "Register Now"
+#~ msgstr "ثبت"
+
+#~ msgid ""
+#~ "your server curl has problem, return code:%s, please ticket to host to fix "
+#~ "curl problem for url %s"
+#~ msgstr ""
+#~ "خطای CURL سرور رخ داده است. کد خطا: %s لطفا با میزبان هاست خود در تماس "
+#~ "باشید. آدرس: %s"
+
+#~ msgid "Enter the width in percentage."
+#~ msgstr "عرض را برحسب درصد درج نمایید."
+
+#~ msgid "Enter the height in pixel."
+#~ msgstr "ارتفاع را برحسب پیکسل درج نمایید."
+
+#~ msgid "All priorities"
+#~ msgstr "همه وضعیت‌ها"
+
+#~ msgid "Whatsapp content"
+#~ msgstr "محتوای واتساپ"
+
+#~ msgid "Whatsapp"
+#~ msgstr "واتساپ"
+
+#~ msgid "Send whatsapp notifications"
+#~ msgstr "ارسال اعلانات واتساپ"
+
+#~ msgid "Advanced"
+#~ msgstr "پیشرفته"
+
+#~ msgid "Key"
+#~ msgstr "کلید"
+
+#~ msgid "Get the key from here."
+#~ msgstr "کلید را از اینجا دریافت نمایید."
+
+#~ msgid "You can default status in settings > statuses."
+#~ msgstr "وضعیت پیشفرض را می‌توانید در پیکربندی > وضعیت‌ها انتخاب نمایید."
+
+#~ msgid "Default"
+#~ msgstr "پیشفرض"
+
+#~ msgid "Specials characters"
+#~ msgstr "کاراکترهای ویژه"
+
+#~ msgid "Extension expire days"
+#~ msgstr "روزهای انقضای تمدید"
+
+#~ msgid "Extension maximum count"
+#~ msgstr "حداکثر تعداد تمدید"
+
+#~ msgid "Extension amount"
+#~ msgstr "مبلغ تمدید"
+
+#~ msgid "No voice message recorded."
+#~ msgstr "هیچ پیام صوتی ضبط نشد."
+
+#~ msgid "Toman"
+#~ msgstr "تومان"
+
+#~ msgid ""
+#~ "To use this feature, deactivate and reactivate the plugin once. To update "
+#~ "database tables."
+#~ msgstr ""
+#~ "جهت استفاده از این قابلیت یکبار افزونه را غیرفعال و مجددا فعال نمایید تا "
+#~ "جداول پایگاه داده بروز شوند."
+
+#~ msgid "Test message from "
+#~ msgstr "پیامک تست از "
+
+#~ msgid "Phone number"
+#~ msgstr "شماره همراه"
+
+#~ msgid "HEX Code::Text"
+#~ msgstr "کد رنگ::متن"
+
+#~ msgid "Test parent department"
+#~ msgstr "دپارتمان تست والد"
+
+#~ msgid "Test child department"
+#~ msgstr "دپارتمان تست فرزند"
+
+#~ msgid "Visit our other products."
+#~ msgstr "از سایر محصولات ما دیدن فرمایید."
+
+#~ msgid "Support extension info"
+#~ msgstr "اطلاعات تمدید پشتیبانی"
+
+#~ msgid "Click to select an image."
+#~ msgstr "جهت انتخاب تصویر کلیک نمایید."
+
+#~ msgid "Please enter ticket title!"
+#~ msgstr "لطفا عنوان تیکت را وارد نمایید!"
+
+#~ msgid "Submit ticket reply"
+#~ msgstr "ارسال پاسخ تیکت"
+
+#~ msgid "Ticket columns"
+#~ msgstr "ستون‌های لیست تیکت‌ها"
+
+#~ msgid "Please select department!"
+#~ msgstr "لطفا دپارتمان را انتخاب نمایید!"
+
+#~ msgid "✓ Uploaded"
+#~ msgstr "✔ بارگذاری شد"
+
+#~ msgid "Upload successfully completed."
+#~ msgstr "✓ بارگذاری شد."
+
+#~ msgid "Recordings"
+#~ msgstr "ضبط‌ها"
+
+#~ msgid "Email is wrong!"
+#~ msgstr "ایمیل صحیح نمی‌باشد!"
+
+#~ msgid "Separate the users ID with the English comma."
+#~ msgstr "شناسه کاربران را با ویرگول انگلیسی از هم جدا کنید."

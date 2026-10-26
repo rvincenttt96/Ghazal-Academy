@@ -1,0 +1,157 @@
+@font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb_Medium.woff2') format('woff2'),
+         url('../fonts/IRANSansWeb_Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+	font-family: 'IRANSans';
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 30px;
+    margin: 0;
+    direction: rtl;
+}
+
+.report-card {
+    width: 600px;
+    background-color: #ff0000;
+    background-image: linear-gradient(0deg, #ff0000 0%, #ff3333 100%), url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="white" stroke-width="1"%3E%3Cpath d="M16 0 L32 8 L32 24 L16 32 L0 24 L0 8 Z" /%3E%3C/svg%3E');
+    background-size: 40px 40px;
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.logo img {
+ width: 100px;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin: 0 0 10px;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 0 0 20px;
+}
+
+.info {
+    background-color: white;
+    color: black;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: right;
+}
+
+.info div {
+	    display: inline-block;
+    width: 40%;
+    margin: 5px 0;
+    font-size: 16px;
+    align-content: stretch;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+
+    /* margin: 5px 0;
+    font-size: 16px; */
+}
+
+.table {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.total {
+    background-color: white;
+    color: black;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.no-print button {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 12px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-family: 'IRANSans', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.no-print button:hover {
+    background-color: #e4e1e1;
+    transform: scale(1.05);
+}
+
+.no-print button:active {
+    transform: scale(0.98);
+}
+
+.footer {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: right;
+}
+
+.no-print {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.no-print button {
+    background-color: #d32f2f;
+    color: white;
+    font-size: 16px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.no-print button:hover {
+    background-color: #b71c1c;
+}

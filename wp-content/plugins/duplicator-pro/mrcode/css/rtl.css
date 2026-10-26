@@ -1,0 +1,386 @@
+@font-face {
+    font-family: IRANYekanX;
+    font-style: normal;
+    font-weight: normal;
+    src: url('font.woff2') format('woff');  /* All Major Browsers */
+}
+.dup-styles, body.toplevel_page_duplicator-pro, body.toplevel_page_duplicator-pro h1, body.toplevel_page_duplicator-pro h2, body.toplevel_page_duplicator-pro h3, body.toplevel_page_duplicator-pro h4, body.toplevel_page_duplicator-pro h5, body.toplevel_page_duplicator-pro h6,
+body.duplicator-pro_page_duplicator-pro-import, body.duplicator-pro_page_duplicator-pro-import h1, body.duplicator-pro_page_duplicator-pro-import h2, body.duplicator-pro_page_duplicator-pro-import h3, body.duplicator-pro_page_duplicator-pro-import h4, body.duplicator-pro_page_duplicator-pro-import h5, body.duplicator-pro_page_duplicator-pro-import h6,
+body.duplicator-pro_page_duplicator-pro-schedules, body.duplicator-pro_page_duplicator-pro-schedules h1, body.duplicator-pro_page_duplicator-pro-schedules h2, body.duplicator-pro_page_duplicator-pro-schedules h3, body.duplicator-pro_page_duplicator-pro-schedules h4, body.duplicator-pro_page_duplicator-pro-schedules h5, body.duplicator-pro_page_duplicator-pro-schedules h6,
+body.duplicator-pro_page_duplicator-pro-storage, body.duplicator-pro_page_duplicator-pro-storage h1, body.duplicator-pro_page_duplicator-pro-storage h2, body.duplicator-pro_page_duplicator-pro-storage h3, body.duplicator-pro_page_duplicator-pro-storage h4, body.duplicator-pro_page_duplicator-pro-storage h5, body.duplicator-pro_page_duplicator-pro-storage h6,
+body.duplicator-pro_page_duplicator-pro-tools, body.duplicator-pro_page_duplicator-pro-tools h1, body.duplicator-pro_page_duplicator-pro-tools h2, body.duplicator-pro_page_duplicator-pro-tools h3, body.duplicator-pro_page_duplicator-pro-tools h4, body.duplicator-pro_page_duplicator-pro-tools h5, body.duplicator-pro_page_duplicator-pro-tools h6,
+body.duplicator-pro_page_duplicator-pro-settings, body.duplicator-pro_page_duplicator-pro-settings h1, body.duplicator-pro_page_duplicator-pro-settings h2, body.duplicator-pro_page_duplicator-pro-settings h3, body.duplicator-pro_page_duplicator-pro-settings h4, body.duplicator-pro_page_duplicator-pro-settings h5, body.duplicator-pro_page_duplicator-pro-settings h6, div.preview-area{
+    font-family: "IRANYekanX",Arial,Helvetica,Verdana,sans-serif !important;
+}
+body.rtl, body.rtl .press-this a.wp-switch-editor {
+    font-family: Tahoma,Arial,sans-serif;
+}
+.dpro-edit-toolbar .button + .button, .dpro-edit-toolbar select + .button {
+    margin-right: 5px;
+    margin-left: inherit;
+}
+.toplevel_page_duplicator-pro #TB_window, .toplevel_page_duplicator-pro #TB_ajaxContent {
+    text-align: right;
+}
+#dup-wiz a {
+    margin-left: 6px !important;
+    float: right !important;
+    margin-right: 0 !important;
+}
+div.dup-box-arrow {
+    float: left !important;
+}
+div.dup-box-title {
+    padding: 10px 10px 0 0 !important;
+}
+div.dup-button-footer {
+    padding: 1px 0 0px 10px !important;
+}
+div.dup-more-details {
+    float: left !important;
+}
+div#dup-msg-success {
+    text-align: right !important;
+}
+div.scan-item div.text {
+    float: right !important;
+    right: 10px !important;
+    left: inherit !important;
+}
+.scan-item .fa-caret-right{
+    transform: rotate(180deg);
+}
+.badge {
+    float: left !important;
+    left: 10px !important;
+    right: inherit !important;
+}
+.dpro-pkinfo .get-btns button {
+    margin: 2px 0 0 5px !important;
+}
+nav.dpro-dnload-menu-items, nav.dpro-bar-menu-items {
+    text-align: right !important;
+}
+div.all-packages {
+    float: left !important;
+}
+.dup-pro-toggle-sub-menu .dup-pro-toggle {
+    text-align: left !important;
+}
+.dpro-edit-toolbar td:last-child {
+    line-height: 48px;
+}
+table.dpro-edit-toolbar select {
+    float: right !important;
+}
+.dpro-edit-toolbar td:last-child {
+    text-align: left !important;
+    padding-left: 0px !important;
+    padding-right: 0 !important;
+}
+.weekday-div {
+    float: right !important;
+    margin-left: 15px !important;
+    margin-right: 0 !important;
+}
+#dup-settings-form div.engine-radio, #max_package_runtime_in_min {
+    float: right !important;
+}
+#dup-submenu-l2-duplicator-pro-settings-licensing {
+    display: none !important;
+}
+#php_max_worker_time_in_sec {
+    float: right !important;
+    margin-right: 0 !important;
+    margin-left: 6px;
+}
+table.dup-packtbl input[name="delete_confirm"] {
+    margin-right: 15px;
+    margin-left: 0 !important;
+}
+.dup-ovr-ctrls-flex-box .flex-item {
+    padding: 20px 10px 20px 40px !important;
+}
+.dup-pro-import-header .options {
+    left: 0;
+    right: inherit !important;
+}
+.dup-pro-import-view-list.active::before, .dup-pro-import-view-single.active::before {
+    right: -30px;
+    left: inherit !important;
+}
+.dup-pro-toggle-sub-menu ul li {
+    padding: 10px 40px 10px 10px !important;
+}
+#dup-pro-import-mode-tab-header > div {
+    float: right !important;
+}
+table.dup-import-avail-packs th, table.dup-import-avail-packs td {
+    text-align: right !important;
+}
+button.dup-box-arrow {
+    float: left !important;
+}
+button.pass-toggle {
+    left: 0px;
+    border-radius: 4px 0 0 4px !important;
+    right: inherit !important;
+}
+input#_installer_opts_secure_pass {
+    border-radius: 0 4px 4px 0 !important;
+}
+.dup-pro-recovery-active-link-header > .main-icon {
+    float: right !important;
+    margin-right: 0 !important;
+    margin-left: 10px;
+}
+.dup-pro-recovery-point-selector-area-wrapper .dup-pro-opening-packages-windows {
+    float: left !important;
+}
+.dup-pro-recovery-details-max-width-wrapper .dup-pro-recovery-buttons {
+    text-align: left !important;
+}
+.dup-pro-recovery-point-selector-area {
+    text-align: left !important;
+}
+.dup-pro-recovery-widget-wrapper .button {
+    margin-right: 10px;
+    margin-left: 0 !important;
+}
+.dup-pro-recovery-point-actions > .copy-link.disabled .copy-icon {
+    background-color: silver !important;
+}
+.dup-pro-recovery-point-actions > .copy-link .copy-icon {
+    background-color: #2271b1;
+}
+.dup-pro-recovery-point-actions > .copy-link .copy-icon {
+    left: -1px;
+    border-top-right-radius: 0px !important;
+    border-top-left-radius: 2px;
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 2px;
+    right: inherit !important;
+}
+#TB_closeWindowButton {
+    right: auto !important;
+    left: 0 !important;
+}
+#TB_ajaxWindowTitle {
+    float: right !important;
+    padding: 0 10px 0 29px !important;
+}
+div.dup-tabs-flat > div.data-tabs > a {
+    margin: 0 0 0 15px !important;
+}
+.dup-spinner > div.area-right, .dup-spinner > div.area-left {
+    transform: rotate(180deg);
+}
+div.dup-spin-hlp h3 {
+    font-size: 18px !important;
+}
+div.dup-spin-hlp {
+    font-size: 13px !important;
+}
+div.dup-ovr-continue {
+    text-align: left !important;
+    font-size: 14px !important;
+}
+div.dup-ovr-continue i {
+    transform: rotate(180deg);
+}
+div.dpro-dlg-alert-txt {
+    font-size: 14px !important;
+}
+.dup-spinner > div.area-nav .num {
+    padding-left: 10px;
+    margin-right: 0 !important;
+}
+div.dpro-dlg-alert-btns {
+    float: left !important;
+}
+table tr.storage-detail td {
+    padding: 3px 20px 5px 0 !important;
+}
+table tr.storage-detail div {
+    padding: 2px 15px 2px 2px !important;
+}
+.duplicator-pro_page_duplicator-pro-tools #TB_window, .duplicator-pro_page_duplicator-pro-tools #TB_ajaxContent {
+    text-align: right !important;
+}
+div.dpro-dlg-confirm-txt {
+    font-size: 14px !important;
+    line-height: 28px;
+}
+.dup-db-filter-buttons {
+    left: 0;
+    right: inherit !important;
+}
+nav.dup-dnload-menu-items button {
+    padding: 2px 8px 2px 2px !important;
+    text-align: right !important;
+}
+ul.category-tabs li button {
+    font-size: 14px !important;
+}
+div.dup-box-title {
+    font-size: 16px !important;
+}
+div.dup-packages {
+    float: left !important;
+    margin: -25px 0 0 0 !important;
+}
+.toplevel_page_duplicator-pro div.toggle-box {
+    float: left !important;
+    margin: 5px 0 5px 0 !important;
+}
+button#dup-trans-ovr {
+    float: left !important;
+}
+button#dup-pro-transfer-btn {
+    float: left !important;
+    margin: -20px 0 0 0 !important;
+    font-size: 13px !important;
+}
+table tr.brand-detail td {
+    padding: 3px 20px 5px 0 !important;
+}
+div.style-guide-link {
+    text-align: left !important;
+}
+div.preview-version {
+    font-style: normal !important;
+    padding: 0 0px 5px 15px !important;
+    float: left !important;
+}
+div.preview-title, div.preview-steps {
+    font-size: 16px !important;
+}
+div.preview-title {
+    padding: 10px 15px 7px 0 !important;
+}
+.duplicator-page #screen-meta-links {
+    left: 20px;
+    right: initial !important;
+}
+.dup-header {
+    padding-left: 20px !important;
+    right: -20px !important;
+    left: inherit !important;
+    padding-right: 25px !important;
+}
+.dup-package-components .custom-components-select {
+    margin-right: 10px;
+    margin-left: 0 !important;
+}
+.dpro-edit-toolbar .dup-new-package-wrapper {
+    margin: 0 10px 0 0 !important;
+}
+.dup-radio-button-group-wrapper input[type="radio"] {
+    right: -9999em;
+    left: inherit !important;
+}
+#duplicator-pro-help-search input {
+    padding: 10px 25px 10px 10px !important;
+    text-align: right !important;
+}
+.duplicator-pro-help-category header .fa-folder-open {
+    margin-right: 0 !important;
+    margin-left: 10px;
+}
+.duplicator-pro-help-category header .fa-angle-right {
+    margin-right: auto;
+    margin-left: inherit !important;
+}
+.duplicator-pro-help-article .fa-file-alt {
+    margin: 0 0 0 14px !important;
+}
+.dup-modal-close-button {
+    left: 0;
+    right: inherit !important;
+}
+table.dup-packtbl td.dup-list-nopackages {
+    font-size: 17px !important;
+}
+.dup-package-flags .icon-wrapper {
+    margin-right: 0 !important;
+    margin-left: 8px;
+}
+.dup-styles .dup-toolbar .button + .button, .dup-styles .dup-toolbar select + .button {
+    margin-right: 5px;
+    margin-left: 0 !important;
+}
+.dup-styles .dup-box .lbl-larger, .dup-styles .dup-settings-wrapper .lbl-larger {
+    float: right !important;
+}
+.dup-styles #dup-tool-php-logs-wrapper #error-log td {
+    text-align: right !important;
+}
+.dup-styles #dup-form-logs input#dup-auto-refresh {
+    margin-right: 10px;
+    margin-left: 0 !important;
+}
+.dup-styles #dup-tool-php-logs-wrapper td#dpro-log-pnl-right {
+    padding: 5px 15px 0 15px !important;
+}
+.dup-styles .dup-box .dup-box-arrow {
+    left: 1.25rem;
+    right: inherit !important;
+}
+.dup-styles.wrap {
+    margin: 10px 0 0 20px !important;
+}
+.dup-styles .dup-format-name-tags.margin-left-1 {
+    margin-right: 1.25rem !important;
+    margin-left: 0 !important;
+}
+.dup-styles div.dup-notes-add {
+    float: left !important;
+}
+.dup-styles .dpro-general-area .float-right {
+    float: left !important;
+}
+.dup-styles .dup-package-components .components-shortcut-select .button {
+    text-align: right !important;
+}
+.dup-styles label > [type="checkbox"], .dup-styles label > [type="radio"] {
+    margin-left: .625rem !important;
+}
+.dup-styles form#form-duplicator.scan-result .scan-header-details {
+    float: left !important;
+}
+.dup-styles [type="checkbox"] + label, .dup-styles [type="radio"] + label {
+    margin-right: .625rem !important;
+    margin-left: 1.25rem !important;
+}
+.dup-styles .dup-accordion-wrapper .accordion-header::after {
+    left: 1.25rem;
+    right: inherit !important;
+}
+.dup-styles .dup-tool-server-info table.widefat td {
+    padding: 2px 8px 2px 2px !important;
+}
+.dup-styles .dup-pro-recovery-widget-wrapper .button {
+    margin-left: 10px !important;
+    margin-right: 0 !important;
+}
+.dup-styles .dup-pro-recovery-widget-wrapper .button:last-child {
+    margin-left: 0 !important;
+}
+.dup-styles .dup-ovr-ctrls-hdrs .float-right {
+    float: left !important;
+}
+.dup-styles#TB_window .dpro-dlg-alert-btns {
+    float: right !important;
+}
+.dup-styles .dpro-admin-notice .notice-dismiss {
+    left: 10px !important;
+    right: inherit !important;
+}
+.dup-styles div.dup-package-hdr-usecurrent {
+    float: left !important;
+}
+.dup-styles i {
+    font-style: normal !important;
+    font-size: 13px;
+}
+

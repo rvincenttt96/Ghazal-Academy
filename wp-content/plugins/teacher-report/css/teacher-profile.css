@@ -1,0 +1,255 @@
+/* teacher-profile.css */
+
+/* فرم ورود نمرات - استایل مدرن */
+.teacher-form-wrapper {
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  margin-bottom: 32px;
+  font-family: "IRANSans", "Vazir", sans-serif;
+}
+
+.teacher-form-wrapper form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.teacher-form-wrapper h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+}
+
+.teacher-form-wrapper p {
+  flex: 1 1 calc(50% - 20px);
+  margin-bottom: 14px;
+  font-size: 15px;
+  color: #555;
+}
+
+.teacher-form-wrapper input[type="text"],
+.teacher-form-wrapper input[type="number"] {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fafafa;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+}
+
+.teacher-form-wrapper input[type="text"]:focus,
+.teacher-form-wrapper input[type="number"]:focus {
+  border-color: #3498db;
+  outline: none;
+  background-color: #fff;
+}
+
+.teacher-form-wrapper input[type="submit"] {
+  background-color: #3b82f6;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.teacher-form-wrapper input[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+/* جدول نمایش لیست کارنامه‌ها */
+.teacher-report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "IRANSans", "Vazir", sans-serif;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+/* هدر جدول */
+.teacher-report-table th{
+  background-color: #3b82f6;
+  color: white;
+  font-weight: bold;
+}
+
+.teacher-report-table th {
+  padding: 14px;
+  text-align: center;
+  font-size: 15px;
+  border: none;
+}
+
+/* استایل سلول‌های جدول */
+.teacher-report-table td {
+  padding: 14px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* رنگ‌بندی ردیف‌ها */
+.teacher-report-table tbody tr:nth-child(odd) {
+  background-color: #f8f9fc;
+}
+
+.teacher-report-table tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+/* افکت هاور روی سطرها */
+.teacher-report-table tbody tr:hover {
+  background: #eaf2ff;
+  transition: background 0.3s ease-in-out;
+}
+
+
+
+
+/* پیام موفقیت/خطا */
+.report-message-success {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: #155724;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.report-message-error {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: #721c24;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+/* دکمه‌های ویرایش و حذف داخل جدول */
+.teacher-report-table .action-button {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin: 2px;
+  text-decoration: none;
+  color: white;
+}
+
+.teacher-report-table .btn-edit {
+  background-color: #f39c12;
+}
+
+.teacher-report-table .btn-edit:hover {
+  background-color: #e67e22;
+}
+
+.teacher-report-table .btn-delete {
+  background-color: #e74c3c;
+}
+
+.teacher-report-table .btn-delete:hover {
+  background-color: #c0392b;
+}
+/* اسکرول فرم معلم  */
+.teacher-table-wrapper {
+	max-height: 400px; /* برای اسکرول عمودی */
+  overflow-x: auto;
+  max-width: 100%;
+  margin-top: 10px;
+  border-radius: 12px;
+}
+
+.teacher-table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.teacher-table-wrapper::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.teacher-table-wrapper::-webkit-scrollbar-thumb {
+  background-color: #bbb;
+  border-radius: 10px;
+}
+@media (max-width: 768px) {
+  /* فرم در موبایل */
+  .teacher-form-wrapper {
+    padding: 16px;
+	width: 100%;
+  }
+
+  .teacher-form-wrapper p {
+    flex: 1 1 100%;
+    margin-bottom: 10px;
+  }
+
+  .teacher-form-wrapper input[type="text"],
+  .teacher-form-wrapper input[type="number"],
+  .teacher-form-wrapper input[type="submit"] {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  /* جدول در موبایل */
+  .teacher-table-wrapper {
+    overflow-x: auto;
+    max-width: 100%; 
+  }
+
+  .teacher-report-table {
+    display: block;
+    width: 100%;
+    min-width: 600px; /* جلوگیری از شکستن جدول */
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .teacher-report-table th,
+  .teacher-report-table td {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  /* دکمه‌های اکشن در موبایل */
+  .teacher-report-table .action-button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  /* زیباسازی اسکرول جدول در موبایل */
+  .teacher-table-wrapper::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .teacher-table-wrapper::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+  }
+
+  .teacher-table-wrapper::-webkit-scrollbar-thumb {
+    background-color: #bbb;
+    border-radius: 10px;
+  }
+}
+
+

@@ -1,0 +1,18 @@
+.wpast-status {
+    padding: 0 15px;
+    white-space: nowrap;
+    border: 2px solid $gray-200;
+    line-height: 28px;
+    border-radius: 14px 0 14px 14px;
+    display: inline-flex;
+    align-items: center;
+    background: #ffffff;
+
+    .wpast-status-color {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 10px;
+    }
+}

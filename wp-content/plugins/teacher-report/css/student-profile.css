@@ -1,0 +1,108 @@
+/* student-profile.css */
+
+.student-reportcard-container {
+	width: 100%;
+  background-color: #f9fafb;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Vazir", sans-serif;
+}
+
+.student-reportcard-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  border-bottom: 2px solid #3b82f6;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.student-reportcard-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.student-reportcard-table th,
+.student-reportcard-table td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 14px;
+}
+
+.student-reportcard-table th {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: bold;
+}
+
+.student-reportcard-table tr:nth-child(even) {
+  background-color: #f1f5f9;
+}
+
+.student-reportcard-table tr:hover {
+  background-color: #e0f2fe;
+  transition: 0.3s ease;
+}
+
+.student-reportcard-table td a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.student-reportcard-table td a:hover {
+  color: #1e40af;
+  text-decoration: underline;
+}
+
+/* استایل جدید برای نمایش کارنامه در موبایل */
+@media screen and (max-width: 768px) {
+  .student-reportcard-table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .student-reportcard-table thead {
+    display: table-header-group;
+    background: #3b82f6;
+    color: white;
+  }
+  .student-reportcard-table tr {
+    display: table-row;
+    background: white;
+  }
+  .student-reportcard-table th, .student-reportcard-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+  }
+  .student-reportcard-table th {
+    font-weight: bold;
+  }
+  .student-reportcard-table tr:nth-child(even) {
+    background-color: #f1f5f9;
+  }
+  .student-reportcard-table tr:hover {
+    background-color: #e0f2fe;
+    transition: 0.3s ease;
+  }
+  .student-reportcard-table td a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .student-reportcard-table td a:hover {
+    color: #1e40af;
+    text-decoration: underline;
+  }
+}
+
