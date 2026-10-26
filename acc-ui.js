@@ -824,6 +824,17 @@
         }
       });
       searchBox.appendChild(closeBtn);
+
+      if (!searchBox.dataset.gzOutsideBound) {
+        searchBox.dataset.gzOutsideBound = '1';
+        document.addEventListener('pointerdown', function onDocPointer(e) {
+          if (!document.documentElement.classList.contains('gz-acc-search-open')) return;
+          if (searchBox && searchBox.contains(e.target)) return;
+          var toggleBtn = header && header.querySelector('button.sm\\:hidden, button[class*="sm:hidden"]');
+          if (toggleBtn && toggleBtn.contains(e.target)) return;
+          closeBtn.click();
+        });
+      }
     }
   }
 
@@ -991,6 +1002,7 @@
     document.addEventListener('focusin', keepFocusedInView, true);
     document.addEventListener('focusout', function () {
       window.setTimeout(function () {
+        window.scrollTo(0, 0);
         var main = document.querySelector('#root main');
         if (main) {
           main.scrollTop = main.scrollTop;
