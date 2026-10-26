@@ -13,7 +13,7 @@
   var authSettled = false;
   var APP_CSS = '/assets/index-BzoE7TQo.css?v=acc-yekan2';
   var APP_JS = '/assets/index-DMmAISFC.js?v=clock-fix1';
-  var APP_EXTRAS = ['/term-menu.js?v=term-tags-9', '/payroll.js?v=pay-boot4', '/acc-ui.js?v=mobi2', '/bookstore.js?v=books3'];
+  var APP_EXTRAS = ['/term-menu.js?v=term-tags-9', '/payroll.js?v=pay-boot4', '/acc-ui.js?v=mobi4', '/bookstore.js?v=books3'];
 
   function rtlTabTitle() {
     var el = document.querySelector("title");
