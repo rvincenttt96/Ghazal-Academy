@@ -2355,6 +2355,7 @@ html.gz-app-ready #root main {
     background: rgba(10, 10, 14, 0.98) !important;
     backdrop-filter: blur(24px) !important;
     -webkit-backdrop-filter: blur(24px) !important;
+    border: none !important;
     border-bottom: 1px solid rgba(244, 63, 94, 0.4) !important;
     border-radius: 0 !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
