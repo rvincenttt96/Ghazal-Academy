@@ -190,7 +190,7 @@ html.gz-app-ready #root main {
     height: auto;
   }
 
-  #root header button {
+  #root header button:not(.gz-term-btn):not(.gz-search-close-btn) {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -844,8 +844,11 @@ html.gz-books-open #gz-books {
   html.gz-books-open #gz-books,
   html.gz-books-open #gz-books.gz-pay--page {
     flex: 0 1 auto !important;
+    height: auto !important;
     min-height: 0 !important;
-    padding: 12px 12px calc(140px + env(safe-area-inset-bottom, 24px)) !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 12px 12px calc(180px + env(safe-area-inset-bottom, 24px) + var(--gz-kb-offset, 0px)) !important;
     box-sizing: border-box !important;
   }
 
@@ -2309,12 +2312,40 @@ html.gz-app-ready #root main {
 }
 
 @media (max-width: 1023px) {
+  html.gz-app-ready,
+  html.gz-app-ready.gz-pay-open,
+  html.gz-app-ready.gz-books-open {
+    height: auto !important;
+    min-height: 100% !important;
+    max-height: none !important;
+    overflow-x: clip !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  html.gz-app-ready body,
+  html.gz-app-ready.gz-pay-open body,
+  html.gz-app-ready.gz-books-open body {
+    height: auto !important;
+    min-height: 100dvh !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-x: clip !important;
+    overflow-y: visible !important;
+  }
+
+  html.gz-app-ready #root,
   html.gz-app-ready #root > div,
   html.gz-app-ready #root > [class*="h-dvh"],
   html.gz-app-ready #root > [class*="min-h-screen"] {
-    overflow: hidden !important;
-    height: 100dvh !important;
-    max-height: 100dvh !important;
+    display: block !important;
+    overflow: visible !important;
+    overflow-x: clip !important;
+    overflow-y: visible !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    max-height: none !important;
   }
 
   html.gz-app-ready #root main > header,
@@ -2335,78 +2366,111 @@ html.gz-app-ready #root main {
     padding-bottom: 8px !important;
   }
 
+  html.gz-app-ready.gz-acc-search-open #root header > div > button,
+  html.gz-app-ready.gz-acc-search-open #root header [data-gz-clock="1"],
+  html.gz-app-ready.gz-acc-search-open #root header #gz-tehran-clock,
+  html.gz-app-ready #root header:has([class*="inset-x-4"][class*="absolute"]) > div > button,
+  html.gz-app-ready #root header:has([class*="inset-x-4"][class*="absolute"]) [data-gz-clock="1"],
+  html.gz-app-ready #root header:has([class*="inset-x-4"][class*="absolute"]) #gz-tehran-clock {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
   html.gz-app-ready #root header [class*="inset-x-4"][class*="absolute"] {
     position: absolute !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 56px !important;
-    max-height: 100% !important;
+    top: max(6px, env(safe-area-inset-top, 6px)) !important;
+    bottom: 6px !important;
+    left: 10px !important;
+    right: 10px !important;
+    inset: max(6px, env(safe-area-inset-top, 6px)) 10px 6px 10px !important;
+    width: auto !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
     transform: none !important;
-    z-index: 85 !important;
+    translate: none !important;
+    rotate: none !important;
+    scale: none !important;
+    --tw-translate-x: 0 !important;
+    --tw-translate-y: 0 !important;
+    margin: 0 !important;
+    z-index: 95 !important;
     display: flex !important;
+    flex-direction: row !important;
     align-items: center !important;
     gap: 8px !important;
-    padding: max(6px, env(safe-area-inset-top, 0px)) 12px 6px 12px !important;
-    background: rgba(10, 10, 14, 0.98) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-    border: none !important;
-    border-bottom: 1px solid rgba(244, 63, 94, 0.4) !important;
-    border-radius: 0 !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+    padding: 0 12px 0 6px !important;
+    background: #141420 !important;
+    border: 1.5px solid rgba(244, 63, 94, 0.55) !important;
+    border-radius: 999px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65) !important;
     box-sizing: border-box !important;
+  }
+
+  html.gz-app-ready #root header [class*="inset-x-4"][class*="absolute"] > svg {
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+    color: #fb7185 !important;
   }
 
   html.gz-app-ready #root header [class*="inset-x-4"] input {
     font-size: 16px !important;
-    min-height: 40px !important;
-    height: 40px !important;
+    min-height: 38px !important;
+    height: 38px !important;
     line-height: 1.3 !important;
     flex: 1 1 0% !important;
     width: 100% !important;
     min-width: 0 !important;
-    background: rgba(255, 255, 255, 0.07) !important;
-    border: 1px solid rgba(244, 63, 94, 0.35) !important;
-    border-radius: 999px !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
     color: #fff !important;
-    padding: 0 14px 0 12px !important;
+    padding: 0 4px !important;
+    margin: 0 !important;
     outline: none !important;
     box-sizing: border-box !important;
   }
 
   html.gz-app-ready #root header [class*="inset-x-4"] input:focus {
-    border-color: #f43f5e !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.25) !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
   }
 
+  html.gz-app-ready #root header button.gz-search-close-btn,
   .gz-search-close-btn {
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    min-height: 36px !important;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    max-width: 30px !important;
+    max-height: 30px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     border-radius: 999px !important;
-    background: rgba(244, 63, 94, 0.15) !important;
-    border: 1px solid rgba(244, 63, 94, 0.35) !important;
+    background: rgba(244, 63, 94, 0.18) !important;
+    border: 1px solid rgba(244, 63, 94, 0.4) !important;
     color: #fca5a5 !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     line-height: 1 !important;
     cursor: pointer !important;
     flex-shrink: 0 !important;
     padding: 0 !important;
+    margin: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
   }
 
+  html.gz-app-ready #root header button.gz-search-close-btn:active,
   .gz-search-close-btn:active {
     transform: scale(0.92) !important;
-    background: rgba(244, 63, 94, 0.3) !important;
+    background: rgba(244, 63, 94, 0.35) !important;
   }
 
   html.gz-app-ready #root header button:not(.gz-term-btn):not(.gz-search-close-btn) {
@@ -2450,12 +2514,30 @@ html.gz-app-ready #root main {
   }
 
   html.gz-app-ready #root [class*="max-h-[90vh]"] {
-    max-height: min(92dvh, 100%) !important;
+    max-height: min(90dvh, calc(100dvh - 16px)) !important;
     width: 100% !important;
     max-width: 100% !important;
     margin: 0;
-    padding: 16px 14px calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+    padding: 16px 14px calc(20px + env(safe-area-inset-bottom, 12px)) !important;
     border-radius: 20px 20px 0 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  html.gz-app-ready #root [class*="max-h-[90vh]"] > div:last-child {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 16px) + var(--gz-kb-offset, 0px)) !important;
+  }
+
+  html.gz-app-ready #root [class*="z-[60]"] form[class*="max-h-"] {
+    max-height: none !important;
+    overflow: visible !important;
+    padding-bottom: 24px !important;
   }
 
   html.gz-app-ready #root > div > .fixed.pointer-events-none[class*="rounded-full"],
@@ -2472,6 +2554,15 @@ html.gz-app-ready #root main {
     background: #0f0f18 !important;
   }
 
+  html.gz-app-ready #root main [class*="rounded-3xl"] {
+    overflow: visible !important;
+  }
+
+  html.gz-app-ready #root main [class*="max-h-[500px]"] {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
   html.gz-reg-open .gz-reg-fx,
   html.gz-acc-mobile .gz-reg-fx {
     display: none !important;
@@ -2481,22 +2572,24 @@ html.gz-app-ready #root main {
     animation: none;
   }
 
-  /* Ensure main view on mobile scrolls comfortably with plenty of room at the bottom */
+  /* Ensure main view on mobile flows naturally in document scroll with generous bottom cushion */
   html.gz-app-ready #root main,
   html.gz-app-ready.gz-pay-open #root main,
   html.gz-app-ready.gz-books-open #root main {
-    min-height: 0 !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    overscroll-behavior-y: contain !important;
-    touch-action: pan-y !important;
-    scroll-padding-bottom: calc(140px + env(safe-area-inset-bottom, 24px)) !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-x: clip !important;
+    overflow-y: visible !important;
+    padding-bottom: 0 !important;
+    scroll-padding-bottom: calc(150px + env(safe-area-inset-bottom, 24px)) !important;
   }
 
-  html.gz-app-ready #root main > div {
-    padding: 12px 12px calc(140px + env(safe-area-inset-bottom, 24px)) !important;
-    min-height: 100% !important;
+  html.gz-app-ready #root main > div:not(header) {
+    padding: 12px 12px calc(150px + env(safe-area-inset-bottom, 24px) + var(--gz-kb-offset, 0px)) !important;
+    height: auto !important;
+    min-height: 0 !important;
     box-sizing: border-box !important;
   }
 
