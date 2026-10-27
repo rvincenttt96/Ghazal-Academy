@@ -13,7 +13,7 @@
   var authSettled = false;
   var APP_CSS = '/assets/index-BzoE7TQo.css?v=acc-yekan2';
   var APP_JS = '/assets/index-DMmAISFC.js?v=clock-fix1';
-  var APP_EXTRAS = ['/term-menu.js?v=term-tags-9', '/payroll.js?v=pay-boot4', '/acc-ui.js?v=mobi4', '/bookstore.js?v=books3'];
+  var APP_EXTRAS = ['/term-menu.js?v=term-tags-9', '/payroll.js?v=pay-boot4', '/acc-ui.js?v=mobi5', '/bookstore.js?v=books3'];
 
   function rtlTabTitle() {
     var el = document.querySelector("title");
@@ -119,7 +119,6 @@
     if (!hasAsset('link[rel="stylesheet"]', APP_CSS)) {
       var css = document.createElement('link');
       css.rel = 'stylesheet';
-      css.setAttribute('crossorigin', 'anonymous');
       css.href = APP_CSS;
       document.head.appendChild(css);
     }
@@ -146,10 +145,14 @@
     }
     var mod = document.createElement('script');
     mod.type = 'module';
-    mod.crossOrigin = 'anonymous';
     mod.src = APP_JS;
     mod.addEventListener('load', finish);
-    mod.addEventListener('error', finish);
+    mod.addEventListener('error', function () {
+      var boot = bootEl();
+      var span = boot && boot.querySelector('span');
+      if (span) span.textContent = 'خطا در بارگذاری برنامه. صفحه را تازه کنید.';
+      finish();
+    });
     document.body.appendChild(mod);
     window.setTimeout(finish, 1600);
   }
@@ -257,24 +260,23 @@
     var section = intendedSection();
     var root = document.getElementById('root');
     var text = (root && root.textContent) || '';
-    if (/ورود به پنل غزال|ورود به حسابداری/.test(text) && !/دسترسی:|Sign out/.test(text)) return false;
+    if (/ورود به پنل غزال|ورود به حسابداری/.test(text) && !/دسترسی:|Sign out|در حال بارگذاری/.test(text)) return false;
+    if (/در حال بارگذاری داده‌های غزال|داشبورد مدیریتی|دسترسی:|Sign out/.test(text)) return true;
+    if (document.querySelector('#root aside, #root header')) return true;
 
     if (section === 'payroll') {
       var pay = document.getElementById('gz-pay');
-      if (!pay || pay.hidden) return false;
-      if (pay.getAttribute('data-ready') !== '1') return false;
-      return /دسترسی:|Sign out/.test(text);
+      if (pay && !pay.hidden) return true;
+      return false;
     }
     if (section === 'bookstore') {
       var books = document.getElementById('gz-books');
       if (!books || books.hidden) return false;
       return ((books.textContent || '').length > 40);
     }
-    if (!/دسترسی:|Sign out/.test(text)) return false;
     if (section === 'registration') return /Registration|ثبت‌نام|ثبت نام/.test(text);
     if (section === 'expenses') return /Expenses|هزینه/.test(text);
-    if (section === 'overview' || !section) return /داشبورد مدیریتی/.test(text);
-    return true;
+    return false;
   }
 
   function clockParts(now) {
@@ -415,7 +417,7 @@
         return;
       }
       finishLogin();
-    }, 20000);
+    }, 8000);
   }
 
   function probeSession() {
