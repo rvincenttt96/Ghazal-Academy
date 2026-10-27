@@ -14,6 +14,15 @@ function ghazal_identity_file_number($code)
     return ((int) $code > 0 && (int) $code < 5000) ? $code : '';
 }
 
+function ghazal_identity_cache_path($action)
+{
+    $action = preg_replace('/[^a-z0-9_]+/i', '', (string) $action);
+    if ($action === '') {
+        return '';
+    }
+    return rtrim(sys_get_temp_dir(), '/') . '/gz_acc_id_' . $action . '.json';
+}
+
 function ghazal_identity_sync(array $payload, $timeout = 8)
 {
     if (!defined('GHAZAL_IDENTITY_URL') || !defined('GHAZAL_IDENTITY_SECRET')) {
@@ -31,28 +40,57 @@ function ghazal_identity_sync(array $payload, $timeout = 8)
     if ($timeout > 70) {
         $timeout = 70;
     }
+    $action = (string) ($payload['action'] ?? '');
+    $cacheable = in_array($action, ['term_meta', 'open_classes'], true);
+    $cachePath = $cacheable ? ghazal_identity_cache_path($action) : '';
+    if ($cachePath !== '' && is_file($cachePath) && (time() - (int) filemtime($cachePath)) < 60) {
+        $cached = json_decode((string) @file_get_contents($cachePath), true);
+        if (is_array($cached)) {
+            return $cached;
+        }
+    }
     $ch = curl_init($url);
-    curl_setopt_array($ch, [
+    if ($ch === false) {
+        return null;
+    }
+    $opts = [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
-        CURLOPT_CONNECTTIMEOUT => min(3, $timeout),
+        CURLOPT_CONNECTTIMEOUT => min(2, $timeout),
         CURLOPT_TIMEOUT => $timeout,
+        CURLOPT_NOSIGNAL => true,
         CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE),
         CURLOPT_HTTPHEADER => [
             'Content-Type: application/json',
             'Accept: application/json',
             'X-Ghazal-Identity: ' . $secret,
         ],
-    ]);
+    ];
+    if (defined('CURLOPT_TIMEOUT_MS')) {
+        $opts[CURLOPT_TIMEOUT_MS] = max(250, $timeout * 1000);
+    }
+    curl_setopt_array($ch, $opts);
     $raw = curl_exec($ch);
     $err = curl_error($ch);
     curl_close($ch);
     if ($raw === false) {
         error_log('ghazal identity: ' . $err);
+        if ($cachePath !== '' && is_file($cachePath)) {
+            $cached = json_decode((string) @file_get_contents($cachePath), true);
+            if (is_array($cached)) {
+                return $cached;
+            }
+        }
         return null;
     }
     $json = json_decode($raw, true);
-    return is_array($json) ? $json : null;
+    if (!is_array($json)) {
+        return null;
+    }
+    if ($cachePath !== '') {
+        @file_put_contents($cachePath, json_encode($json, JSON_UNESCAPED_UNICODE));
+    }
+    return $json;
 }
 
 function ghazal_error_ping_url()
