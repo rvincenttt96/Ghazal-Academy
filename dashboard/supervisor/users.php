@@ -22,20 +22,6 @@ $students_stmt = $pdo->prepare("
 ");                             
 $students_stmt->execute();
 $students = $students_stmt->fetchAll();
-
-$consultants = [];
-try {
-    $consultants_stmt = $pdo->prepare("
-        SELECT id, username, full_name, phone, avatar
-        FROM users
-        WHERE role = 'consultant' AND is_deleted = 0
-        ORDER BY full_name
-    ");
-    $consultants_stmt->execute();
-    $consultants = $consultants_stmt->fetchAll();
-} catch (PDOException $e) {
-    $consultants = [];
-}
 ?>
 <?php if (!empty($_GET['success'])): ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -78,7 +64,6 @@ try {
                         <option value="teacher">Instructor</option>
                         <option value="student">Learner</option>
                         <option value="supervisor">Supervisor</option>
-                        <option value="consultant">Consultant</option>
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -160,65 +145,6 @@ try {
 								Delete
 							</button>
 						</td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<div class="card user-management-card mb-4">
-    <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Consultant List (<?= count($consultants) ?>)</h5>
-        <input type="text" id="consultant-search" class="form-control form-control-sm w-25" placeholder="جستجو...">
-    </div>
-    <div class="card-body">
-        <div class="table-responsive-custom">
-            <table class="table table-bordered">
-                <thead class="table-light">
-                    <tr>
-                        <th>No.</th>
-                        <th>Avatar</th>
-                        <th>User Name</th>
-                        <th>Full Name</th>
-                        <th>Phone Number</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody id="consultants-table-body">
-                    <?php foreach ($consultants as $index => $consultant): ?>
-                    <tr>
-                        <td><?= $index + 1 ?></td>
-                        <td>
-                        <?php if(!empty($consultant['avatar'])): ?>
-                            <div class="avatar-hover">
-                                <img src="<?= htmlspecialchars($consultant['avatar']) ?>"
-                                    class="user-avatar">
-                                <div class="avatar-preview">
-                                    <img src="<?= htmlspecialchars($consultant['avatar']) ?>">
-                                </div>
-                            </div>
-                        <?php else: ?>
-                            <img src="../../uploads/avatars/daweid-icon-7797704_640.png" class="user-avatar">
-                        <?php endif; ?>
-                        </td>
-                        <td><?= htmlspecialchars($consultant['username']) ?></td>
-                        <td><?= htmlspecialchars($consultant['full_name']) ?></td>
-                        <td><?= htmlspecialchars($consultant['phone'] ?? '-') ?></td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-info me-2"
-                                    onclick="editUser(<?= $consultant['id'] ?>, 'consultant')">
-                                Edit
-                            </button>
-                            <button type="button" class="btn btn-sm btn-warning me-2"
-                                    onclick="changePassword(<?= $consultant['id'] ?>, '<?= htmlspecialchars($consultant['username']) ?>', 'consultant')">
-                                Change Password
-                            </button>
-                            <button type="button" class="btn btn-sm btn-danger"
-                                    onclick="deleteUser(<?= $consultant['id'] ?>, '<?= htmlspecialchars($consultant['full_name']) ?>', 'consultant')">
-                                Delete
-                            </button>
-                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -343,7 +269,6 @@ try {
 								<option value="teacher">معلم</option>
 								<option value="student">دانش‌آموز</option>
                                 <option value="supervisor">سوپروایزر</option>
-                                <option value="consultant">مشاور</option>
 							</select>
 						</div>
 						<div class="col-md-6">
@@ -463,7 +388,6 @@ function deleteUser(userId, fullName, userType) {
     let userTypeName = 'دانش‌آموز';
     if (userType === 'teacher') userTypeName = 'معلم';
     if (userType === 'supervisor') userTypeName = 'سوپروایزر';
-    if (userType === 'consultant') userTypeName = 'مشاور';
     
     if (!confirm(`آیا مطمئن هستید که می‌خواهید ${userTypeName} "${fullName}" را حذف کنید؟\nاین عمل غیرقابل بازگشت است.`)) {
         return;
@@ -569,13 +493,6 @@ document.getElementById('teacher-search').addEventListener('input', function() {
 document.getElementById('student-search').addEventListener('input', function() {
     const searchTerm = this.value.toLowerCase();
     document.querySelectorAll('#students-table-body tr').forEach(row => {
-        row.style.display = row.textContent.toLowerCase().includes(searchTerm) ? '' : 'none';
-    });
-});
-
-document.getElementById('consultant-search').addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase();
-    document.querySelectorAll('#consultants-table-body tr').forEach(row => {
         row.style.display = row.textContent.toLowerCase().includes(searchTerm) ? '' : 'none';
     });
 });

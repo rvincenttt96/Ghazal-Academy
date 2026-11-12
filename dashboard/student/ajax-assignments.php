@@ -24,17 +24,36 @@ if (assignments_oversized_post()) {
 
 $student_id = (int)($_SESSION['user_id'] ?? 0);
 $action = trim((string)($_POST['action'] ?? ''));
+$assignment_id = (int)($_POST['id'] ?? 0);
 
 try {
-    if ($action !== 'upload') {
-        assignments_json(['success' => false, 'message' => 'عملیات نامعتبر.'], 400);
+    if ($action === 'upload') {
+        $rawFiles = !empty($_FILES['files']) ? $_FILES['files'] : ($_FILES['file'] ?? []);
+        $row = assignments_submit($pdo, $student_id, $assignment_id, $rawFiles);
+        $files = ($row && !empty($row['submission_id']))
+            ? assignments_submission_files_by_sub($pdo, (int)$row['submission_id'])
+            : [];
+        assignments_json([
+            'success' => true,
+            'message' => 'فایل تحویل شد.',
+            'assignment' => assignments_public_student($row, $files),
+        ]);
     }
-    $row = assignments_submit($pdo, $student_id, (int)($_POST['id'] ?? 0), $_FILES['file'] ?? []);
-    assignments_json([
-        'success' => true,
-        'message' => 'فایل تحویل شد.',
-        'assignment' => assignments_public_student($row),
-    ]);
+
+    if ($action === 'delete_file') {
+        $file_id = (int)($_POST['file_id'] ?? 0);
+        $row = assignments_delete_student_file($pdo, $student_id, $assignment_id, $file_id);
+        $files = ($row && !empty($row['submission_id']))
+            ? assignments_submission_files_by_sub($pdo, (int)$row['submission_id'])
+            : [];
+        assignments_json([
+            'success' => true,
+            'message' => 'فایل حذف شد.',
+            'assignment' => assignments_public_student($row, $files),
+        ]);
+    }
+
+    assignments_json(['success' => false, 'message' => 'عملیات نامعتبر.'], 400);
 } catch (Exception $e) {
     assignments_json(['success' => false, 'message' => $e->getMessage()], 400);
 }

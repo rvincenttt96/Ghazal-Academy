@@ -334,10 +334,15 @@ function identity_term_pack(PDO $panel_pdo, $term) {
 function identity_term_meta(PDO $panel_pdo) {
     require_once __DIR__ . '/terms.php';
     term_ensure_schema($panel_pdo);
-    try {
-        term_promote_due($panel_pdo);
-    } catch (Exception $e) {
-        identity_log('term_promote_due: ' . $e->getMessage());
+    $lock = rtrim(sys_get_temp_dir(), '/') . '/gz_term_promote.lock';
+    $promote = !is_file($lock) || (time() - (int) filemtime($lock)) >= 120;
+    if ($promote) {
+        @touch($lock);
+        try {
+            term_promote_due($panel_pdo);
+        } catch (Exception $e) {
+            identity_log('term_promote_due: ' . $e->getMessage());
+        }
     }
     $open = term_open_rows($panel_pdo);
     $teaching = term_pick_teaching($open);
