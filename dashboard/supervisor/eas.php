@@ -78,384 +78,942 @@ require_once 'layout.php';
 <link rel="stylesheet" href="../../assets/css/jalalidatepicker.min.css">
 
 <style>
-    .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-    .header-title h1 { font-size: 1.8rem; font-weight: 900; margin-bottom: 5px; display: flex; align-items: center; gap: 10px; font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;}
-    .header-title h1 span { color: #e94560; }
-    .header-title p { color: #8e8e93; font-size: 0.9rem; }
-    
-    .live-clock-container { text-align: left; background: rgba(0, 0, 0, 0.2); padding: 10px 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
-    .live-time { font-size: 1.4rem; font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif; font-weight: 900; color: #ffffff; letter-spacing: 2px; }
-    .live-time span { color: #e94560; animation: blink 1s infinite; }
-    .live-date { font-size: 0.8rem; color: #8e8e93; margin-top: 2px; }
+    /* Bright, high-contrast, crisp card & border design for EAS */
+    .eas-shell {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    #easShell .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        background: rgba(255, 255, 255, 0.97) !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: 1.5px solid #cbd5e1 !important;
+        border-radius: 18px !important;
+        padding: 18px 24px !important;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.10) !important;
+        color: #0f172a !important;
+    }
+    #easShell .header-title h1 {
+        font-size: 1.65rem;
+        font-weight: 900;
+        margin: 0 0 4px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #0f172a !important;
+        font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;
+    }
+    #easShell .header-title h1 span {
+        background: #ffe4e6 !important;
+        color: #be123c !important;
+        border: 1px solid #fecdd3 !important;
+        padding: 2px 10px;
+        border-radius: 10px;
+        font-size: 1.15rem;
+        letter-spacing: 0.5px;
+    }
+    #easShell .header-title p {
+        color: #475569 !important;
+        font-size: 0.88rem;
+        font-weight: 600;
+        margin: 0;
+    }
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .eas-count-pill {
+        background: #f1f5f9;
+        color: #1e293b;
+        border: 1px solid #cbd5e1;
+        padding: 8px 14px;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+    #easShell .live-clock-container {
+        text-align: left;
+        background: #f8fafc !important;
+        padding: 9px 18px;
+        border-radius: 12px;
+        border: 1.5px solid #cbd5e1 !important;
+        min-width: 175px;
+    }
+    #easShell .live-time {
+        font-size: 1.35rem;
+        font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;
+        font-weight: 900;
+        color: #0f172a !important;
+        letter-spacing: 2px;
+        line-height: 1.2;
+    }
+    .live-time span { color: #e11d48; animation: blink 1s infinite; }
+    #easShell .live-date { font-size: 0.78rem; color: #475569 !important; font-weight: 600; margin-top: 2px; }
     @keyframes blink { 50% { opacity: 0; } }
-    
-    .controls-section { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 15px 20px; border-radius: 16px; margin-bottom: 15px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; justify-content: space-between;}
-    .filters-left { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
-    .filter-group { display: flex; align-items: center; gap: 10px; }
-    .filter-group label { color: #8e8e93; font-size: 0.85rem; font-weight: 700; }
-    .custom-select { background: rgba(0, 0, 0, 0.3); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.1); padding: 8px 15px; border-radius: 8px; outline: none; cursor: pointer; font-size: 0.85rem; }
-    
-    .export-excel-btn { background: #217346; color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s; font-size: 0.85rem; border: 1px solid #1e6b41;}
-    .export-excel-btn:hover { background: #1e6b41; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(33, 115, 70, 0.4); }
 
-    .time-chips-container { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; align-items: center;}
-    .time-chips-container label { color: #8e8e93; font-size: 0.85rem; font-weight: 700; margin-left: 5px;}
-    .time-chip { background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); padding: 6px 16px; border-radius: 20px; color: #8e8e93; font-size: 0.9rem; cursor: pointer; transition: 0.3s; user-select: none; font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;}
-    .time-chip:hover { background: rgba(233, 69, 96, 0.2); color: #fff; border-color: rgba(233, 69, 96, 0.5);}
-    .time-chip.active { background: #e94560; color: #fff; border-color: #e94560; font-weight: bold; box-shadow: 0 4px 10px rgba(233, 69, 96, 0.3);}
+    #easShell .controls-section {
+        background: rgba(255, 255, 255, 0.97) !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: 1.5px solid #cbd5e1 !important;
+        padding: 16px 20px !important;
+        border-radius: 16px !important;
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08) !important;
+        color: #0f172a !important;
+    }
+    .filters-left {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        flex-wrap: wrap;
+        flex: 1;
+        min-width: 0;
+    }
+    .filter-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    #easShell .filter-group label {
+        color: #1e293b !important;
+        font-size: 0.85rem;
+        font-weight: 800;
+        white-space: nowrap;
+        margin: 0;
+    }
+    #easShell .custom-select,
+    #easShell .eas-search-input {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border: 1.5px solid #cbd5e1 !important;
+        padding: 8px 13px;
+        border-radius: 10px !important;
+        outline: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .custom-select { cursor: pointer; }
+    #easShell .custom-select option {
+        background: #ffffff !important;
+        color: #0f172a !important;
+    }
+    .eas-search-input {
+        min-width: 220px;
+        flex: 1;
+        max-width: 300px;
+    }
+    #easShell .eas-search-input::placeholder { color: #94a3b8 !important; }
+    #easShell .custom-select:focus,
+    #easShell .eas-search-input:focus {
+        border-color: #e11d48 !important;
+        box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.14) !important;
+    }
 
-    .cards-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 25px; min-width: 0; }
-    .eas-card { background: rgba(14, 14, 22, 0.72); border-radius: 20px; padding: 25px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); border: 1px solid rgba(127, 29, 29, 0.32); display: flex; flex-direction: column; gap: 20px; transition: transform 0.3s; min-width: 0; max-width: 100%; box-sizing: border-box; backdrop-filter: blur(24px); }
-    
-    .card-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 15px; }
-    .class-info h2 { font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif; font-size: 1.3rem; font-weight: 900; margin-bottom: 5px; color:#fff; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+    .export-excel-btn {
+        background: #15803d;
+        color: #ffffff;
+        border: 1.5px solid #166534;
+        padding: 9px 16px;
+        border-radius: 10px;
+        font-weight: 800;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.2s;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+    .export-excel-btn:hover {
+        background: #166534;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(21, 128, 61, 0.28);
+    }
+
+    #easShell .time-chips-container {
+        background: rgba(255, 255, 255, 0.97) !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: 1.5px solid #cbd5e1 !important;
+        border-radius: 14px !important;
+        padding: 12px 18px !important;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06) !important;
+        color: #0f172a !important;
+    }
+    #easShell .time-chips-container label {
+        color: #1e293b !important;
+        font-size: 0.85rem;
+        font-weight: 800;
+        margin: 0 0 0 6px;
+        white-space: nowrap;
+    }
+    #easShell .time-chip {
+        background: #f8fafc !important;
+        border: 1.5px solid #cbd5e1 !important;
+        padding: 6px 14px;
+        border-radius: 999px;
+        color: #334155 !important;
+        font-size: 0.84rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s;
+        user-select: none;
+        white-space: nowrap;
+        font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;
+    }
+    #easShell .time-chip:hover {
+        background: #fff1f2 !important;
+        color: #be123c !important;
+        border-color: #fda4af !important;
+    }
+    #easShell .time-chip.active {
+        background: #e11d48 !important;
+        color: #ffffff !important;
+        border-color: #be123c !important;
+        font-weight: 800;
+        box-shadow: 0 3px 10px rgba(225, 29, 72, 0.25) !important;
+    }
+
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+        gap: 20px;
+        min-width: 0;
+    }
+    #cardsContainer .eas-card {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border-radius: 20px !important;
+        padding: 20px;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12) !important;
+        border: 1.5px solid #cbd5e1 !important;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+        color: #0f172a !important;
+    }
+    #cardsContainer .eas-card:hover {
+        border-color: #94a3b8 !important;
+        box-shadow: 0 14px 34px rgba(15, 23, 42, 0.16) !important;
+        transform: translateY(-2px);
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        border-bottom: 1.5px solid #e2e8f0;
+        padding-bottom: 14px;
+    }
+    .class-info { min-width: 0; flex: 1; }
+    #cardsContainer .eas-card .class-info h2 {
+        font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;
+        font-size: 1.2rem;
+        font-weight: 900;
+        margin: 0 0 6px 0;
+        color: #0f172a !important;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        line-height: 1.4;
+    }
     .class-info h2 .class-live-dot.is-on { display: inline-block; flex: 0 0 8px; }
-    .class-info .teacher { color: #e94560; font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif; font-size: 0.9rem; font-weight: 700; }
-    .class-info .teacher.eas-teacher { cursor: pointer; user-select: none; border-bottom: 1px dashed transparent; width: fit-content; }
-    .class-info .teacher.eas-teacher:hover { border-bottom-color: rgba(233, 69, 96, 0.7); }
-    .eas-join-btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 10px; background: rgba(46, 204, 113, 0.18); color: #2ecc71; border: 1px solid #2ecc71; border-radius: 10px; padding: 7px 14px; font-size: 0.82rem; font-weight: 800; text-decoration: none; width: fit-content; }
-    .eas-join-btn:hover { background: #2ecc71; color: #082015; }
-    .student-badge.eas-student { cursor: pointer; user-select: none; display: inline-flex; align-items: center; gap: 6px; }
-    .student-badge.eas-student:hover { border-color: rgba(233, 69, 96, 0.55); background: rgba(233, 69, 96, 0.12); }
-    .student-file { color: #8e8e93; font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif; direction: ltr; unicode-bidi: isolate; font-weight: 700; }
-    .meta-info { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-    
-    .badges-wrapper { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-    
-    /* استایل‌های جدید برای خوش‌فرم شدن بج‌ها */
+    .class-info .teacher {
+        color: #be123c;
+        background: #fff1f2;
+        border: 1px solid #fecdd3;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;
+        font-size: 0.85rem;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .class-info .teacher.eas-teacher { cursor: pointer; user-select: none; }
+    .class-info .teacher.eas-teacher:hover {
+        background: #ffe4e6;
+        border-color: #fda4af;
+    }
+    .eas-join-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        background: #dcfce7;
+        color: #15803d;
+        border: 1.5px solid #22c55e;
+        border-radius: 10px;
+        padding: 7px 14px;
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-decoration: none;
+        width: fit-content;
+        transition: 0.2s;
+    }
+    .eas-join-btn:hover { background: #16a34a; color: #ffffff; border-color: #15803d; }
+
+    .meta-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 7px;
+        flex-shrink: 0;
+    }
+    .badges-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
     .type-badge, .day-badge, .time-badge {
         white-space: nowrap !important;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        height: 26px;
+        height: 28px;
         line-height: 1;
         box-sizing: border-box;
     }
-    
-    .type-badge { font-size: 0.75rem; padding: 0 10px; border-radius: 8px; font-weight: bold; }
-    .type-online { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
-    .type-inperson { background: rgba(142, 142, 147, 0.2); color: #ccc; border: 1px solid #8e8e93; }
-    .type-private { background: rgba(155, 89, 182, 0.2); color: #9b59b6; border: 1px solid #9b59b6; }
-    
-    .time-badge { font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif; font-size: 0.85rem; background: rgba(233, 69, 96, 0.2); color: #fff; border: 1px solid #e94560; padding: 0 10px; border-radius: 8px; }
-    .day-badge { padding: 0 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; }
-    .day-even { background: rgba(52, 152, 219, 0.15); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.3); }
-    .day-odd { background: rgba(155, 89, 182, 0.15); color: #9b59b6; border: 1px solid rgba(155, 89, 182, 0.3); }
-    .day-private { background: rgba(243, 156, 18, 0.15); color: #f39c12; border: 1px solid rgba(243, 156, 18, 0.3); }
-    
-    .section-title { font-size: 0.8rem; color: #8e8e93; margin-bottom: 10px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
-    
-    .student-badges { display: flex; flex-wrap: wrap; gap: 8px; }
-    .student-badge { background: rgba(255, 255, 255, 0.05); color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.1);}
-    
-    .sessions-container { background: rgba(0, 0, 0, 0.2); padding: 15px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); position: relative; min-width: 0;}
-    .sessions-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 15px; }
-    .sessions-head .section-title { margin: 0; flex: 1; min-width: 0; }
-    .zoom-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: 0.2s; flex-shrink: 0;}
-    .zoom-btn:hover { background: #e94560; }
-    
-    .sessions-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-start; transition: 0.3s; }
+    .type-badge { font-size: 0.76rem; padding: 0 10px; border-radius: 8px; font-weight: 800; }
+    .type-online { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+    .type-inperson { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
+    .type-private { background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }
+
+    .time-badge {
+        font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;
+        font-size: 0.84rem;
+        font-weight: 800;
+        background: #ffe4e6;
+        color: #9f1239;
+        border: 1px solid #fda4af;
+        padding: 0 11px;
+        border-radius: 8px;
+    }
+    .day-badge { padding: 0 10px; border-radius: 8px; font-size: 0.76rem; font-weight: 800; }
+    .day-even { background: #dbeafe; color: #1d4ed8; border: 1px solid #93c5fd; }
+    .day-odd { background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }
+    .day-private { background: #fef3c7; color: #b45309; border: 1px solid #fcd34d; }
+
+    .eas-section-box {
+        background: #f8fafc;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 13px 14px;
+    }
+
+    #cardsContainer .eas-card .section-title {
+        font-size: 0.82rem;
+        color: #1e293b !important;
+        margin-bottom: 10px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding-bottom: 6px;
+        border-bottom: 1px dashed #cbd5e1;
+    }
+
+    .student-badges { display: flex; flex-wrap: wrap; gap: 7px; }
+    .student-badge {
+        background: #ffffff;
+        color: #0f172a;
+        padding: 5px 11px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border: 1.5px solid #cbd5e1;
+        transition: 0.15s;
+    }
+    .student-badge.eas-student {
+        cursor: pointer;
+        user-select: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .student-badge.eas-student:hover {
+        border-color: #e11d48;
+        background: #fff1f2;
+        color: #9f1239;
+    }
+    .student-badge-empty {
+        background: #f1f5f9;
+        color: #64748b;
+        border: 1px dashed #cbd5e1;
+    }
+    .student-file {
+        color: #475569;
+        background: #f1f5f9;
+        padding: 1px 7px;
+        border-radius: 999px;
+        font-size: 0.74rem;
+        font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;
+        direction: ltr;
+        unicode-bidi: isolate;
+        font-weight: 800;
+    }
+
+    #cardsContainer .eas-card .sessions-container {
+        background: #f8fafc !important;
+        background-color: #f8fafc !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        padding: 14px;
+        border-radius: 14px;
+        border: 1.5px solid #e2e8f0 !important;
+        position: relative;
+        min-width: 0;
+    }
+    .sessions-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed #cbd5e1;
+    }
+    .sessions-head .section-title {
+        margin: 0;
+        padding: 0;
+        border: none;
+        flex: 1;
+        min-width: 0;
+    }
+    .zoom-btn {
+        background: #ffffff;
+        border: 1.5px solid #cbd5e1;
+        color: #1e293b;
+        padding: 5px 11px;
+        border-radius: 8px;
+        font-size: 0.76rem;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.2s;
+        flex-shrink: 0;
+    }
+    .zoom-btn:hover {
+        background: #e11d48;
+        color: #ffffff;
+        border-color: #be123c;
+    }
+
+    .sessions-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-start; transition: 0.3s; }
     .session-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-    .session-box { width: 32px; height: 32px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif; color: #8e8e93; cursor: pointer; user-select: none; transition: 0.2s;}
-    .session-box:hover { transform: scale(1.1); background: rgba(255,255,255,0.1);}
-    
-    .session-box.status-tick { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border-color: #2ecc71; }
-    .session-box.status-cross { background: rgba(233, 69, 96, 0.2); color: #e94560; border-color: #e94560; }
-    
-    .makeup-box { background: rgba(243, 156, 18, 0.2) !important; color: #f39c12 !important; border-color: #f39c12 !important; }
-    .date-input { width: 60px; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.2); color: #8e8e93; font-size: 0.65rem; text-align: center; font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif; outline: none; transition: 0.2s; cursor: pointer;}
-    .date-input:focus { border-color: #e94560; color: #fff;}
+    #cardsContainer .eas-card .session-box,
+    #zoomModal .session-box {
+        width: 34px;
+        height: 34px;
+        background: #ffffff !important;
+        border: 1.5px solid #cbd5e1 !important;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.86rem;
+        font-weight: 800;
+        font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;
+        color: #0f172a !important;
+        cursor: pointer;
+        user-select: none;
+        transition: 0.15s;
+    }
+    #cardsContainer .eas-card .session-box:hover,
+    #zoomModal .session-box:hover { transform: scale(1.07); border-color: #64748b !important; background: #f1f5f9 !important; }
+    #cardsContainer .eas-card .session-box.status-tick,
+    #zoomModal .session-box.status-tick { background: #dcfce7 !important; color: #15803d !important; border-color: #22c55e !important; }
+    #cardsContainer .eas-card .session-box.status-cross,
+    #zoomModal .session-box.status-cross { background: #fee2e2 !important; color: #b91c1c !important; border-color: #ef4444 !important; }
+    .makeup-box { background: #fef3c7 !important; color: #b45309 !important; border-color: #f59e0b !important; }
 
-    .zoomed-mode { gap: 20px !important; justify-content: center; padding: 20px;}
-    .zoomed-mode .session-box { width: 60px; height: 60px; font-size: 1.5rem; border-radius: 14px;}
-    .zoomed-mode .date-input { width: 75px; font-size: 0.9rem;}
+    #cardsContainer .eas-card .date-input,
+    #zoomModal .date-input {
+        width: 64px;
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 6px !important;
+        padding: 2px 3px !important;
+        color: #0f172a !important;
+        font-size: 0.68rem !important;
+        font-weight: 700;
+        text-align: center;
+        font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;
+        outline: none;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+    body.lg-app .date-input::placeholder { color: #94a3b8 !important; }
+    body.lg-app .date-input:focus { border-color: #e11d48 !important; box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.14) !important; }
 
-    .actions-wrapper { display: flex; flex-direction: column; gap: 12px; }
-    .action-row { display: flex; gap: 15px; }
-    .action-box { flex: 1; background: rgba(0, 0, 0, 0.2); padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    
-    .custom-checkbox { appearance: none; width: 22px; height: 22px; background: rgba(255, 255, 255, 0.1); border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.2); cursor: pointer; position: relative; margin: 0; transition: 0.2s; flex-shrink: 0;}
-    .custom-checkbox:checked { background: #2ecc71; border-color: #2ecc71; }
-    .custom-checkbox:checked::after { content: '✔'; position: absolute; color: white; font-size: 13px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-    
-    .interview-box { background: rgba(0, 0, 0, 0.2); padding: 15px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); display: flex; flex-direction: column; gap: 12px; }
+    .zoomed-mode { gap: 18px !important; justify-content: center; padding: 18px; }
+    .zoomed-mode .session-box { width: 58px; height: 58px; font-size: 1.45rem; border-radius: 14px; }
+    .zoomed-mode .date-input { width: 82px; font-size: 0.88rem; padding: 4px; }
+
+    .actions-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: #f8fafc;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 12px;
+    }
+    .action-row { display: flex; gap: 10px; }
+    #cardsContainer .eas-card .action-box {
+        flex: 1;
+        background: #ffffff !important;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1.5px solid #cbd5e1 !important;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+    .action-box span {
+        font-size: 0.82rem;
+        font-weight: 800;
+        color: #1e293b;
+    }
+
+    .custom-checkbox {
+        appearance: none;
+        width: 22px;
+        height: 22px;
+        background: #f1f5f9;
+        border-radius: 6px;
+        border: 2px solid #94a3b8;
+        cursor: pointer;
+        position: relative;
+        margin: 0;
+        transition: 0.2s;
+        flex-shrink: 0;
+    }
+    .custom-checkbox:hover { border-color: #475569; }
+    .custom-checkbox:checked { background: #16a34a; border-color: #15803d; }
+    .custom-checkbox:checked::after {
+        content: '✔';
+        position: absolute;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 900;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #cardsContainer .eas-card .interview-box {
+        background: #f8fafc !important;
+        background-color: #f8fafc !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        padding: 14px;
+        border-radius: 14px;
+        border: 1.5px solid #e2e8f0 !important;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .interview-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed #cbd5e1;
+    }
+    .interview-head .section-title { margin: 0; padding: 0; border: none; }
+    #cardsContainer .eas-card .interview-done-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #0f172a !important;
+        font-size: 0.8rem;
+        font-weight: 800;
+        margin: 0;
+        cursor: pointer;
+    }
     .interview-inputs { display: flex; gap: 10px; }
-    
-    .eas-input { width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); color: #ffffff; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; outline: none; transition: 0.3s;}
-    .eas-input:focus { border-color: #e94560; background: rgba(0, 0, 0, 0.5); }
-    
-    .eas-textarea { width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); color: #ffffff; padding: 10px 12px; border-radius: 8px; font-size: 0.85rem; outline: none; resize: vertical; min-height: 80px; transition: 0.3s;}
-    .eas-textarea:focus { border-color: #e94560; background: rgba(0, 0, 0, 0.5); }
-    
+
+    #cardsContainer .eas-card .eas-input,
+    #cardsContainer .eas-card .eas-textarea {
+        width: 100%;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        border: 1.5px solid #cbd5e1 !important;
+        color: #0f172a !important;
+        padding: 9px 12px !important;
+        border-radius: 10px !important;
+        font-size: 0.85rem;
+        font-weight: 600;
+        outline: none;
+        transition: 0.2s;
+    }
+    body.lg-app .eas-input::placeholder,
+    body.lg-app .eas-textarea::placeholder { color: #94a3b8 !important; font-weight: 500; }
+    body.lg-app .eas-input:focus,
+    body.lg-app .eas-textarea:focus {
+        border-color: #e11d48 !important;
+        box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.14) !important;
+    }
+    .eas-textarea { resize: vertical; min-height: 76px; line-height: 1.6; }
+
     .text-fields { display: flex; flex-direction: column; gap: 12px; }
-    
+
+    .eas-empty-state {
+        grid-column: 1 / -1;
+        background: #ffffff;
+        border: 1.5px dashed #cbd5e1;
+        border-radius: 16px;
+        padding: 36px 20px;
+        text-align: center;
+        color: #475569;
+        font-size: 0.95rem;
+        font-weight: 700;
+        display: none;
+    }
+
+    .eas-save-toast {
+        position: fixed;
+        bottom: 22px;
+        left: 22px;
+        z-index: 10500;
+        padding: 10px 16px;
+        border-radius: 12px;
+        font-size: 0.84rem;
+        font-weight: 800;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18);
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 0.2s, transform 0.2s;
+    }
+    .eas-save-toast.show { opacity: 1; transform: translateY(0); }
+    .eas-save-toast.ok { background: #dcfce7; color: #166534; border: 1.5px solid #22c55e; }
+    .eas-save-toast.err { background: #fee2e2; color: #991b1b; border: 1.5px solid #ef4444; }
+
     jdp-container { z-index: 9999 !important; }
 
     @media (max-width: 767.98px) {
-        .dashboard-header { flex-direction: column; align-items: stretch; gap: 12px; }
-        .live-clock-container { text-align: center; }
+        .dashboard-header { flex-direction: column; align-items: stretch; padding: 16px; }
+        .header-right { justify-content: space-between; }
+        .live-clock-container { text-align: center; flex: 1; }
         .controls-section, .filters-left { flex-direction: column; align-items: stretch; }
-        .filter-group, .custom-select, .export-excel-btn { width: 100%; }
-        .time-chips-container { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
-        .eas-card { padding: 16px; gap: 14px; }
+        .filter-group, .custom-select, .eas-search-input, .export-excel-btn { width: 100%; max-width: none; }
+        .time-chips-container { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; padding: 10px 12px; }
+        .eas-card { padding: 15px; gap: 12px; }
         .card-header { flex-direction: column; align-items: stretch; gap: 10px; }
         .meta-info { align-items: flex-start; }
         .badges-wrapper { justify-content: flex-start; }
         .sessions-grid { gap: 8px; justify-content: center; }
         .action-row { flex-direction: column; }
         .interview-inputs { flex-direction: column; }
-        .date-input { width: 52px; }
+        .date-input { width: 58px; }
         .eas-join-btn { width: 100%; }
     }
 </style>
 
-<div class="dashboard-header">
-    <div class="header-title">
-        <h1><span>EAS</span> مدیریت داخلی</h1>
-        <p>Educational Administration System</p>
-    </div>
-    
-    <div class="live-clock-container" id="liveClockContainer">
-        <div class="live-time" id="liveTime">00<span>:</span>00</div>
-        <div class="live-date" id="liveDate">در حال بارگذاری...</div>
-    </div>
-</div>
-
-<div class="controls-section">
-    <div class="filters-left">
-        <div class="filter-group">
-            <label>مدرس:</label>
-            <select class="custom-select" id="teacherFilter" onchange="filterCards()">
-                <option value="all">همه مدرسین</option>
-                <?php 
-                    $teachers = array_unique(array_column($classes, 'teacher_name'));
-                    foreach($teachers as $teacher) {
-                        if($teacher) echo "<option value='".htmlspecialchars($teacher, ENT_QUOTES, 'UTF-8')."'>".htmlspecialchars($teacher, ENT_QUOTES, 'UTF-8')."</option>";
-                    }
-                ?>
-            </select>
+<div class="eas-shell" id="easShell">
+    <div class="dashboard-header">
+        <div class="header-title">
+            <h1><span>EAS</span> مدیریت داخلی</h1>
+            <p>Educational Administration System</p>
         </div>
-        <div class="filter-group">
-            <label>برگزاری:</label>
-            <select class="custom-select" id="dayFilter" onchange="filterCards()">
-                <option value="all">همه روزها</option>
-                <option value="today" style="color: #e94560; font-weight: bold;">امروز</option>
-                <option value="even">زوج</option>
-                <option value="odd">فرد</option>
-                <option value="private">خصوصی</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>نوع کلاس:</label>
-            <select class="custom-select" id="typeFilter" onchange="filterCards()">
-                <option value="all">همه</option>
-                <option value="online">آنلاین</option>
-                <option value="offline">حضوری</option>
-                <option value="private">خصوصی</option>
-            </select>
-        </div>
-    </div>
-    
-    <div>
-        <button class="export-excel-btn" onclick="exportToExcel()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="16" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-            خروجی اکسل جامع
-        </button>
-    </div>
-</div>
 
-<div class="time-chips-container" id="timeChipsContainer">
-    <label>فیلتر ساعت:</label>
-    <span class="time-chip active" data-time="all" onclick="selectTimeFilter(this)">همه کلاس‌ها</span>
-    <span class="time-chip" data-time="10" onclick="selectTimeFilter(this)">۱۰ به بعد</span>
-    <span class="time-chip" data-time="11" onclick="selectTimeFilter(this)">۱۱ به بعد</span>
-    <span class="time-chip" data-time="12" onclick="selectTimeFilter(this)">۱۲ به بعد</span>
-    <span class="time-chip" data-time="13" onclick="selectTimeFilter(this)">۱۳ به بعد</span>
-    <span class="time-chip" data-time="14" onclick="selectTimeFilter(this)">۱۴ به بعد</span>
-    <span class="time-chip" data-time="15" onclick="selectTimeFilter(this)">۱۵ به بعد</span>
-    <span class="time-chip" data-time="16" onclick="selectTimeFilter(this)">۱۶ به بعد</span>
-    <span class="time-chip" data-time="17" onclick="selectTimeFilter(this)">۱۷ به بعد</span>
-    <span class="time-chip" data-time="18" onclick="selectTimeFilter(this)">۱۸ به بعد</span>
-</div>
-
-<div class="cards-container" id="cardsContainer">
-    <?php foreach ($classes as $class): 
-        $badgeInfo = getDayBadgeClass($class['schedule_type']);
-        $teacherName = $class['teacher_name'] ?? 'بدون مدرس';
-        
-        $classTypeKey = strtolower(trim((string)($class['class_type'] ?? '')));
-        if ($classTypeKey === '' || in_array($classTypeKey, ['inperson', 'in-person', 'حضوری'], true)) {
-            $classTypeKey = 'offline';
-        }
-
-        if ($classTypeKey === 'online') {
-            $classTypeBadge = "<span class='type-badge type-online'>آنلاین</span>";
-        } elseif ($classTypeKey === 'private') {
-            $classTypeBadge = "<span class='type-badge type-private'>خصوصی</span>";
-        } else {
-            $classTypeBadge = "<span class='type-badge type-inperson'>حضوری</span>";
-        }
-
-        $dayKey = $badgeInfo[2];
-        if ($classTypeKey === 'private' && $dayKey === 'all') {
-            $dayKey = 'private';
-        }
-        
-        $total_sessions = ($classTypeKey === 'private') ? 10 : 13;
-        
-        $students = $students_by_class[(int)$class['main_class_id']] ?? [];
-        $online_link = trim((string)($class['class_online_link'] ?? ''));
-        $teacher_id = (int)($class['teacher_id'] ?? 0);
-
-        $session_dates = json_decode($class['session_dates_json'] ?? '{}', true);
-        $makeup_sessions = json_decode($class['makeup_sessions_json'] ?? '{}', true);
-        
-        $display_time = !empty($class['schedule']) ? $class['schedule'] : (!empty($class['class_time']) ? $class['class_time'] : 'تنظیم نشده');
-    ?>
-    
-    <div class="eas-card" data-teacher="<?= htmlspecialchars($teacherName, ENT_QUOTES, 'UTF-8') ?>" data-day="<?= htmlspecialchars($dayKey, ENT_QUOTES, 'UTF-8') ?>" data-time="<?= htmlspecialchars($display_time, ENT_QUOTES, 'UTF-8') ?>" data-classtype="<?= htmlspecialchars($classTypeKey, ENT_QUOTES, 'UTF-8') ?>" data-classid="<?= (int)$class['main_class_id'] ?>">
-        
-        <div class="card-header">
-            <div class="class-info">
-                <h2><?= htmlspecialchars($class['class_title']) ?><?= class_live_dot([
-                    'schedule' => $class['schedule'] ?: ($class['class_time'] ?? ''),
-                    'schedule_type' => $class['schedule_type'] ?? '',
-                ]) ?></h2>
-                <div class="teacher<?= $teacher_id > 0 ? ' eas-teacher' : '' ?>"
-                     data-teachername="<?= htmlspecialchars($teacherName, ENT_QUOTES, 'UTF-8') ?>"
-                     <?php if ($teacher_id > 0): ?>
-                     data-teacher-id="<?= $teacher_id ?>"
-                     title="دبل‌کلیک: Teachers Information"
-                     ondblclick="openTeacherProfile(<?= $teacher_id ?>)"
-                     <?php endif; ?>
-                >👨‍🏫 <?= htmlspecialchars($teacherName) ?></div>
-                <?php if ($online_link !== ''): ?>
-                    <a class="eas-join-btn" href="<?= htmlspecialchars($online_link, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener"><?= $classTypeKey === 'offline' ? 'ورود به رویداد آنلاین' : 'ورود به کلاس' ?></a>
-                <?php endif; ?>
+        <div class="header-right">
+            <div class="eas-count-pill" id="easVisibleCount">نمایش <?= count($classes) ?> کلاس</div>
+            <div class="live-clock-container" id="liveClockContainer">
+                <div class="live-time" id="liveTime">00<span>:</span>00</div>
+                <div class="live-date" id="liveDate">در حال بارگذاری...</div>
             </div>
-            <!-- استایل جدید بج‌ها: کنار هم چیده میشن -->
-            <div class="meta-info">
-                <div class="badges-wrapper">
-                    <?= $classTypeBadge ?>
-                    <span class="day-badge <?= $badgeInfo[0] ?>" data-daytext="<?= $badgeInfo[1] ?>"><?= $badgeInfo[1] ?></span>
-                </div>
-                <span class="time-badge"><?= htmlspecialchars($display_time) ?></span>
+        </div>
+    </div>
+
+    <div class="controls-section">
+        <div class="filters-left">
+            <div class="filter-group">
+                <label for="easSearchInput">جستجو:</label>
+                <input type="text" class="eas-search-input" id="easSearchInput" placeholder="نام کلاس، مدرس یا زبان‌آموز..." oninput="filterCards()">
+            </div>
+            <div class="filter-group">
+                <label for="teacherFilter">مدرس:</label>
+                <select class="custom-select" id="teacherFilter" onchange="filterCards()">
+                    <option value="all">همه مدرسین</option>
+                    <?php 
+                        $teachers = array_unique(array_column($classes, 'teacher_name'));
+                        foreach($teachers as $teacher) {
+                            if($teacher) echo "<option value='".htmlspecialchars($teacher, ENT_QUOTES, 'UTF-8')."'>".htmlspecialchars($teacher, ENT_QUOTES, 'UTF-8')."</option>";
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="dayFilter">برگزاری:</label>
+                <select class="custom-select" id="dayFilter" onchange="filterCards()">
+                    <option value="all">همه روزها</option>
+                    <option value="today" style="color: #be123c; font-weight: bold;">امروز</option>
+                    <option value="even">زوج</option>
+                    <option value="odd">فرد</option>
+                    <option value="private">خصوصی</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="typeFilter">نوع کلاس:</label>
+                <select class="custom-select" id="typeFilter" onchange="filterCards()">
+                    <option value="all">همه</option>
+                    <option value="online">آنلاین</option>
+                    <option value="offline">حضوری</option>
+                    <option value="private">خصوصی</option>
+                </select>
             </div>
         </div>
 
         <div>
-            <div class="section-title">👥 زبان‌آموزان فعلی</div>
-            <div class="student-badges">
-                <?php if(empty($students)): ?>
-                    <span class="student-badge" style="color: #666; border-color:transparent;">ثبت نشده</span>
-                <?php else: ?>
-                    <?php foreach($students as $student): ?>
-                        <span class="student-badge eas-student"
-                              data-student-id="<?= (int)$student['id'] ?>"
-                              title="دبل‌کلیک: Students Information"
-                              ondblclick="openStudentProfile(<?= (int)$student['id'] ?>)">
-                            <?= htmlspecialchars($student['full_name']) ?>
-                            <?php if (trim((string)($student['username'] ?? '')) !== ''): ?>
-                                <span class="student-file"><?= htmlspecialchars($student['username']) ?></span>
-                            <?php endif; ?>
-                        </span>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </div>
-        </div>
-
-        <div class="sessions-container">
-            <div class="sessions-head">
-                <div class="section-title">📅 تشکیل جلسه (<?= $total_sessions ?> جلسه‌ای)</div>
-                <button type="button" class="zoom-btn" onclick="openZoomModal(<?= $class['main_class_id'] ?>)">🔍 بزرگنمایی</button>
-            </div>
-            
-            <div id="placeholder-<?= $class['main_class_id'] ?>">
-                <div class="sessions-grid" id="grid-<?= $class['main_class_id'] ?>">
-                    <?php 
-                        for($i=1; $i<=$total_sessions; $i++) {
-                            $session_status = $class['session_'.$i] ?? 0;
-                            $status_class = ($session_status == 1) ? 'status-tick' : (($session_status == 2) ? 'status-cross' : '');
-                            $content = ($session_status == 1) ? '✔' : (($session_status == 2) ? '✖' : $i);
-                            $saved_date = $session_dates['date_'.$i] ?? '';
-                            
-                            echo "<div class='session-item'>
-                                    <div class='session-box {$status_class}' data-num='{$i}' onclick='toggleSession(this)'>{$content}</div>
-                                    <input type='text' data-jdp readonly class='date-input regular-date' placeholder='تاریخ' value='{$saved_date}'>
-                                  </div>";
-                                  
-                            if(isset($makeup_sessions['makeup_'.$i])) {
-                                echo "<div class='session-item makeup-item'>
-                                        <div class='session-box makeup-box' title='جبرانی جلسه {$i}'>M</div>
-                                        <input type='text' data-jdp readonly class='date-input makeup-date' data-num='{$i}' value='{$makeup_sessions['makeup_'.$i]}'>
-                                      </div>";
-                            }
-                        }
-                    ?>
-                </div>
-            </div>
-        </div>
-
-        <div class="actions-wrapper">
-            <div class="action-row">
-                <div class="action-box">
-                    <span style="font-size: 0.8rem; font-weight:700; color:#8e8e93">📊 نظرسنجی</span>
-                    <input type="checkbox" class="custom-checkbox" onchange="saveEasData(<?= $class['main_class_id'] ?>, 'poll_status', this.checked ? 1 : 0)" <?= (isset($class['poll_status']) && $class['poll_status'] == 1) ? 'checked' : '' ?>>
-                </div>
-                <div class="action-box">
-                    <span style="font-size: 0.8rem; font-weight:700; color:#8e8e93">👁 ارزیابی</span>
-                    <input type="checkbox" class="custom-checkbox" onchange="saveEasData(<?= $class['main_class_id'] ?>, 'observation_status', this.checked ? 1 : 0)" <?= (isset($class['observation_status']) && $class['observation_status'] == 1) ? 'checked' : '' ?>>
-                </div>
-            </div>
-            <div class="action-row">
-                <div class="action-box">
-                    <span style="font-size: 0.8rem; font-weight:700; color:#8e8e93">🧮 محاسبه حقوق</span>
-                    <input type="checkbox" class="custom-checkbox" onchange="saveEasData(<?= $class['main_class_id'] ?>, 'salary_calculated', this.checked ? 1 : 0)" <?= (isset($class['salary_calculated']) && $class['salary_calculated'] == 1) ? 'checked' : '' ?>>
-                </div>
-                <div class="action-box">
-                    <span style="font-size: 0.8rem; font-weight:700; color:#8e8e93">💳 پرداخت حقوق</span>
-                    <input type="checkbox" class="custom-checkbox" onchange="saveEasData(<?= $class['main_class_id'] ?>, 'salary_paid', this.checked ? 1 : 0)" <?= (isset($class['salary_paid']) && $class['salary_paid'] == 1) ? 'checked' : '' ?>>
-                </div>
-            </div>
-        </div>
-
-        <div class="interview-box">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div class="section-title" style="margin: 0;">🎙 مصاحبه (Interview)</div>
-                <label style="display:flex; align-items:center; gap:8px; color:#fff; font-size:0.75rem; margin:0; cursor:pointer;">
-                    انجام شد
-                    <input type="checkbox" class="custom-checkbox" onchange="saveEasData(<?= $class['main_class_id'] ?>, 'interview_status', this.checked ? 1 : 0)" <?= (isset($class['interview_status']) && $class['interview_status'] == 1) ? 'checked' : '' ?>>
-                </label>
-            </div>
-            <div class="interview-inputs">
-                <input type="text" data-jdp readonly class="eas-input interview-date-input" style="flex: 1; text-align: left; direction: ltr;" placeholder="انتخاب تاریخ..." value="<?= htmlspecialchars($class['interview_date'] ?? '') ?>">
-                <input type="text" class="eas-input interview-name-input" style="flex: 2;" placeholder="نام مصاحبه‌کننده..." value="<?= htmlspecialchars($class['interviewer_name'] ?? '') ?>" onblur="saveEasData(<?= $class['main_class_id'] ?>, 'interviewer_name', this.value)">
-            </div>
-        </div>
-
-        <div class="text-fields">
-            <div>
-                <div class="section-title">⏳ در انتظار ثبت‌نام</div>
-                <textarea class="eas-textarea pending-text" onblur="saveEasData(<?= $class['main_class_id'] ?>, 'pending_students', this.value)" placeholder="اسامی افراد در صف انتظار..."><?= htmlspecialchars($class['pending_students'] ?? '') ?></textarea>
-            </div>
-            <div>
-                <div class="section-title">📝 یادداشت مدیر</div>
-                <textarea class="eas-textarea admin-note-text" onblur="saveEasData(<?= $class['main_class_id'] ?>, 'admin_note', this.value)" placeholder="نکات مربوط به کلاس..."><?= htmlspecialchars($class['admin_note'] ?? '') ?></textarea>
-            </div>
+            <button class="export-excel-btn" onclick="exportToExcel()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="16" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                خروجی اکسل جامع
+            </button>
         </div>
     </div>
-    <?php endforeach; ?>
+
+    <div class="time-chips-container" id="timeChipsContainer">
+        <label>فیلتر ساعت:</label>
+        <span class="time-chip active" data-time="all" onclick="selectTimeFilter(this)">همه کلاس‌ها</span>
+        <span class="time-chip" data-time="10" onclick="selectTimeFilter(this)">۱۰ به بعد</span>
+        <span class="time-chip" data-time="11" onclick="selectTimeFilter(this)">۱۱ به بعد</span>
+        <span class="time-chip" data-time="12" onclick="selectTimeFilter(this)">۱۲ به بعد</span>
+        <span class="time-chip" data-time="13" onclick="selectTimeFilter(this)">۱۳ به بعد</span>
+        <span class="time-chip" data-time="14" onclick="selectTimeFilter(this)">۱۴ به بعد</span>
+        <span class="time-chip" data-time="15" onclick="selectTimeFilter(this)">۱۵ به بعد</span>
+        <span class="time-chip" data-time="16" onclick="selectTimeFilter(this)">۱۶ به بعد</span>
+        <span class="time-chip" data-time="17" onclick="selectTimeFilter(this)">۱۷ به بعد</span>
+        <span class="time-chip" data-time="18" onclick="selectTimeFilter(this)">۱۸ به بعد</span>
+    </div>
+
+    <div class="cards-container" id="cardsContainer">
+        <div class="eas-empty-state" id="easEmptyState">هیچ کلاسی مطابق فیلترهای انتخابی یافت نشد.</div>
+
+        <?php foreach ($classes as $class): 
+            $badgeInfo = getDayBadgeClass($class['schedule_type']);
+            $teacherName = $class['teacher_name'] ?? 'بدون مدرس';
+            
+            $classTypeKey = strtolower(trim((string)($class['class_type'] ?? '')));
+            if ($classTypeKey === '' || in_array($classTypeKey, ['inperson', 'in-person', 'حضوری'], true)) {
+                $classTypeKey = 'offline';
+            }
+
+            if ($classTypeKey === 'online') {
+                $classTypeBadge = "<span class='type-badge type-online'>آنلاین</span>";
+            } elseif ($classTypeKey === 'private') {
+                $classTypeBadge = "<span class='type-badge type-private'>خصوصی</span>";
+            } else {
+                $classTypeBadge = "<span class='type-badge type-inperson'>حضوری</span>";
+            }
+
+            $dayKey = $badgeInfo[2];
+            if ($classTypeKey === 'private' && $dayKey === 'all') {
+                $dayKey = 'private';
+            }
+            
+            $total_sessions = ($classTypeKey === 'private') ? 10 : 13;
+            
+            $students = $students_by_class[(int)$class['main_class_id']] ?? [];
+            $online_link = trim((string)($class['class_online_link'] ?? ''));
+            $teacher_id = (int)($class['teacher_id'] ?? 0);
+
+            $session_dates = json_decode($class['session_dates_json'] ?? '{}', true);
+            $makeup_sessions = json_decode($class['makeup_sessions_json'] ?? '{}', true);
+            
+            $display_time = !empty($class['schedule']) ? $class['schedule'] : (!empty($class['class_time']) ? $class['class_time'] : 'تنظیم نشده');
+            $student_search_blob = implode(' ', array_map(function($s) {
+                return ($s['full_name'] ?? '') . ' ' . ($s['username'] ?? '');
+            }, $students));
+            $search_blob = mb_strtolower(trim($class['class_title'] . ' ' . $teacherName . ' ' . $student_search_blob), 'UTF-8');
+        ?>
+        
+        <div class="eas-card"
+             data-teacher="<?= htmlspecialchars($teacherName, ENT_QUOTES, 'UTF-8') ?>"
+             data-day="<?= htmlspecialchars($dayKey, ENT_QUOTES, 'UTF-8') ?>"
+             data-time="<?= htmlspecialchars($display_time, ENT_QUOTES, 'UTF-8') ?>"
+             data-classtype="<?= htmlspecialchars($classTypeKey, ENT_QUOTES, 'UTF-8') ?>"
+             data-classid="<?= (int)$class['main_class_id'] ?>"
+             data-search="<?= htmlspecialchars($search_blob, ENT_QUOTES, 'UTF-8') ?>">
+            
+            <div class="card-header">
+                <div class="class-info">
+                    <h2><?= htmlspecialchars($class['class_title']) ?><?= class_live_dot([
+                        'schedule' => $class['schedule'] ?: ($class['class_time'] ?? ''),
+                        'schedule_type' => $class['schedule_type'] ?? '',
+                    ]) ?></h2>
+                    <div class="teacher<?= $teacher_id > 0 ? ' eas-teacher' : '' ?>"
+                         data-teachername="<?= htmlspecialchars($teacherName, ENT_QUOTES, 'UTF-8') ?>"
+                         <?php if ($teacher_id > 0): ?>
+                         data-teacher-id="<?= $teacher_id ?>"
+                         title="دبل‌کلیک: Teachers Information"
+                         ondblclick="openTeacherProfile(<?= $teacher_id ?>)"
+                         <?php endif; ?>
+                    >👨‍🏫 <?= htmlspecialchars($teacherName) ?></div>
+                    <?php if ($online_link !== ''): ?>
+                        <a class="eas-join-btn" href="<?= htmlspecialchars($online_link, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener"><?= $classTypeKey === 'offline' ? 'ورود به رویداد آنلاین' : 'ورود به کلاس' ?></a>
+                    <?php endif; ?>
+                </div>
+                <div class="meta-info">
+                    <div class="badges-wrapper">
+                        <?= $classTypeBadge ?>
+                        <span class="day-badge <?= $badgeInfo[0] ?>" data-daytext="<?= $badgeInfo[1] ?>"><?= $badgeInfo[1] ?></span>
+                    </div>
+                    <span class="time-badge"><?= htmlspecialchars($display_time) ?></span>
+                </div>
+            </div>
+
+            <div class="eas-section-box">
+                <div class="section-title">👥 زبان‌آموزان فعلی (<?= count($students) ?>)</div>
+                <div class="student-badges">
+                    <?php if(empty($students)): ?>
+                        <span class="student-badge student-badge-empty">ثبت نشده</span>
+                    <?php else: ?>
+                        <?php foreach($students as $student): ?>
+                            <span class="student-badge eas-student"
+                                  data-student-id="<?= (int)$student['id'] ?>"
+                                  title="دبل‌کلیک: Students Information"
+                                  ondblclick="openStudentProfile(<?= (int)$student['id'] ?>)">
+                                <?= htmlspecialchars($student['full_name']) ?>
+                                <?php if (trim((string)($student['username'] ?? '')) !== ''): ?>
+                                    <span class="student-file"><?= htmlspecialchars($student['username']) ?></span>
+                                <?php endif; ?>
+                            </span>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div class="sessions-container">
+                <div class="sessions-head">
+                    <div class="section-title">📅 تشکیل جلسه (<?= $total_sessions ?> جلسه‌ای)</div>
+                    <button type="button" class="zoom-btn" onclick="openZoomModal(<?= $class['main_class_id'] ?>)">🔍 بزرگنمایی</button>
+                </div>
+                
+                <div id="placeholder-<?= $class['main_class_id'] ?>">
+                    <div class="sessions-grid" id="grid-<?= $class['main_class_id'] ?>">
+                        <?php 
+                            for($i=1; $i<=$total_sessions; $i++) {
+                                $session_status = $class['session_'.$i] ?? 0;
+                                $status_class = ($session_status == 1) ? 'status-tick' : (($session_status == 2) ? 'status-cross' : '');
+                                $content = ($session_status == 1) ? '✔' : (($session_status == 2) ? '✖' : $i);
+                                $saved_date = $session_dates['date_'.$i] ?? '';
+                                
+                                echo "<div class='session-item'>
+                                        <div class='session-box {$status_class}' data-num='{$i}' onclick='toggleSession(this)'>{$content}</div>
+                                        <input type='text' data-jdp readonly class='date-input regular-date' placeholder='تاریخ' value='".htmlspecialchars($saved_date, ENT_QUOTES, 'UTF-8')."'>
+                                      </div>";
+                                      
+                                if(isset($makeup_sessions['makeup_'.$i])) {
+                                    echo "<div class='session-item makeup-item'>
+                                            <div class='session-box makeup-box' title='جبرانی جلسه {$i}'>M</div>
+                                            <input type='text' data-jdp readonly class='date-input makeup-date' data-num='{$i}' value='".htmlspecialchars($makeup_sessions['makeup_'.$i], ENT_QUOTES, 'UTF-8')."'>
+                                          </div>";
+                                }
+                            }
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions-wrapper">
+                <div class="action-row">
+                    <div class="action-box">
+                        <span>📊 نظرسنجی</span>
+                        <input type="checkbox" class="custom-checkbox" onchange="saveEasData(<?= $class['main_class_id'] ?>, 'poll_status', this.checked ? 1 : 0)" <?= (isset($class['poll_status']) && $class['poll_status'] == 1) ? 'checked' : '' ?>>
+                    </div>
+                    <div class="action-box">
+                        <span>👁 ارزیابی</span>
+                        <input type="checkbox" class="custom-checkbox" onchange="saveEasData(<?= $class['main_class_id'] ?>, 'observation_status', this.checked ? 1 : 0)" <?= (isset($class['observation_status']) && $class['observation_status'] == 1) ? 'checked' : '' ?>>
+                    </div>
+                </div>
+                <div class="action-row">
+                    <div class="action-box">
+                        <span>🧮 محاسبه حقوق</span>
+                        <input type="checkbox" class="custom-checkbox" onchange="saveEasData(<?= $class['main_class_id'] ?>, 'salary_calculated', this.checked ? 1 : 0)" <?= (isset($class['salary_calculated']) && $class['salary_calculated'] == 1) ? 'checked' : '' ?>>
+                    </div>
+                    <div class="action-box">
+                        <span>💳 پرداخت حقوق</span>
+                        <input type="checkbox" class="custom-checkbox" onchange="saveEasData(<?= $class['main_class_id'] ?>, 'salary_paid', this.checked ? 1 : 0)" <?= (isset($class['salary_paid']) && $class['salary_paid'] == 1) ? 'checked' : '' ?>>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interview-box">
+                <div class="interview-head">
+                    <div class="section-title">🎙 مصاحبه (Interview)</div>
+                    <label class="interview-done-label">
+                        انجام شد
+                        <input type="checkbox" class="custom-checkbox" onchange="saveEasData(<?= $class['main_class_id'] ?>, 'interview_status', this.checked ? 1 : 0)" <?= (isset($class['interview_status']) && $class['interview_status'] == 1) ? 'checked' : '' ?>>
+                    </label>
+                </div>
+                <div class="interview-inputs">
+                    <input type="text" data-jdp readonly class="eas-input interview-date-input" style="flex: 1; text-align: left; direction: ltr;" placeholder="انتخاب تاریخ..." value="<?= htmlspecialchars($class['interview_date'] ?? '') ?>">
+                    <input type="text" class="eas-input interview-name-input" style="flex: 2;" placeholder="نام مصاحبه‌کننده..." value="<?= htmlspecialchars($class['interviewer_name'] ?? '') ?>" onblur="saveEasData(<?= $class['main_class_id'] ?>, 'interviewer_name', this.value)">
+                </div>
+            </div>
+
+            <div class="text-fields">
+                <div class="eas-section-box">
+                    <div class="section-title">⏳ در انتظار ثبت‌نام</div>
+                    <textarea class="eas-textarea pending-text" onblur="saveEasData(<?= $class['main_class_id'] ?>, 'pending_students', this.value)" placeholder="اسامی افراد در صف انتظار..."><?= htmlspecialchars($class['pending_students'] ?? '') ?></textarea>
+                </div>
+                <div class="eas-section-box">
+                    <div class="section-title">📝 یادداشت مدیر</div>
+                    <textarea class="eas-textarea admin-note-text" onblur="saveEasData(<?= $class['main_class_id'] ?>, 'admin_note', this.value)" placeholder="نکات مربوط به کلاس..."><?= htmlspecialchars($class['admin_note'] ?? '') ?></textarea>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
 </div>
+
+<div class="eas-save-toast" id="easSaveToast"></div>
 
 <div class="modal fade" id="zoomModal" tabindex="-1">
     <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content" style="background: rgba(15, 15, 24, 0.96); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 24px;">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-white font-monospace">جزئیات جلسات</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        <div class="modal-content" style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 22px; box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);">
+            <div class="modal-header" style="border-bottom: 1.5px solid #e2e8f0; padding: 16px 24px;">
+                <h5 class="modal-title" style="color: #0f172a; font-weight: 900;">جزئیات جلسات</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body" id="zoomModalBody" style="padding: 30px;">
+            <div class="modal-body" id="zoomModalBody" style="padding: 26px; background: #f8fafc; border-radius: 0 0 22px 22px;">
             </div>
         </div>
     </div>
@@ -504,13 +1062,29 @@ require_once 'layout.php';
         window.location.href = 'teachers-info-view.php?id=' + id;
     }
 
+    let easToastTimer = null;
+    function showEasToast(text, isError) {
+        const el = document.getElementById('easSaveToast');
+        if (!el) return;
+        el.textContent = text;
+        el.className = 'eas-save-toast show ' + (isError ? 'err' : 'ok');
+        clearTimeout(easToastTimer);
+        easToastTimer = setTimeout(() => { el.classList.remove('show'); }, 2200);
+    }
+
     function saveEasData(classId, field, value) {
         let formData = new FormData();
         formData.append('class_id', classId);
         formData.append('field', field);
         formData.append('value', value);
 
-        fetch('ajax_eas_update.php', { method: 'POST', body: formData });
+        fetch('ajax_eas_update.php', { method: 'POST', body: formData })
+            .then(r => {
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.text();
+            })
+            .then(() => showEasToast('✓ تغییرات ذخیره شد', false))
+            .catch(() => showEasToast('خطا در ذخیره‌سازی تغییرات', true));
     }
 
     let currentTimeFilterVal = 'all';
@@ -549,7 +1123,8 @@ require_once 'layout.php';
     function filterCards() {
         const teacherFilter = document.getElementById('teacherFilter').value;
         const dayFilter = document.getElementById('dayFilter').value;
-        const typeFilter = document.getElementById('typeFilter').value; 
+        const typeFilter = document.getElementById('typeFilter').value;
+        const searchQuery = (document.getElementById('easSearchInput')?.value || '').trim().toLowerCase();
         const cardsContainer = document.getElementById('cardsContainer');
         const cards = Array.from(document.querySelectorAll('.eas-card'));
         
@@ -564,10 +1139,12 @@ require_once 'layout.php';
             const cardTeacher = card.getAttribute('data-teacher');
             const cardDay = card.getAttribute('data-day');
             const cardTimeStr = card.getAttribute('data-time');
-            const cardType = (card.getAttribute('data-classtype') || 'offline').toLowerCase(); 
+            const cardType = (card.getAttribute('data-classtype') || 'offline').toLowerCase();
+            const cardSearch = (card.getAttribute('data-search') || '').toLowerCase();
             const cardMinutes = parseTimeStr(cardTimeStr);
             
             const matchTeacher = (teacherFilter === 'all' || cardTeacher === teacherFilter);
+            const matchSearch = (searchQuery === '' || cardSearch.includes(searchQuery));
             
             let matchDay = false;
             if (dayFilter === 'all') {
@@ -589,7 +1166,7 @@ require_once 'layout.php';
             const normalizedType = (typeFilter === 'offline' && cardType === '') ? 'offline' : cardType;
             const matchType = (typeFilter === 'all' || normalizedType === typeFilter);
 
-            if (matchTeacher && matchDay && matchTime && matchType) {
+            if (matchTeacher && matchDay && matchTime && matchType && matchSearch) {
                 card.style.display = 'flex';
                 visibleCards.push({el: card, time: cardMinutes});
             } else {
@@ -601,6 +1178,11 @@ require_once 'layout.php';
             visibleCards.sort((a, b) => a.time - b.time);
             visibleCards.forEach(item => cardsContainer.appendChild(item.el));
         }
+
+        const countEl = document.getElementById('easVisibleCount');
+        if (countEl) countEl.textContent = `نمایش ${visibleCards.length} کلاس`;
+        const emptyEl = document.getElementById('easEmptyState');
+        if (emptyEl) emptyEl.style.display = visibleCards.length === 0 ? 'block' : 'none';
     }
 
     function loadXlsx() {

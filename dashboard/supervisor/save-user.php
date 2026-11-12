@@ -8,7 +8,7 @@ require_role('supervisor');
 
 header('Content-Type: application/json; charset=utf-8');
 
-$ghazal_user_roles = ['teacher', 'student', 'supervisor', 'consultant'];
+$ghazal_user_roles = ['teacher', 'student', 'supervisor'];
 
 function ghazal_ensure_consultant_role(PDO $pdo, $role) {
     if ($role !== 'consultant') {

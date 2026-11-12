@@ -50,129 +50,9 @@ require_once '../../includes/db.php';
 // require_once '../../includes/jdate-enhanced.php';
 
 require_role('supervisor');
-
-$stmt = $pdo->prepare("
-    SELECT c.id, c.title, c.schedule, c.schedule_type, c.class_type, c.online_link, u.full_name as teacher_name
-    FROM classes c
-    JOIN users u ON c.teacher_id = u.id
-    JOIN terms t ON c.term_id = t.id
-    WHERE c.is_deleted = 0 
-    AND " . term_sql_teaching('t') . "
-    AND IFNULL(c.is_archived, 0) = 0
-    ORDER BY c.title
-");
-$stmt->execute();
-$classes = $stmt->fetchAll();
-
-$odd_classes = [];
-$even_classes = [];
-
-foreach ($classes as $class) {
-    if ($class['schedule_type'] == 'odd') {
-        $even_classes[] = $class;
-    } else {
-        $odd_classes[] = $class;
-    }
-}
 ?>
 
 <link href="../../assets/css/supervisor/supervisor-dashboard.css?v=<?= time() ?>" rel="stylesheet">
-
-
-<?php
-date_default_timezone_set('Asia/Tehran');
-
-$today_eng_weekday = date('w'); 
-
-$mapping = [
-    6 => 1, // شنبه
-    0 => 2, // یکشنبه
-    1 => 3, // دوشنبه
-    2 => 4, // سه‌شنبه
-    3 => 5, // چهارشنبه
-    4 => 6, // پنج‌شنبه
-    5 => 7  // جمعه
-];
-
-$today_weekday = $mapping[$today_eng_weekday];
-
-if ($today_weekday == 7) {
-    $active_classes = [];
-    $section_title = 'It is Friday you know...';
-} 
-elseif (in_array($today_weekday, [1, 3, 5])) {
-    $active_classes = $odd_classes; 
-    $section_title = 'Classes for today (Sat/Mon/Wed)'; 
-} 
-else {
-    $active_classes = $even_classes; 
-    $section_title = 'Classes for today (Sun/Tue/Thu)'; 
-}
-?>
-
-<?php if (!empty($active_classes)): ?>
-<div class="card mb-4 ">
-    <div class="card-header bg-danger text-white">
-        <h5 class="mb-0">📅 <?= htmlspecialchars($section_title) ?></h5>
-    </div>
-    <div class="card-body">
-        <div class="row g-3">
-            <?php foreach ($active_classes as $class): ?>
-            <div class="col-12 col-md-6 col-lg-2 ">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-2 ">
-                            <h6 class="card-title mb-0"><?= htmlspecialchars($class['title']) ?><?= class_live_dot($class) ?></h6>
-                            <?php if ($class['class_type'] == 'online'): ?>
-                                <span class="badge bg-success">Online</span>
-                            <?php else: ?>
-                                <span class="badge bg-secondary">Inperson</span>
-                            <?php endif; ?>
-                        </div>
-                        <p Style="font-size:12px; text-align:center;color:#fff;">Instructor: <?= htmlspecialchars($class['teacher_name']) ?></p>
-                        
-                        <div class="mt-2">
-                            <button type="button " 
-                                    class="btn w-100 btn-danger"
-                                    onclick="showStudentsMain(<?= $class['id'] ?>, '<?= htmlspecialchars($class['title']) ?>')">
-                                اسامی دانش‌آموزان
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</div>
-<?php else: ?>
-<div class="card mb-4">
-    <div class="card-header bg-warning text-white">
-        <h5 class="mb-0">📅 <?= htmlspecialchars($section_title) ?></h5>
-    </div>
-    <div class="card-body text-center">
-        <div class="alert alert-info mb-0">
-            <strong>We're off the clock!</strong><br>
-        </div>
-    </div>
-</div>
-<?php endif; ?>
-
-<div class="modal fade" id="studentsListModal" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Participants</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div id="students-list-content-main">
-                    <div class="lg-student-status">I'm processing... wait...</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="row g-4">
     
@@ -243,12 +123,12 @@ else {
     </div>
 
     <div class="col-6 col-sm-6 col-md-4 col-lg-3">
-        <a href="session-plan.php" class="text-decoration-none">
-            <div class="dashboard-card bg-session h-100">
+        <a href="assignments.php" class="text-decoration-none">
+            <div class="dashboard-card bg-assignment h-100">
                 <div class="card-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 560"><path opacity=".4" fill="currentColor" d=""/><path fill="currentColor" d="M448.4 96l-384 0c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l197.8 0c-4.1 9-7.1 18.5-8.7 28.3l-.6 3.7-188.5 0c-35.3 0-64-28.7-64-64l0-256c0-35.3 28.7-64 64-64l384 0c35.3 0 64 28.7 64 64l0 76.1c-10.8 0-21.6 1.5-32 4.4l0-80.6c0-17.7-14.3-32-32-32zM96.4 304c0-8.8 7.2-16 16-16l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16zm16-112l288 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-288 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zM341.5 440.1c-4.7 4.7-7.8 10.8-8.9 17.4l-8.5 50.8 50.8-8.5c6.6-1.1 12.6-4.2 17.4-8.9l102.2-102.2-50.7-50.7-102.2 102.2zM466.3 315.3l50.7 50.7 20.7-20.7c14-14 14-36.7 0-50.7s-36.7-14-50.7 0l-20.7 20.7zM301 452.2c2.2-13.2 8.4-25.3 17.9-34.7L464.4 272c26.5-26.5 69.5-26.5 96 0s26.5 69.5 0 96L414.9 513.5c-9.4 9.4-21.6 15.7-34.7 17.9l-74.6 12.4c-.8 .1-1.6 .2-2.4 .2-8.2 0-14.8-6.6-14.8-14.8 0-.8 .1-1.6 .2-2.4L301 452.2z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path opacity=".4" fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-96 0c-17.7 0-32-14.3-32-32L256 0 64 0z"/><path fill="currentColor" d="M256 0l0 96c0 17.7 14.3 32 32 32l96 0L256 0zM136 240c-13.3 0-24 10.7-24 24s10.7 24 24 24l48 0 0 72c0 13.3 10.7 24 24 24s24-10.7 24-24l0-72 48 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-48 0 0-48c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 48-48 0z"/></svg>
                 </div>
-                <h5 class="mb-1">Session plan</h5>
+                <h5 class="mb-1">Assignments</h5>
             </div>
         </a>
     </div>
@@ -411,34 +291,3 @@ else {
 </div>
 
 <?php require_once 'layout-end.php'; ?>
-
-<script>
-function showStudentsMain(classId, classTitle) {
-    document.querySelector('#studentsListModal .modal-title').textContent = 'Participants';
-    var box = document.getElementById('students-list-content-main');
-    box.innerHTML = '<div class="lg-student-status">I\'m processing... wait...</div>';
-
-    fetch('?action=get_students_list&class_id=' + encodeURIComponent(classId), {
-        headers: { 'Accept': 'application/json' },
-        credentials: 'same-origin'
-    })
-    .then(function (response) { return response.json(); })
-    .then(function (data) {
-        if (window.lgRenderParticipants) {
-            window.lgRenderParticipants('students-list-content-main', data, {
-                label: 'Class',
-                title: classTitle,
-                showPhone: true
-            });
-            return;
-        }
-        box.innerHTML = '<div class="lg-student-status is-error">خطا در بارگذاری اطلاعات کلاس</div>';
-    })
-    .catch(function (error) {
-        console.error('Error:', error);
-        box.innerHTML = '<div class="lg-student-status is-error">خطا در ارتباط با سرور</div>';
-    });
-
-    bootstrap.Modal.getOrCreateInstance(document.getElementById('studentsListModal')).show();
-}
-</script>

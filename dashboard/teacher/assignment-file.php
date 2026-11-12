@@ -8,6 +8,7 @@ require_role('teacher');
 $teacher_id = (int)($_SESSION['user_id'] ?? 0);
 $kind = trim((string)($_GET['kind'] ?? 'teacher'));
 $id = (int)($_GET['id'] ?? 0);
+$inline = !empty($_GET['inline']);
 
 try {
     assignments_ensure_schema($pdo);
@@ -15,6 +16,22 @@ try {
     http_response_code(500);
     echo 'فایل در دسترس نیست.';
     exit;
+}
+
+if ($kind === 'submission_file') {
+    $f = assignments_find_submission_file($pdo, $id);
+    if (!$f) {
+        http_response_code(404);
+        echo 'فایل پیدا نشد.';
+        exit;
+    }
+    $asg = assignments_find_teacher($pdo, (int)$f['assignment_id'], $teacher_id);
+    if (!$asg) {
+        http_response_code(403);
+        echo 'اجازه دانلود این فایل را ندارید.';
+        exit;
+    }
+    assignments_send_file($f['stored_name'], $f['original_name'] ?? 'file', $f['mime'] ?? '', $inline);
 }
 
 if ($kind === 'submission') {
@@ -30,7 +47,7 @@ if ($kind === 'submission') {
         echo 'اجازه دانلود این فایل را ندارید.';
         exit;
     }
-    assignments_send_file($sub['stored_name'], $sub['original_name'], $sub['mime'] ?? '');
+    assignments_send_file($sub['stored_name'], $sub['original_name'], $sub['mime'] ?? '', $inline);
 }
 
 $asg = assignments_find_teacher($pdo, $id, $teacher_id);
@@ -42,5 +59,6 @@ if (!$asg || trim((string)($asg['teacher_stored_name'] ?? '')) === '') {
 assignments_send_file(
     $asg['teacher_stored_name'],
     $asg['teacher_original_name'] ?? 'file',
-    $asg['teacher_mime'] ?? ''
+    $asg['teacher_mime'] ?? '',
+    $inline
 );

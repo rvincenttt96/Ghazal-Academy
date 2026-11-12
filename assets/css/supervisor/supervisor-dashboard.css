@@ -6,13 +6,13 @@
     color: white;
 }
 .modal-header {
-    background: linear-gradient(90deg, #d32f2f, #ff5252);
+    background: linear-gradient(90deg, #1830a8, #48b0b0);
     border-radius: 12px 12px 0 0 !important;
     border: none;
     padding: 16px 20px;
 }
 .accordion-button {
-    background: linear-gradient(90deg, #b71c1c, #d32f2f) !important;
+    background: linear-gradient(90deg, #0c1a62, #1830a8) !important;
     color: white !important;
     font-weight: 600;
     border: none !important;
@@ -29,14 +29,14 @@
 
 /* کارت کلاس‌ها */
 .supervisor-class-card {
-    background: rgba(211, 47, 47, 0.05) !important;
-    border: 1px solid rgba(211, 47, 47, 0.2) !important;
+    background: rgba(24, 48, 168, 0.05) !important;
+    border: 1px solid rgba(24, 48, 168, 0.2) !important;
     border-radius: 12px !important;
     transition: all 0.2s;
 }
 .supervisor-class-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
+    box-shadow: 0 4px 12px rgba(24, 48, 168, 0.2);
 }
 .card-icon {
     width: 60px;
@@ -58,14 +58,15 @@
     padding: 4px 8px !important;
 }
 /* رنگ‌های کارت‌ها (تم قرمز) */
-.bg-class { background: linear-gradient(120deg, rgba(211,47,47,0.2), rgba(183,28,28,0.2)) !important; }
+.bg-class { background: linear-gradient(120deg, rgba(24, 48, 168,0.2), rgba(183,28,28,0.2)) !important; }
 .bg-attendance { background: linear-gradient(120deg, rgba(244,67,54,0.2), rgba(198,40,40,0.2)) !important; }
-.bg-quiz { background: linear-gradient(120deg, rgba(255,82,82,0.2), rgba(211,47,47,0.2)) !important; }
+.bg-quiz { background: linear-gradient(120deg, rgba(255,82,82,0.2), rgba(24, 48, 168,0.2)) !important; }
 .bg-homework { background: linear-gradient(120deg, rgba(183,28,28,0.2), rgba(139,0,0,0.2)) !important; }
+.bg-assignment { background: linear-gradient(165deg, rgba(59, 130, 246, 0.34), rgba(14, 14, 22, 0.78)) !important; }
 .bg-session { background: linear-gradient(120deg, rgba(229,57,53,0.2), rgba(183,28,28,0.2)) !important; }
 .bg-error { background: linear-gradient(120deg, rgba(244,67,54,0.2), rgba(139,0,0,0.2)) !important; }
-.bg-observation { background: linear-gradient(120deg, rgba(229,57,53,0.2), rgba(211,47,47,0.2)) !important; }
-.bg-held { background: linear-gradient(120deg, rgba(139,0,0,0.2), rgba(211,47,47,0.2)) !important; }
+.bg-observation { background: linear-gradient(120deg, rgba(229,57,53,0.2), rgba(24, 48, 168,0.2)) !important; }
+.bg-held { background: linear-gradient(120deg, rgba(139,0,0,0.2), rgba(24, 48, 168,0.2)) !important; }
 
 
 .messages-widget{

@@ -58,19 +58,6 @@ require_once '../../includes/db.php';
             </div>
         </a>
     </div>
-<div class="col-6 col-sm-6 col-md-4 col-lg-3">
-        <a href="session-plan.php" class="text-decoration-none">
-            <div class="dashboard-card bg-session h-100">
-                <div class="card-icon">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 560"><path opacity=".4" fill="currentColor" d=""/><path fill="currentColor" d="M448.4 96l-384 0c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l197.8 0c-4.1 9-7.1 18.5-8.7 28.3l-.6 3.7-188.5 0c-35.3 0-64-28.7-64-64l0-256c0-35.3 28.7-64 64-64l384 0c35.3 0 64 28.7 64 64l0 76.1c-10.8 0-21.6 1.5-32 4.4l0-80.6c0-17.7-14.3-32-32-32zM96.4 304c0-8.8 7.2-16 16-16l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16zm16-112l288 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-288 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zM341.5 440.1c-4.7 4.7-7.8 10.8-8.9 17.4l-8.5 50.8 50.8-8.5c6.6-1.1 12.6-4.2 17.4-8.9l102.2-102.2-50.7-50.7-102.2 102.2zM466.3 315.3l50.7 50.7 20.7-20.7c14-14 14-36.7 0-50.7s-36.7-14-50.7 0l-20.7 20.7zM301 452.2c2.2-13.2 8.4-25.3 17.9-34.7L464.4 272c26.5-26.5 69.5-26.5 96 0s26.5 69.5 0 96L414.9 513.5c-9.4 9.4-21.6 15.7-34.7 17.9l-74.6 12.4c-.8 .1-1.6 .2-2.4 .2-8.2 0-14.8-6.6-14.8-14.8 0-.8 .1-1.6 .2-2.4L301 452.2z"/></svg>
-                    </span>
-                </div>
-                <h5 class="mb-1">Session Plan</h5>
-            </div>
-        </a>
-    </div>
-
     <div class="col-6 col-sm-6 col-md-4 col-lg-3">
         <a href="assignments.php" class="text-decoration-none">
             <div class="dashboard-card bg-assignment h-100">
@@ -134,6 +121,20 @@ require_once '../../includes/db.php';
                     </span>
                 </div>
                 <h5 class="mb-1">Mind Lingo</h5>
+            </div>
+        </a>
+    </div>
+
+    <!-- اضافه شدن بخش Material -->
+    <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+        <a href="material.php" class="text-decoration-none">
+            <div class="dashboard-card h-100" style="background: rgba(14, 165, 233, 0.12); border-color: rgba(56, 189, 248, 0.35);">
+                <div class="card-icon" style="color: #38bdf8;">
+                   <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path opacity=".4" fill="currentColor" d="M144 480c-79.5 0-144-64.5-144-144c0-67.9 47.1-124.8 110.8-140.2C130.6 84.8 217.9 0 320 0c102.1 0 189.4 84.8 209.2 195.8C592.9 211.2 640 268.1 640 336c0 79.5-64.5 144-144 144l-352 0z"/><path fill="currentColor" d="M308.7 203.3c6.2-6.2 16.4-6.2 22.6 0l80 80c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L336 253.3V384c0 8.8-7.2 16-16 16s-16-7.2-16-16V253.3l-52.7 52.7c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l80-80z"/></svg>
+                    </span>
+                </div>
+                <h5 class="mb-1" style="color: #e0f2fe;">Material</h5>
             </div>
         </a>
     </div>

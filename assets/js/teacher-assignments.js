@@ -200,7 +200,7 @@
             if (row && row.has_teacher_file) {
                 fileHint.textContent = 'پیوست فعلی: ' + row.teacher_file_name + ' (' + row.teacher_file_size_label + '). فایل جدید جایگزین می‌شود. سقف ' + (boot.max_label || '') + '.';
             } else {
-                fileHint.textContent = 'پیوست اختیاری است. PDF، تصویر، Word یا ZIP — حداکثر ' + (boot.max_label || '۸ مگابایت') + '.';
+                fileHint.textContent = 'پیوست اختیاری است. PDF، تصویر، ویس، Word یا ZIP — حداکثر ' + (boot.max_label || '۲۰ مگابایت') + '.';
             }
         }
     }
@@ -221,10 +221,11 @@
             const due = it.due_label ? ('مهلت ' + it.due_label) : 'بدون مهلت';
             const file = it.has_teacher_file ? ('پیوست: ' + it.teacher_file_name) : 'بدون پیوست';
             const sub = (it.submission_count || 0) + ' / ' + (it.student_count || 0) + ' تحویل';
+            const graded = (it.graded_count || 0) + ' بررسی‌شده';
             return '<article class="qb-exam-item asg-item" data-id="' + it.id + '">'
                 + '<div><h3>' + esc(it.title) + '</h3>'
                 + '<div class="qb-card-meta"><span class="qb-pill qb-pill-ready">S.' + esc(it.session_no) + '</span>'
-                + '<span>' + esc(due) + '</span><span>' + esc(file) + '</span><span>' + esc(sub) + '</span></div>'
+                + '<span>' + esc(due) + '</span><span>' + esc(file) + '</span><span>' + esc(sub) + '</span><span>' + esc(graded) + '</span></div>'
                 + (it.body ? '<p class="qb-hint">' + esc(it.body).slice(0, 180) + '</p>' : '')
                 + '</div><div class="asg-item-actions">'
                 + '<button type="button" class="qb-btn" data-act="subs">تحویل‌ها</button>'
@@ -235,32 +236,101 @@
         }).join('');
     }
 
+    function renderSubFilesCell(r) {
+        if (!r.submitted) {
+            return '—';
+        }
+        const files = Array.isArray(r.files) && r.files.length
+            ? r.files
+            : [{ id: 0, kind: 'doc', can_inline: false, name: r.file_name || 'file', size_label: r.file_size_label || '' }];
+
+        return '<div class="asg-sub-files">' + files.map(function (f) {
+            const fid = parseInt(f.id || '0', 10);
+            const dlUrl = fid > 0
+                ? (fileBase + '?kind=submission_file&id=' + fid)
+                : (fileBase + '?kind=submission&id=' + r.submission_id);
+            const inlineUrl = dlUrl + '&inline=1';
+
+            if (f.kind === 'image' && f.can_inline) {
+                return '<div class="asg-sub-file-item asg-sub-img-item">'
+                    + '<a href="' + inlineUrl + '" target="_blank" rel="noopener" class="asg-sub-thumb-link" title="مشاهده تصویر">'
+                    + '<img src="' + inlineUrl + '" alt="' + esc(f.name) + '" loading="lazy" class="asg-sub-thumb">'
+                    + '</a>'
+                    + '<div class="asg-sub-file-info">'
+                    + '<a href="' + inlineUrl + '" target="_blank" rel="noopener">' + esc(f.name) + '</a>'
+                    + ' <span>' + esc(f.size_label || '') + '</span>'
+                    + ' · <a href="' + dlUrl + '">دانلود</a>'
+                    + '</div></div>';
+            }
+            if (f.kind === 'audio' && f.can_inline) {
+                return '<div class="asg-sub-file-item asg-sub-aud-item">'
+                    + '<audio class="asg-audio-player asg-audio-compact" controls preload="none" src="' + inlineUrl + '"></audio>'
+                    + '<div class="asg-sub-file-info">'
+                    + '<a href="' + dlUrl + '">🎙️ دانلود ' + esc(f.name) + '</a>'
+                    + ' <span>' + esc(f.size_label || '') + '</span>'
+                    + '</div></div>';
+            }
+            return '<div class="asg-sub-file-item">'
+                + '<a href="' + dlUrl + '">📄 ' + esc(f.name) + '</a> <span>' + esc(f.size_label || '') + '</span>'
+                + '</div>';
+        }).join('') + '</div>';
+    }
+
+    function paintSubs(data) {
+        const asg = data.assignment || {};
+        const rows = data.submissions || [];
+        currentId = parseInt(asg.id || currentId || '0', 10);
+        let html = '<h2>' + esc(asg.title || 'تحویل‌ها') + '</h2>';
+        html += '<p class="qb-hint">S.' + esc(asg.session_no) + ' · '
+            + (data.submitted || 0) + ' از ' + (data.total || 0) + ' نفر فایل فرستاده‌اند'
+            + ' · ' + (data.graded || asg.graded_count || 0) + ' بررسی‌شده (فقط ۳ حالت کامل، ناقص و عدم تحویل).</p>';
+        if (asg.body) {
+            html += '<div class="asg-body">' + esc(asg.body) + '</div>';
+        }
+        if (asg.has_teacher_file && asg.teacher_file_kind === 'audio' && asg.teacher_file_inline) {
+            html += '<div class="asg-teacher-att"><audio class="asg-audio-player" controls preload="none" src="'
+                + fileBase + '?kind=teacher&id=' + asg.id + '&inline=1"></audio></div>';
+        }
+        if (!rows.length) {
+            html += '<p>هنوز دانش‌آموزی در این کلاس نیست.</p>';
+        } else {
+            html += '<table><thead><tr><th>دانش‌آموز</th><th>وضعیت تحویل</th><th>فایل‌ها / ویس</th><th>زمان</th><th>وضعیت تکلیف</th></tr></thead><tbody>';
+            rows.forEach(function (r) {
+                const pill = r.status_key === 'submitted' ? 'ready' : (r.status_key === 'late' ? 'draft' : (r.status_key === 'overdue' ? 'failed' : 'pending'));
+                const file = renderSubFilesCell(r);
+                const curStatus = r.review_status || '';
+                const stKey = r.student_id;
+                const grade = '<div class="asg-grade asg-review-wrap">'
+                    + '<div class="asg-review-btns">'
+                    + '<button type="button" class="asg-review-btn is-complete' + (curStatus === 'complete' ? ' active' : '') + '" data-act="review" data-status="complete" data-student="' + stKey + '" data-sid="' + (r.submission_id || 0) + '">کامل</button>'
+                    + '<button type="button" class="asg-review-btn is-incomplete' + (curStatus === 'incomplete' ? ' active' : '') + '" data-act="review" data-status="incomplete" data-student="' + stKey + '" data-sid="' + (r.submission_id || 0) + '">ناقص</button>'
+                    + '<button type="button" class="asg-review-btn is-not-submitted' + (curStatus === 'not_submitted' ? ' active' : '') + '" data-act="review" data-status="not_submitted" data-student="' + stKey + '" data-sid="' + (r.submission_id || 0) + '">عدم تحویل</button>'
+                    + '</div>'
+                    + '<input type="text" maxlength="400" class="asg-feedback-input" data-student="' + stKey + '" value="' + esc(r.feedback || '') + '" placeholder="توضیح (اختیاری)">'
+                    + '</div>';
+                html += '<tr data-sid="' + (r.submission_id || 0) + '" data-student="' + stKey + '"><td><span class="asg-name">' + esc(r.full_name) + '</span><div class="qb-hint">' + esc(r.username) + '</div></td>'
+                    + '<td><span class="qb-pill qb-pill-' + pill + '">' + esc(r.status_label) + '</span></td>'
+                    + '<td>' + file + '</td><td>' + esc(r.submitted_label || '—') + '</td><td>' + grade + '</td></tr>';
+            });
+            html += '</tbody></table>';
+        }
+        if (detailEl) {
+            detailEl.hidden = false;
+            detailEl.innerHTML = html;
+        }
+        if (asg && asg.id) {
+            upsert(asg);
+            renderSessions();
+            renderList();
+        }
+    }
+
     function loadSubs(id) {
         busy(true, 'در حال خواندن تحویل‌ها…');
         post({ action: 'submissions', id: String(id) })
             .then(function (data) {
-                const asg = data.assignment || {};
-                const rows = data.submissions || [];
-                let html = '<h2>' + esc(asg.title || 'تحویل‌ها') + '</h2>';
-                html += '<p class="qb-hint">S.' + esc(asg.session_no) + ' · ' + (data.submitted || 0) + ' از ' + (data.total || 0) + ' نفر فایل فرستاده‌اند.</p>';
-                if (!rows.length) {
-                    html += '<p>هنوز دانش‌آموزی در این کلاس نیست.</p>';
-                } else {
-                    html += '<table><thead><tr><th>دانش‌آموز</th><th>وضعیت</th><th>فایل</th><th>زمان</th></tr></thead><tbody>';
-                    rows.forEach(function (r) {
-                        const pill = r.status_key === 'submitted' ? 'ready' : (r.status_key === 'late' ? 'draft' : (r.status_key === 'overdue' ? 'failed' : 'pending'));
-                        const file = r.submitted
-                            ? '<a href="' + fileBase + '?kind=submission&id=' + r.submission_id + '">' + esc(r.file_name) + '</a> <span>' + esc(r.file_size_label) + '</span>'
-                            : '—';
-                        html += '<tr><td>' + esc(r.full_name) + '<div class="qb-hint">' + esc(r.username) + '</div></td>'
-                            + '<td><span class="qb-pill qb-pill-' + pill + '">' + esc(r.status_label) + '</span></td>'
-                            + '<td>' + file + '</td><td>' + esc(r.submitted_label || '—') + '</td></tr>';
-                    });
-                    html += '</tbody></table>';
-                }
+                paintSubs(data);
                 if (detailEl) {
-                    detailEl.hidden = false;
-                    detailEl.innerHTML = html;
                     detailEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             })
@@ -274,11 +344,49 @@
     }
 
     if (fileHint) {
-        fileHint.textContent = 'پیوست اختیاری است. PDF، تصویر، Word یا ZIP — حداکثر ' + (boot.max_label || '۸ مگابایت') + '.';
+        fileHint.textContent = 'پیوست اختیاری است. PDF، تصویر، ویس، Word یا ZIP — حداکثر ' + (boot.max_label || '۲۰ مگابایت') + '.';
     }
 
     renderSessions();
     renderList();
+
+    if (detailEl) {
+        detailEl.addEventListener('click', function (e) {
+            const btn = e.target.closest('[data-act="review"]');
+            if (!btn) {
+                return;
+            }
+            const sid = parseInt(btn.getAttribute('data-sid') || '0', 10);
+            const studentId = parseInt(btn.getAttribute('data-student') || '0', 10);
+            if (!studentId || !currentId) {
+                return;
+            }
+            const isAlreadyActive = btn.classList.contains('active');
+            const nextStatus = isAlreadyActive ? '' : (btn.getAttribute('data-status') || '');
+            const noteEl = detailEl.querySelector('.asg-feedback-input[data-student="' + studentId + '"]');
+            busy(true, 'در حال ثبت وضعیت…');
+            post({
+                action: 'grade',
+                assignment_id: String(currentId),
+                student_id: String(studentId),
+                submission_id: String(sid),
+                review_status: nextStatus,
+                feedback: noteEl ? noteEl.value : ''
+            })
+                .then(function (data) {
+                    paintSubs(data);
+                    toast(data.message || 'وضعیت تکلیف ثبت شد.');
+                    showAlert(data.message, true);
+                })
+                .catch(function (err) {
+                    showAlert(err.message, false);
+                    toast(err.message);
+                })
+                .then(function () {
+                    busy(false);
+                });
+        });
+    }
 
     if (listEl) {
         listEl.addEventListener('click', function (e) {

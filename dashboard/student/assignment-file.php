@@ -7,6 +7,7 @@ require_role('student');
 $student_id = (int)($_SESSION['user_id'] ?? 0);
 $kind = trim((string)($_GET['kind'] ?? 'teacher'));
 $id = (int)($_GET['id'] ?? 0);
+$inline = !empty($_GET['inline']);
 
 try {
     assignments_ensure_schema($pdo);
@@ -14,6 +15,22 @@ try {
     http_response_code(500);
     echo 'فایل در دسترس نیست.';
     exit;
+}
+
+if ($kind === 'submission_file') {
+    $f = assignments_find_submission_file($pdo, $id);
+    if (!$f || (int)$f['student_id'] !== $student_id) {
+        http_response_code(404);
+        echo 'فایل پیدا نشد.';
+        exit;
+    }
+    $asg = assignments_find_student($pdo, (int)$f['assignment_id'], $student_id);
+    if (!$asg) {
+        http_response_code(403);
+        echo 'فایل در دسترس نیست.';
+        exit;
+    }
+    assignments_send_file($f['stored_name'], $f['original_name'] ?? 'file', $f['mime'] ?? '', $inline);
 }
 
 $asg = assignments_find_student($pdo, $id, $student_id);
@@ -34,7 +51,7 @@ if ($kind === 'submission') {
         $sub = assignments_find_submission($pdo, (int)$asg['submission_id']);
         $mime = $sub['mime'] ?? '';
     }
-    assignments_send_file($asg['sub_stored_name'], $asg['sub_original_name'] ?? 'file', $mime);
+    assignments_send_file($asg['sub_stored_name'], $asg['sub_original_name'] ?? 'file', $mime, $inline);
 }
 
 if (trim((string)($asg['teacher_stored_name'] ?? '')) === '') {
@@ -45,5 +62,6 @@ if (trim((string)($asg['teacher_stored_name'] ?? '')) === '') {
 assignments_send_file(
     $asg['teacher_stored_name'],
     $asg['teacher_original_name'] ?? 'file',
-    $asg['teacher_mime'] ?? ''
+    $asg['teacher_mime'] ?? '',
+    $inline
 );

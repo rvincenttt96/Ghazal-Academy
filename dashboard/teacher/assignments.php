@@ -47,16 +47,16 @@ $boot = [
     'assignments' => $pub,
     'max_bytes' => $limit,
     'max_label' => assignments_bytes_label($limit),
-    'accept' => '.pdf,.jpg,.jpeg,.png,.webp,.gif,.doc,.docx,.zip',
+    'accept' => assignments_accept_attr(),
 ];
 ?>
 <link href="../../assets/css/quiz-builder.css?v=qb7" rel="stylesheet">
-<link href="../../assets/css/assignments.css?v=asg1" rel="stylesheet">
+<link href="../../assets/css/assignments.css?v=asg4" rel="stylesheet">
 <div class="qb-page asg-page" data-asg-teacher data-boot="<?= assignments_h(json_encode($boot, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) ?>">
     <div class="qb-head">
         <div>
             <h1><span>Assignment</span></h1>
-            <p>برای هر جلسهٔ کلاس تکلیف بگذارید. دانش‌آموز از Assignments می‌بیند و فایل آپلود می‌کند. تیک کامل/ناقص حضورغیاب همان Homework Status است و اینجا عوض نمی‌شود.</p>
+            <p>برای هر جلسهٔ کلاس تکلیف بگذارید. دانش‌آموز تا ۵ عکس یا ویس/فایل پاسخ آپلود می‌کند؛ بعد از بررسی، وضعیت تکلیف را در ۳ حالت کامل، ناقص یا عدم تحویل ثبت کنید.</p>
         </div>
         <?php if ($selected): ?>
             <a class="qb-btn qb-btn-ghost" href="assignments.php">همه کلاس‌ها</a>
@@ -125,7 +125,7 @@ $boot = [
                 </label>
                 <label class="qb-field">
                     <span>فایل پیوست معلم</span>
-                    <input type="file" name="file" id="asgFile" accept=".pdf,.jpg,.jpeg,.png,.webp,.gif,.doc,.docx,.zip">
+                    <input type="file" name="file" id="asgFile" accept="<?= assignments_h(assignments_accept_attr()) ?>">
                 </label>
             </div>
             <label class="qb-field asg-body-field">
@@ -154,5 +154,5 @@ $boot = [
         <article class="qb-exam-view asg-detail" id="asgDetail" hidden></article>
     <?php endif; ?>
 </div>
-<script src="../../assets/js/teacher-assignments.js?v=asg1"></script>
+<script src="../../assets/js/teacher-assignments.js?v=asg4"></script>
 <?php require_once 'layout-end.php'; ?>

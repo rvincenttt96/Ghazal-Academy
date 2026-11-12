@@ -78,6 +78,30 @@ try {
             'submissions' => $pack['rows'],
             'submitted' => $pack['submitted'],
             'total' => $pack['total'],
+            'graded' => (int)($asg['graded_count'] ?? 0),
+        ]);
+    }
+
+    if ($action === 'grade') {
+        $result = assignments_grade(
+            $pdo,
+            $teacher_id,
+            (int)($_POST['submission_id'] ?? 0),
+            $_POST['review_status'] ?? ($_POST['score'] ?? ''),
+            $_POST['feedback'] ?? '',
+            (int)($_POST['assignment_id'] ?? 0),
+            (int)($_POST['student_id'] ?? 0)
+        );
+        $asg = $result['assignment'];
+        $pack = $result['pack'];
+        assignments_json([
+            'success' => true,
+            'message' => $result['message'] ?? 'وضعیت تکلیف ثبت شد.',
+            'assignment' => assignments_public_teacher($asg),
+            'submissions' => $pack['rows'],
+            'submitted' => $pack['submitted'],
+            'total' => $pack['total'],
+            'graded' => (int)($asg['graded_count'] ?? 0),
         ]);
     }
 

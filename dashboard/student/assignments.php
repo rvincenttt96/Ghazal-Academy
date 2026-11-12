@@ -22,12 +22,12 @@ try {
 }
 ?>
 <link href="../../assets/css/quiz-builder.css?v=qb7" rel="stylesheet">
-<link href="../../assets/css/assignments.css?v=asg1" rel="stylesheet">
+<link href="../../assets/css/assignments.css?v=asg3" rel="stylesheet">
 <div class="qb-page asg-page">
     <div class="qb-head">
         <div>
             <h1><span>Assignments</span></h1>
-            <p>تکلیفی که معلم برای جلسه کلاس گذاشته اینجا می‌آید. فایل را آپلود کنید؛ می‌توانید همان فایل را بعداً جایگزین کنید. وضعیت تیک حضورغیاب در Homework Status جداست.</p>
+            <p>تکلیفی که معلم برای جلسه کلاس گذاشته اینجا می‌آید. تا ۵ عکس و ویس می‌توانید آپلود کنید. وضعیت بررسی معلم (کامل، ناقص یا عدم تحویل) همین‌جا دیده می‌شود.</p>
         </div>
     </div>
 
@@ -57,11 +57,17 @@ try {
                                 <div class="qb-card-meta">
                                     <span class="qb-pill qb-pill-<?= assignments_h($pill) ?>"><?= assignments_h($item['status_label']) ?></span>
                                     <span>S.<?= (int)$item['session_no'] ?></span>
+                                    <?php if (!empty($item['file_count'])): ?>
+                                        <span><?= (int)$item['file_count'] ?> فایل</span>
+                                    <?php endif; ?>
                                     <?php if ($item['due_label'] !== ''): ?>
                                         <span>مهلت <?= assignments_h($item['due_label']) ?></span>
                                     <?php endif; ?>
                                     <?php if ($item['has_teacher_file']): ?>
                                         <span>پیوست معلم</span>
+                                    <?php endif; ?>
+                                    <?php if (!empty($item['graded'])): ?>
+                                        <span class="qb-pill qb-pill-ready"><?= assignments_h($item['score_label']) ?></span>
                                     <?php endif; ?>
                                 </div>
                             </div>

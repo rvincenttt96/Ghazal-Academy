@@ -59,6 +59,7 @@ $lg_nav_aliases = [
     'term-plan-import.php' => 'term-plan.php',
     'term-plan-export.php' => 'term-plan.php',
     'term-plan-template.php' => 'term-plan.php',
+    'assignment-file.php' => 'assignments.php',
 ];
 if (isset($lg_nav_aliases[$current_page])) {
     $current_page = $lg_nav_aliases[$current_page];
@@ -85,7 +86,7 @@ $teachers_info_active = in_array($current_page, [
     <title><?= $title ?> - پنل آموزشی</title>
     <link href="/assets/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="/assets/css/dashboard-style.css?v=<?= time() ?>" rel="stylesheet">
-    <link href="/assets/css/liquid-glass.css?v=lg25" rel="stylesheet">
+    <link href="/assets/css/liquid-glass.css?v=lm1" rel="stylesheet">
     <link href="/assets/css/supervisor/supervisor-landscape.css?v=s3" rel="stylesheet">
     <?php if (!empty($wall) && !empty($wall['css'])): ?>
     <link href="<?= htmlspecialchars($wall['css']) ?>" rel="stylesheet">
@@ -382,10 +383,10 @@ $teachers_info_active = in_array($current_page, [
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path opacity=".4" fill="currentColor" d="M32 80l0 352c0 8.8 7.2 16 16 16l35.2 0c53.8 0 107 10.4 156.8 30.7l0-378.7-21.4-8.9C175.7 73.2 129.7 64 83.2 64L48 64c-8.8 0-16 7.2-16 16zm48 64c0-8.8 7.2-16 16-16l12.2 0c26 0 51.7 6.1 74.9 17.7 7.9 4 11.1 13.6 7.2 21.5s-13.6 11.1-21.5 7.2C150 164.9 129.3 160 108.2 160L96 160c-8.8 0-16-7.2-16-16zm0 96c0-8.8 7.2-16 16-16l12.2 0c26 0 51.7 6.1 74.9 17.7 7.9 4 11.1 13.6 7.2 21.5s-13.6 11.1-21.5 7.2C150 260.9 129.3 256 108.2 256L96 256c-8.8 0-16-7.2-16-16zm0 96c0-8.8 7.2-16 16-16l12.2 0c26 0 51.7 6.1 74.9 17.7 7.9 4 11.1 13.6 7.2 21.5s-13.6 11.1-21.5 7.2C150 356.9 129.3 352 108.2 352L96 352c-8.8 0-16-7.2-16-16zM272 100l0 378.7C321.8 458.4 375 448 428.8 448l35.2 0c8.8 0 16-7.2 16-16l0-352c0-8.8-7.2-16-16-16l-35.2 0c-46.5 0-92.5 9.2-135.4 27.1L272 100zm49.7 67.2c-4-7.9-.7-17.5 7.2-21.5 23.3-11.6 48.9-17.7 74.9-17.7l12.2 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-12.2 0c-21 0-41.8 4.9-60.6 14.3-7.9 4-17.5 .7-21.5-7.2zm0 96c-4-7.9-.7-17.5 7.2-21.5 23.3-11.6 48.9-17.7 74.9-17.7l12.2 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-12.2 0c-21 0-41.8 4.9-60.6 14.3-7.9 4-17.5 .7-21.5-7.2zm0 96c-4-7.9-.7-17.5 7.2-21.5 23.3-11.6 48.9-17.7 74.9-17.7l12.2 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-12.2 0c-21 0-41.8 4.9-60.6 14.3-7.9 4-17.5 .7-21.5-7.2z"/><path fill="currentColor" d="M218.6 91.1l21.4 8.9 0 378.7C190.2 458.4 137 448 83.2 448L48 448c-8.8 0-16-7.2-16-16L32 80c0-8.8 7.2-16 16-16l35.2 0c46.5 0 92.5 9.2 135.4 27.1zM428.8 448c-53.8 0-107 10.4-156.8 30.7l0-378.7 21.4-8.9C336.3 73.2 382.3 64 428.8 64L464 64c8.8 0 16 7.2 16 16l0 352c0 8.8-7.2 16-16 16l-35.2 0zM256 72L230.9 61.5C184.1 42 133.9 32 83.2 32L48 32C21.5 32 0 53.5 0 80L0 432c0 26.5 21.5 48 48 48l35.2 0c50.7 0 100.9 10 147.7 29.5l12.8 5.3c7.9 3.3 16.7 3.3 24.6 0l12.8-5.3c46.8-19.5 97-29.5 147.7-29.5l35.2 0c26.5 0 48-21.5 48-48l0-352c0-26.5-21.5-48-48-48l-35.2 0c-50.7 0-100.9 10-147.7 29.5L256 72zM96 128c-8.8 0-16 7.2-16 16s7.2 16 16 16l12.2 0c21 0 41.8 4.9 60.6 14.3 7.9 4 17.5 .7 21.5-7.2s.7-17.5-7.2-21.5c-23.3-11.6-48.9-17.7-74.9-17.7L96 128zm307.8 0c-26 0-51.7 6.1-74.9 17.7-7.9 4-11.1 13.6-7.2 21.5s13.6 11.1 21.5 7.2c18.8-9.4 39.6-14.3 60.6-14.3l12.2 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-12.2 0zM96 224c-8.8 0-16 7.2-16 16s7.2 16 16 16l12.2 0c21 0 41.8 4.9 60.6 14.3 7.9 4 17.5 .7 21.5-7.2s.7-17.5-7.2-21.5c-23.3-11.6-48.9-17.7-74.9-17.7L96 224zm307.8 0c-26 0-51.7 6.1-74.9 17.7-7.9 4-11.1 13.6-7.2 21.5s13.6 11.1 21.5 7.2c18.8-9.4 39.6-14.3 60.6-14.3l12.2 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-12.2 0zM96 320c-8.8 0-16 7.2-16 16s7.2 16 16 16l12.2 0c21 0 41.8 4.9 60.6 14.3 7.9 4 17.5 .7 21.5-7.2s.7-17.5-7.2-21.5c-23.3-11.6-48.9-17.7-74.9-17.7L96 320zm307.8 0c-26 0-51.7 6.1-74.9 17.7-7.9 4-11.1 13.6-7.2 21.5s13.6 11.1 21.5 7.2c18.8-9.4 39.6-14.3 60.6-14.3l12.2 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-12.2 0z"/></svg>
                     </span> Assignment status
                 </a>
-                <a href="session-plan.php" class="nav-item <?= $current_page == 'session-plan.php' ? 'active' : '' ?>">
+                <a href="assignments.php" class="nav-item <?= $current_page == 'assignments.php' ? 'active' : '' ?>">
                     <span class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 560"><path opacity=".4" fill="currentColor" d=""/><path fill="currentColor" d="M448.4 96l-384 0c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l197.8 0c-4.1 9-7.1 18.5-8.7 28.3l-.6 3.7-188.5 0c-35.3 0-64-28.7-64-64l0-256c0-35.3 28.7-64 64-64l384 0c35.3 0 64 28.7 64 64l0 76.1c-10.8 0-21.6 1.5-32 4.4l0-80.6c0-17.7-14.3-32-32-32zM96.4 304c0-8.8 7.2-16 16-16l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16zm16-112l288 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-288 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zM341.5 440.1c-4.7 4.7-7.8 10.8-8.9 17.4l-8.5 50.8 50.8-8.5c6.6-1.1 12.6-4.2 17.4-8.9l102.2-102.2-50.7-50.7-102.2 102.2zM466.3 315.3l50.7 50.7 20.7-20.7c14-14 14-36.7 0-50.7s-36.7-14-50.7 0l-20.7 20.7zM301 452.2c2.2-13.2 8.4-25.3 17.9-34.7L464.4 272c26.5-26.5 69.5-26.5 96 0s26.5 69.5 0 96L414.9 513.5c-9.4 9.4-21.6 15.7-34.7 17.9l-74.6 12.4c-.8 .1-1.6 .2-2.4 .2-8.2 0-14.8-6.6-14.8-14.8 0-.8 .1-1.6 .2-2.4L301 452.2z"/></svg>
-                    </span> Session plan
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path opacity=".4" fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-96 0c-17.7 0-32-14.3-32-32L256 0 64 0z"/><path fill="currentColor" d="M256 0l0 96c0 17.7 14.3 32 32 32l96 0L256 0zM136 240c-13.3 0-24 10.7-24 24s10.7 24 24 24l48 0 0 72c0 13.3 10.7 24 24 24s24-10.7 24-24l0-72 48 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-48 0 0-48c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 48-48 0z"/></svg>
+                    </span> Assignments
                 </a>
                 <a href="term-plan.php" class="nav-item <?= $current_page == 'term-plan.php' ? 'active' : '' ?>">
                     <span class="nav-icon">
@@ -485,8 +486,8 @@ $teachers_info_active = in_array($current_page, [
                 <a href="homework.php" class="nav-item <?= $current_page == 'homework.php' ? 'active' : '' ?>">
                     <span class="nav-icon">📝</span> Assignment status
                 </a>
-                <a href="session-plan.php" class="nav-item <?= $current_page == 'session-plan.php' ? 'active' : '' ?>">
-                    <span class="nav-icon">📋</span> Session plan
+                <a href="assignments.php" class="nav-item <?= $current_page == 'assignments.php' ? 'active' : '' ?>">
+                    <span class="nav-icon">📎</span> Assignments
                 </a>
                 <a href="term-plan.php" class="nav-item <?= $current_page == 'term-plan.php' ? 'active' : '' ?>">
                     <span class="nav-icon">🗓️</span> Term Plan
