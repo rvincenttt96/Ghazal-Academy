@@ -174,7 +174,7 @@ foreach ($teachers as $t) {
                 <!-- Automated Class Average -->
                 <div class="col-lg-2 col-md-3 text-center">
                     <span class="sqc-item-label">میانگین کلاس‌ها</span>
-                    <span class="h5 fw-bold text-warning mb-0" style="font-family:'YekanBakhFaNum'"><?= $qc['classes_avg_60'] ?></span>
+                    <span class="h5 fw-bold text-warning mb-0" id="sup-teacher-avg-<?= $tid ?>" style="font-family:'YekanBakhFaNum'"><?= $qc['classes_avg_60'] ?></span>
                     <small class="text-muted"> / ۶۰</small>
                 </div>
 
@@ -224,27 +224,57 @@ foreach ($teachers as $t) {
             <!-- Drilldown of Classes for this teacher -->
             <div class="collapse mt-3" id="drillDownSup-<?= $tid ?>">
                 <div class="p-3 rounded" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06);">
-                    <h6 class="text-white fw-bold mb-3">ریز نمرات ۶ پارامتر کلاسی برای اساتید:</h6>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="text-white fw-bold mb-0">ریز نمرات ۶ پارامتر کلاسی (با امکان بی‌اثر کردن به تفکیک کلاس):</h6>
+                        <small class="text-muted">در صورت بی‌اثر شدن هر پارامتر، نمره ۱۰ امتیازی آن بین سایرین بازتوزیع می‌شود.</small>
+                    </div>
                     <?php if (empty($qc['classes'])): ?>
                         <small class="text-muted">کلاسی در این ترم برای این استاد یافت نشد.</small>
                     <?php else: ?>
                         <div class="row g-2">
-                            <?php foreach ($qc['classes'] as $c): 
+                            <?php 
+                            $item_map = [
+                                'roll_call' => 'رول‌کال',
+                                'quizzes' => 'کوییز و نمرات',
+                                'session_plan' => 'سشن پلن',
+                                'error_gravity' => 'ارور گرویتی',
+                                'assignments' => 'تکالیف',
+                                'voice_plan' => 'ویس پلن',
+                            ];
+                            foreach ($qc['classes'] as $c): 
+                                $cid = (int)$c['class_id'];
                                 $it = $c['items'];
                             ?>
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="sup-class-card-<?= $cid ?>">
                                 <div class="p-2 rounded" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
                                         <strong class="text-white small"><?= htmlspecialchars($c['class_title']) ?></strong>
-                                        <span class="badge bg-dark border border-secondary"><?= $c['total_score'] ?> / ۶۰</span>
+                                        <span class="badge bg-dark border border-secondary" id="sup-class-score-<?= $cid ?>"><?= $c['total_score'] ?> / ۶۰</span>
                                     </div>
                                     <div class="d-flex gap-2 flex-wrap small">
-                                        <span class="badge bg-secondary">رول‌کال: <?= $it['roll_call']['score'] ?>/۱۰</span>
-                                        <span class="badge bg-secondary">کوییز: <?= $it['quizzes']['score'] ?>/۱۰</span>
-                                        <span class="badge bg-secondary">سشن پلن: <?= $it['session_plan']['score'] ?>/۱۰</span>
-                                        <span class="badge bg-secondary">ارور گرویتی: <?= $it['error_gravity']['score'] ?>/۱۰</span>
-                                        <span class="badge bg-secondary">تکالیف: <?= $it['assignments']['score'] ?>/۱۰</span>
-                                        <span class="badge bg-secondary">ویس پلن: <?= $it['voice_plan']['score'] ?>/۱۰</span>
+                                        <?php foreach ($item_map as $ikey => $ilabel):
+                                            $it_data = $it[$ikey] ?? [];
+                                            $is_ex = !empty($it_data['is_exempt']);
+                                        ?>
+                                        <div class="d-inline-flex align-items-center gap-1 px-2 py-1 rounded <?= $is_ex ? 'bg-secondary bg-opacity-25 border border-secondary border-dashed' : 'bg-secondary bg-opacity-50 border border-secondary' ?>" 
+                                             id="sup-item-<?= $cid ?>-<?= $ikey ?>" style="font-size:0.75rem;">
+                                            <span class="item-text <?= $is_ex ? 'text-muted text-decoration-line-through' : 'text-light' ?>"><?= $ilabel ?>:</span>
+                                            <span class="item-score">
+                                                <?php if ($is_ex): ?>
+                                                    <span class="text-warning fw-bold">بی‌اثر</span>
+                                                <?php else: ?>
+                                                    <strong><?= $it_data['score'] ?? 0 ?></strong>/۱۰
+                                                <?php endif; ?>
+                                            </span>
+                                            <button type="button" 
+                                                    class="btn btn-link p-0 text-decoration-none <?= $is_ex ? 'text-info' : 'text-danger' ?> ms-1" 
+                                                    style="font-size:0.7rem; line-height:1;" 
+                                                    onclick="toggleItemExemption(<?= $cid ?>, '<?= $ikey ?>', <?= $tid ?>, <?= $selected_term_id ?>)"
+                                                    title="<?= $is_ex ? 'فعال‌سازی مجدد این پارامتر برای این کلاس' : 'بی‌اثر کردن این پارامتر برای این کلاس و تقسیم نمره آن بین سایر پارامترها' ?>">
+                                                <?= $is_ex ? '↺ فعال' : '× بی‌اثر' ?>
+                                            </button>
+                                        </div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
@@ -300,6 +330,86 @@ function saveSupervisorScores(e, teacherId) {
             alert(data.message || 'ارزیابی ذخیره شد.');
         } else {
             alert('خطا: ' + (data.message || 'خطا در ذخیره'));
+        }
+    })
+    .catch(err => {
+        alert('خطا در برقراری ارتباط با سرور.');
+    });
+}
+
+function toggleItemExemption(classId, itemKey, teacherId, termId) {
+    const fd = new FormData();
+    fd.append('class_id', classId);
+    fd.append('item_key', itemKey);
+    fd.append('teacher_id', teacherId);
+    fd.append('term_id', termId);
+
+    fetch('ajax_qc_exemption.php', {
+        method: 'POST',
+        body: fd
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            const pill = document.getElementById('sup-item-' + classId + '-' + itemKey);
+            if (pill) {
+                const btn = pill.querySelector('button');
+                const textSpan = pill.querySelector('.item-text');
+                const scoreSpan = pill.querySelector('.item-score');
+
+                if (data.is_exempt) {
+                    pill.className = 'd-inline-flex align-items-center gap-1 px-2 py-1 rounded bg-secondary bg-opacity-25 border border-secondary border-dashed';
+                    if (textSpan) {
+                        textSpan.classList.add('text-muted', 'text-decoration-line-through');
+                    }
+                    if (scoreSpan) {
+                        scoreSpan.innerHTML = '<span class="text-warning fw-bold">بی‌اثر</span>';
+                    }
+                    if (btn) {
+                        btn.className = 'btn btn-link p-0 text-decoration-none text-info ms-1';
+                        btn.innerHTML = '↺ فعال';
+                        btn.title = 'فعال‌سازی مجدد این پارامتر برای این کلاس';
+                    }
+                } else {
+                    pill.className = 'd-inline-flex align-items-center gap-1 px-2 py-1 rounded bg-secondary bg-opacity-50 border border-secondary';
+                    if (textSpan) {
+                        textSpan.classList.remove('text-muted', 'text-decoration-line-through');
+                    }
+                    if (scoreSpan) {
+                        scoreSpan.innerHTML = '<strong>' + data.item_score + '</strong>/۱۰';
+                    }
+                    if (btn) {
+                        btn.className = 'btn btn-link p-0 text-decoration-none text-danger ms-1';
+                        btn.innerHTML = '× بی‌اثر';
+                        btn.title = 'بی‌اثر کردن این پارامتر برای این کلاس و تقسیم نمره آن بین سایر پارامترها';
+                    }
+                }
+            }
+
+            // Update class total score badge
+            const clsBadge = document.getElementById('sup-class-score-' + classId);
+            if (clsBadge) {
+                clsBadge.textContent = data.class_score + ' / ۶۰';
+            }
+
+            // Update teacher class average
+            const avgBadge = document.getElementById('sup-teacher-avg-' + teacherId);
+            if (avgBadge) {
+                avgBadge.textContent = data.classes_avg_60;
+            }
+
+            // Update overall score badge
+            const ovBadge = document.getElementById('badge-overall-' + teacherId);
+            if (ovBadge && data.overall_mark !== undefined) {
+                ovBadge.textContent = data.overall_mark;
+                ovBadge.className = 'sqc-score-badge ' + (
+                    data.overall_mark >= 90 ? 'bg-success text-white' :
+                    data.overall_mark >= 75 ? 'bg-info text-dark' :
+                    data.overall_mark >= 60 ? 'bg-warning text-dark' : 'bg-danger text-white'
+                );
+            }
+        } else {
+            alert('خطا: ' + (data.message || 'خطا در عملیات'));
         }
     })
     .catch(err => {

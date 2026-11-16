@@ -91,6 +91,18 @@ function qc_ensure_schema(PDO $pdo) {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
         ");
 
+        // 4. Table for QC parameter exemptions per class (neutralized parameters)
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS qc_class_exemptions (
+                class_id INT NOT NULL,
+                item_key VARCHAR(32) NOT NULL,
+                exempted_by INT NULL,
+                created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (class_id, item_key),
+                KEY idx_class (class_id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+        ");
+
         // 3. Ensure timestamps on attendance table
         $col = $pdo->query("SHOW COLUMNS FROM attendance LIKE 'created_at'")->fetch();
         if (!$col) {
@@ -237,14 +249,58 @@ function eas_compute_class_session_dates(PDO $pdo, array $class, $total_sessions
 }
 
 /**
+ * Retrieve list of exempted parameter keys for a given class
+ * @return array list of keys e.g. ['error_gravity', 'voice_plan']
+ */
+function qc_get_class_exemptions(PDO $pdo, $class_id) {
+    qc_ensure_schema($pdo);
+    $st = $pdo->prepare("SELECT item_key FROM qc_class_exemptions WHERE class_id = ?");
+    $st->execute([(int)$class_id]);
+    return $st->fetchAll(PDO::FETCH_COLUMN) ?: [];
+}
+
+/**
+ * Toggle exemption status of a parameter for a class
+ * When exempt, the parameter is neutralized and its marks are redistributed across active parameters.
+ * @return array ['success' => bool, 'is_exempt' => bool]
+ */
+function qc_toggle_class_exemption(PDO $pdo, $class_id, $item_key, $user_id = null) {
+    qc_ensure_schema($pdo);
+    $class_id = (int)$class_id;
+    $item_key = trim((string)$item_key);
+    $allowed = ['roll_call', 'quizzes', 'session_plan', 'error_gravity', 'assignments', 'voice_plan'];
+    if (!in_array($item_key, $allowed, true)) {
+        return ['success' => false, 'error' => 'invalid_item'];
+    }
+
+    $st = $pdo->prepare("SELECT 1 FROM qc_class_exemptions WHERE class_id = ? AND item_key = ?");
+    $st->execute([$class_id, $item_key]);
+    if ($st->fetch()) {
+        $del = $pdo->prepare("DELETE FROM qc_class_exemptions WHERE class_id = ? AND item_key = ?");
+        $del->execute([$class_id, $item_key]);
+        return ['success' => true, 'is_exempt' => false];
+    } else {
+        $ins = $pdo->prepare("INSERT INTO qc_class_exemptions (class_id, item_key, exempted_by) VALUES (?, ?, ?)");
+        $ins->execute([$class_id, $item_key, $user_id ? (int)$user_id : null]);
+        return ['success' => true, 'is_exempt' => true];
+    }
+}
+
+/**
  * Calculate the 6 automated QC scores for a single class.
  * Returns an array with individual marks (0..10 each), total_score (0..60), and detailed audits.
+ * Neutralized parameters are exempted, and their marks are proportionally redistributed among active items.
  */
 function qc_calculate_class(PDO $pdo, array $class) {
     qc_ensure_schema($pdo);
     $now = time();
     $class_id = (int)($class['id'] ?? $class['main_class_id'] ?? 0);
     $teacher_id = (int)($class['teacher_id'] ?? 0);
+
+    $exemptions = qc_get_class_exemptions($pdo, $class_id);
+    $is_exempt = function($k) use ($exemptions) {
+        return in_array($k, $exemptions, true);
+    };
 
     $total_sessions = (strtolower(trim((string)($class['class_type'] ?? ''))) === 'private') ? 10 : 13;
     $sessions = eas_compute_class_session_dates($pdo, $class, $total_sessions);
@@ -675,63 +731,97 @@ function qc_calculate_class(PDO $pdo, array $class) {
         }
     }
 
-    $total_score = $rc_score + $quiz_score + $sp_score + $eg_score + $asg_score + $voice_score;
+    $items = [
+        'roll_call' => [
+            'name' => 'رول‌کال',
+            'title' => 'Roll Call',
+            'max' => 10,
+            'score' => $rc_score,
+            'is_exempt' => $is_exempt('roll_call'),
+            'deductions' => $rc_deductions,
+            'passed_count' => $rc_passed,
+            'total_due' => $rc_total_due,
+        ],
+        'quizzes' => [
+            'name' => 'نمره‌دهی‌ها و کوییز',
+            'title' => 'Quizzes & Final Marks',
+            'max' => 10,
+            'score' => $quiz_score,
+            'is_exempt' => $is_exempt('quizzes'),
+            'deductions' => $quiz_deductions,
+        ],
+        'session_plan' => [
+            'name' => 'سشن پلن',
+            'title' => 'Session Plan',
+            'max' => 10,
+            'score' => $sp_score,
+            'is_exempt' => $is_exempt('session_plan'),
+            'deductions' => $sp_deductions,
+        ],
+        'error_gravity' => [
+            'name' => 'ارور گرویتی',
+            'title' => 'Error Gravity',
+            'max' => 10,
+            'score' => $eg_score,
+            'is_exempt' => $is_exempt('error_gravity'),
+            'status' => $eg_status,
+            'reason' => $eg_reason,
+        ],
+        'assignments' => [
+            'name' => 'بررسی تکالیف',
+            'title' => 'Assignments Review',
+            'max' => 10,
+            'score' => $asg_score,
+            'is_exempt' => $is_exempt('assignments'),
+            'deductions' => $asg_deductions,
+        ],
+        'voice_plan' => [
+            'name' => 'ویس پلن کلی',
+            'title' => 'General Term Plan Voice',
+            'max' => 10,
+            'score' => $voice_score,
+            'is_exempt' => $is_exempt('voice_plan'),
+            'status' => $voice_status,
+            'reason' => $voice_reason,
+            'has_voice' => !empty($voice_row),
+            'voice_path' => $voice_row['audio_path'] ?? '',
+        ],
+    ];
+
+    // Redistribution calculation:
+    // If one or more parameters are neutralized (is_exempt = true), their 10 marks are
+    // proportionally redistributed among the remaining active parameters so that
+    // the total class score is always scaled out of 60.
+    $active_max = 0;
+    $active_earned = 0;
+    $active_count = 0;
+    $exempt_count = 0;
+
+    foreach ($items as $k => $item) {
+        if (!empty($item['is_exempt'])) {
+            $exempt_count++;
+            continue;
+        }
+        $active_count++;
+        $active_max += 10;
+        $active_earned += (float)$item['score'];
+    }
+
+    if ($active_max > 0) {
+        $total_score = round(($active_earned / $active_max) * 60, 1);
+    } else {
+        // All items exempt
+        $total_score = 60.0;
+    }
 
     return [
         'class_id' => $class_id,
         'class_title' => $class['title'] ?? ($class['class_title'] ?? ''),
         'teacher_id' => $teacher_id,
         'total_score' => $total_score, // out of 60
-        'items' => [
-            'roll_call' => [
-                'name' => 'رول‌کال',
-                'title' => 'Roll Call',
-                'max' => 10,
-                'score' => $rc_score,
-                'deductions' => $rc_deductions,
-                'passed_count' => $rc_passed,
-                'total_due' => $rc_total_due,
-            ],
-            'quizzes' => [
-                'name' => 'نمره‌دهی‌ها و کوییز',
-                'title' => 'Quizzes & Final Marks',
-                'max' => 10,
-                'score' => $quiz_score,
-                'deductions' => $quiz_deductions,
-            ],
-            'session_plan' => [
-                'name' => 'سشن پلن',
-                'title' => 'Session Plan',
-                'max' => 10,
-                'score' => $sp_score,
-                'deductions' => $sp_deductions,
-            ],
-            'error_gravity' => [
-                'name' => 'ارور گرویتی',
-                'title' => 'Error Gravity',
-                'max' => 10,
-                'score' => $eg_score,
-                'status' => $eg_status,
-                'reason' => $eg_reason,
-            ],
-            'assignments' => [
-                'name' => 'بررسی تکالیف',
-                'title' => 'Assignments Review',
-                'max' => 10,
-                'score' => $asg_score,
-                'deductions' => $asg_deductions,
-            ],
-            'voice_plan' => [
-                'name' => 'ویس پلن کلی',
-                'title' => 'General Term Plan Voice',
-                'max' => 10,
-                'score' => $voice_score,
-                'status' => $voice_status,
-                'reason' => $voice_reason,
-                'has_voice' => !empty($voice_row),
-                'voice_path' => $voice_row['audio_path'] ?? '',
-            ],
-        ],
+        'active_count' => $active_count,
+        'exempt_count' => $exempt_count,
+        'items' => $items,
         'sessions' => $sessions,
     ];
 }
@@ -979,43 +1069,51 @@ function qc_check_and_dispatch_sms_alerts(PDO $pdo) {
         $tname = $cl['teacher_name'];
         $ctitle = $cl['title'];
 
-        // 1. Missing Roll Call sessions
-        foreach ($calc['items']['roll_call']['deductions'] as $d) {
-            $sess_no = $d['session'] ?? 1;
-            $ok = qc_send_sms_alert($pdo, $tid, $cid, "rollcall_s{$sess_no}", $tname, $ctitle, "رول‌کال جلسه {$sess_no}", $teacher_phone);
-            if ($ok) $sent_count++;
+        // 1. Missing Roll Call sessions (only if roll_call not exempt)
+        if (empty($calc['items']['roll_call']['is_exempt']) && !empty($calc['items']['roll_call']['deductions'])) {
+            foreach ($calc['items']['roll_call']['deductions'] as $d) {
+                $sess_no = $d['session'] ?? 1;
+                $ok = qc_send_sms_alert($pdo, $tid, $cid, "rollcall_s{$sess_no}", $tname, $ctitle, "رول‌کال جلسه {$sess_no}", $teacher_phone);
+                if ($ok) $sent_count++;
+            }
         }
 
-        // 2. Missing Quizzes / Final Marks
-        foreach ($calc['items']['quizzes']['deductions'] as $d) {
-            $col = $d['milestone'] ?? 'quiz';
-            $label = $d['label'] ?? 'کوییز';
-            $ok = qc_send_sms_alert($pdo, $tid, $cid, "quiz_{$col}", $tname, $ctitle, "نمرات {$label}", $teacher_phone);
-            if ($ok) $sent_count++;
+        // 2. Missing Quizzes / Final Marks (only if quizzes not exempt)
+        if (empty($calc['items']['quizzes']['is_exempt']) && !empty($calc['items']['quizzes']['deductions'])) {
+            foreach ($calc['items']['quizzes']['deductions'] as $d) {
+                $col = $d['milestone'] ?? 'quiz';
+                $label = $d['label'] ?? 'کوییز';
+                $ok = qc_send_sms_alert($pdo, $tid, $cid, "quiz_{$col}", $tname, $ctitle, "نمرات {$label}", $teacher_phone);
+                if ($ok) $sent_count++;
+            }
         }
 
-        // 3. Missing Session Plans
-        foreach ($calc['items']['session_plan']['deductions'] as $d) {
-            $sess_no = $d['session'] ?? 1;
-            $ok = qc_send_sms_alert($pdo, $tid, $cid, "sessionplan_s{$sess_no}", $tname, $ctitle, "سشن پلن جلسه {$sess_no}", $teacher_phone);
-            if ($ok) $sent_count++;
+        // 3. Missing Session Plans (only if session_plan not exempt)
+        if (empty($calc['items']['session_plan']['is_exempt']) && !empty($calc['items']['session_plan']['deductions'])) {
+            foreach ($calc['items']['session_plan']['deductions'] as $d) {
+                $sess_no = $d['session'] ?? 1;
+                $ok = qc_send_sms_alert($pdo, $tid, $cid, "sessionplan_s{$sess_no}", $tname, $ctitle, "سشن پلن جلسه {$sess_no}", $teacher_phone);
+                if ($ok) $sent_count++;
+            }
         }
 
-        // 4. Missing Error Gravity (only if overdue and 0 score)
-        if (($calc['items']['error_gravity']['score'] ?? 0) === 0 && !empty($calc['items']['error_gravity']['deductions'])) {
+        // 4. Missing Error Gravity (only if error_gravity not exempt and failed)
+        if (empty($calc['items']['error_gravity']['is_exempt']) && ($calc['items']['error_gravity']['status'] ?? '') === 'failed') {
             $ok = qc_send_sms_alert($pdo, $tid, $cid, "error_gravity", $tname, $ctitle, "ارور گرویتی", $teacher_phone);
             if ($ok) $sent_count++;
         }
 
-        // 5. Missing Assignments
-        foreach ($calc['items']['assignment']['deductions'] as $d) {
-            $sess_no = $d['session'] ?? 1;
-            $ok = qc_send_sms_alert($pdo, $tid, $cid, "assignment_s{$sess_no}", $tname, $ctitle, "تکالیف جلسه {$sess_no}", $teacher_phone);
-            if ($ok) $sent_count++;
+        // 5. Missing Assignments (only if assignments not exempt)
+        if (empty($calc['items']['assignments']['is_exempt']) && !empty($calc['items']['assignments']['deductions'])) {
+            foreach ($calc['items']['assignments']['deductions'] as $d) {
+                $sess_no = $d['session'] ?? 1;
+                $ok = qc_send_sms_alert($pdo, $tid, $cid, "assignment_s{$sess_no}", $tname, $ctitle, "تکالیف جلسه {$sess_no}", $teacher_phone);
+                if ($ok) $sent_count++;
+            }
         }
 
-        // 6. Missing Voice Plan
-        if (($calc['items']['voice_plan']['score'] ?? 0) === 0 && !empty($calc['items']['voice_plan']['deductions'])) {
+        // 6. Missing Voice Plan (only if voice_plan not exempt and failed)
+        if (empty($calc['items']['voice_plan']['is_exempt']) && ($calc['items']['voice_plan']['status'] ?? '') === 'failed') {
             $ok = qc_send_sms_alert($pdo, $tid, $cid, "voice_plan", $tname, $ctitle, "ویس پلن کلی ترم", $teacher_phone);
             if ($ok) $sent_count++;
         }

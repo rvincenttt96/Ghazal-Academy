@@ -105,6 +105,22 @@ if ($overall >= 90) {
     border-color: rgba(244, 63, 94, 0.4);
     background: rgba(244, 63, 94, 0.07);
 }
+.qc-item-pill.is-exempt {
+    border-color: rgba(234, 179, 8, 0.4);
+    background: rgba(234, 179, 8, 0.06);
+    border-style: dashed;
+}
+.qc-exempt-badge {
+    background: rgba(234, 179, 8, 0.15);
+    color: #fde047;
+    font-size: 0.68rem;
+    padding: 2px 7px;
+    border-radius: 6px;
+    font-weight: 700;
+    border: 1px solid rgba(234, 179, 8, 0.35);
+    white-space: nowrap;
+    display: inline-block;
+}
 .qc-pill-header {
     display: flex;
     align-items: center;
@@ -322,7 +338,7 @@ if ($overall >= 90) {
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
                 <h3 class="h5 fw-bold text-white mb-1">🏫 عملکرد کلاس‌ها (۶ پارامتر خودکار - هر کلاس ۶۰ نمره)</h3>
-                <small class="text-muted">نمرات بر اساس زمان‌بندی دقیق هر جلسه و موعد مقرر محاسبه می‌گردد.</small>
+                <small class="text-muted">نمرات بر اساس زمان‌بندی دقیق هر جلسه محاسبه می‌گردند. در صورت بی‌اثر شدن هر پارامتر توسط سوپروایزر، نمره آن بین سایر پارامترهای فعال همان کلاس توزیع گردیده و جریمه‌ای لحاظ نمی‌شود.</small>
             </div>
         </div>
 
@@ -333,12 +349,18 @@ if ($overall >= 90) {
                 <?php foreach ($qc['classes'] as $idx => $cl): 
                     $cid = $cl['class_id'];
                     $items = $cl['items'];
+                    $exempt_cnt = (int)($cl['exempt_count'] ?? 0);
                 ?>
                 <div class="qc-class-card">
                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
                         <div class="d-flex align-items-center gap-2">
                             <span class="badge bg-secondary">کلاس <?= $idx + 1 ?></span>
                             <h4 class="h6 fw-bold text-white mb-0"><?= htmlspecialchars($cl['class_title']) ?></h4>
+                            <?php if ($exempt_cnt > 0): ?>
+                                <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25" style="font-size:0.72rem;">
+                                    دارای <?= $exempt_cnt ?> پارامتر بی‌اثر (نمره بازتوزیع شد)
+                                </span>
+                            <?php endif; ?>
                         </div>
                         <div class="d-flex align-items-center gap-2">
                             <span class="badge bg-dark border border-secondary px-3 py-2 fs-6">
@@ -352,104 +374,181 @@ if ($overall >= 90) {
 
                     <!-- 6 items grid -->
                     <div class="row g-2 align-items-stretch">
+                        <!-- 1. Roll Call -->
+                        <?php $rc = $items['roll_call']; ?>
                         <div class="col-md-2 col-6 d-flex flex-column">
-                            <div class="qc-item-pill <?= $items['roll_call']['score'] >= 10 ? 'is-perfect' : 'has-deduction' ?>">
+                            <div class="qc-item-pill <?= !empty($rc['is_exempt']) ? 'is-exempt' : ($rc['score'] >= 10 ? 'is-perfect' : 'has-deduction') ?>">
                                 <div class="qc-pill-header">
                                     <span class="qc-pill-title">۱. رول‌کال</span>
+                                    <?php if (!empty($rc['is_exempt'])): ?>
+                                        <span class="badge bg-secondary" style="font-size:0.65rem;">بی‌اثر</span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-body">
-                                    <span class="qc-pill-score"><?= $items['roll_call']['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php if (!empty($rc['is_exempt'])): ?>
+                                        <span class="qc-pill-score text-warning" style="font-size:1.15rem;">بی‌اثر</span>
+                                        <small class="text-muted" style="font-size:0.65rem;">(توزیع نمره)</small>
+                                    <?php else: ?>
+                                        <span class="qc-pill-score"><?= $rc['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-footer">
-                                    <?php if (!empty($items['roll_call']['deductions'])): ?>
-                                        <span class="qc-deduction-badge"><?= count($items['roll_call']['deductions']) ?> مورد تأخیر</span>
+                                    <?php if (!empty($rc['is_exempt'])): ?>
+                                        <span class="qc-exempt-badge">معاف توسط سوپروایزر</span>
+                                    <?php elseif (!empty($rc['deductions'])): ?>
+                                        <span class="qc-deduction-badge"><?= count($rc['deductions']) ?> مورد تأخیر</span>
                                     <?php else: ?>
                                         <span class="qc-perfect-badge">✓ کامل</span>
                                     <?php endif; ?>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 2. Quizzes -->
+                        <?php $qz = $items['quizzes']; ?>
                         <div class="col-md-2 col-6 d-flex flex-column">
-                            <div class="qc-item-pill <?= $items['quizzes']['score'] >= 10 ? 'is-perfect' : 'has-deduction' ?>">
+                            <div class="qc-item-pill <?= !empty($qz['is_exempt']) ? 'is-exempt' : ($qz['score'] >= 10 ? 'is-perfect' : 'has-deduction') ?>">
                                 <div class="qc-pill-header">
                                     <span class="qc-pill-title">۲. نمره‌دهی‌ها</span>
+                                    <?php if (!empty($qz['is_exempt'])): ?>
+                                        <span class="badge bg-secondary" style="font-size:0.65rem;">بی‌اثر</span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-body">
-                                    <span class="qc-pill-score"><?= $items['quizzes']['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php if (!empty($qz['is_exempt'])): ?>
+                                        <span class="qc-pill-score text-warning" style="font-size:1.15rem;">بی‌اثر</span>
+                                        <small class="text-muted" style="font-size:0.65rem;">(توزیع نمره)</small>
+                                    <?php else: ?>
+                                        <span class="qc-pill-score"><?= $qz['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-footer">
-                                    <?php if (!empty($items['quizzes']['deductions'])): ?>
-                                        <span class="qc-deduction-badge"><?= count($items['quizzes']['deductions']) ?> مورد تأخیر</span>
+                                    <?php if (!empty($qz['is_exempt'])): ?>
+                                        <span class="qc-exempt-badge">معاف توسط سوپروایزر</span>
+                                    <?php elseif (!empty($qz['deductions'])): ?>
+                                        <span class="qc-deduction-badge"><?= count($qz['deductions']) ?> مورد تأخیر</span>
                                     <?php else: ?>
                                         <span class="qc-perfect-badge">✓ کامل</span>
                                     <?php endif; ?>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 3. Session Plan -->
+                        <?php $sp = $items['session_plan']; ?>
                         <div class="col-md-2 col-6 d-flex flex-column">
-                            <div class="qc-item-pill <?= $items['session_plan']['score'] >= 10 ? 'is-perfect' : 'has-deduction' ?>">
+                            <div class="qc-item-pill <?= !empty($sp['is_exempt']) ? 'is-exempt' : ($sp['score'] >= 10 ? 'is-perfect' : 'has-deduction') ?>">
                                 <div class="qc-pill-header">
                                     <span class="qc-pill-title">۳. سشن پلن</span>
+                                    <?php if (!empty($sp['is_exempt'])): ?>
+                                        <span class="badge bg-secondary" style="font-size:0.65rem;">بی‌اثر</span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-body">
-                                    <span class="qc-pill-score"><?= $items['session_plan']['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php if (!empty($sp['is_exempt'])): ?>
+                                        <span class="qc-pill-score text-warning" style="font-size:1.15rem;">بی‌اثر</span>
+                                        <small class="text-muted" style="font-size:0.65rem;">(توزیع نمره)</small>
+                                    <?php else: ?>
+                                        <span class="qc-pill-score"><?= $sp['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-footer">
-                                    <?php if (!empty($items['session_plan']['deductions'])): ?>
-                                        <span class="qc-deduction-badge"><?= count($items['session_plan']['deductions']) ?> مورد تأخیر</span>
+                                    <?php if (!empty($sp['is_exempt'])): ?>
+                                        <span class="qc-exempt-badge">معاف توسط سوپروایزر</span>
+                                    <?php elseif (!empty($sp['deductions'])): ?>
+                                        <span class="qc-deduction-badge"><?= count($sp['deductions']) ?> مورد تأخیر</span>
                                     <?php else: ?>
                                         <span class="qc-perfect-badge">✓ کامل</span>
                                     <?php endif; ?>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 4. Error Gravity -->
+                        <?php $eg = $items['error_gravity']; ?>
                         <div class="col-md-2 col-6 d-flex flex-column">
-                            <div class="qc-item-pill <?= $items['error_gravity']['score'] >= 10 ? 'is-perfect' : 'has-deduction' ?>">
+                            <div class="qc-item-pill <?= !empty($eg['is_exempt']) ? 'is-exempt' : ($eg['score'] >= 10 ? 'is-perfect' : 'has-deduction') ?>">
                                 <div class="qc-pill-header">
                                     <span class="qc-pill-title">۴. ارور گرویتی</span>
+                                    <?php if (!empty($eg['is_exempt'])): ?>
+                                        <span class="badge bg-secondary" style="font-size:0.65rem;">بی‌اثر</span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-body">
-                                    <span class="qc-pill-score"><?= $items['error_gravity']['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php if (!empty($eg['is_exempt'])): ?>
+                                        <span class="qc-pill-score text-warning" style="font-size:1.15rem;">بی‌اثر</span>
+                                        <small class="text-muted" style="font-size:0.65rem;">(توزیع نمره)</small>
+                                    <?php else: ?>
+                                        <span class="qc-pill-score"><?= $eg['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-footer">
-                                    <?php if ($items['error_gravity']['score'] >= 10): ?>
+                                    <?php if (!empty($eg['is_exempt'])): ?>
+                                        <span class="qc-exempt-badge">معاف توسط سوپروایزر</span>
+                                    <?php elseif ($eg['score'] >= 10): ?>
                                         <span class="qc-perfect-badge">✓ ثبت شده</span>
                                     <?php else: ?>
-                                        <span class="qc-deduction-badge"><?= ($items['error_gravity']['status'] ?? '') === 'pending' ? 'در انتظار ثبت' : 'عدم ثبت' ?></span>
+                                        <span class="qc-deduction-badge"><?= ($eg['status'] ?? '') === 'pending' ? 'در انتظار ثبت' : 'عدم ثبت' ?></span>
                                     <?php endif; ?>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 5. Assignments -->
+                        <?php $asg = $items['assignments']; ?>
                         <div class="col-md-2 col-6 d-flex flex-column">
-                            <div class="qc-item-pill <?= $items['assignments']['score'] >= 10 ? 'is-perfect' : 'has-deduction' ?>">
+                            <div class="qc-item-pill <?= !empty($asg['is_exempt']) ? 'is-exempt' : ($asg['score'] >= 10 ? 'is-perfect' : 'has-deduction') ?>">
                                 <div class="qc-pill-header">
                                     <span class="qc-pill-title">۵. بررسی تکالیف</span>
+                                    <?php if (!empty($asg['is_exempt'])): ?>
+                                        <span class="badge bg-secondary" style="font-size:0.65rem;">بی‌اثر</span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-body">
-                                    <span class="qc-pill-score"><?= $items['assignments']['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php if (!empty($asg['is_exempt'])): ?>
+                                        <span class="qc-pill-score text-warning" style="font-size:1.15rem;">بی‌اثر</span>
+                                        <small class="text-muted" style="font-size:0.65rem;">(توزیع نمره)</small>
+                                    <?php else: ?>
+                                        <span class="qc-pill-score"><?= $asg['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-footer">
-                                    <?php if (!empty($items['assignments']['deductions'])): ?>
-                                        <span class="qc-deduction-badge"><?= count($items['assignments']['deductions']) ?> مورد تأخیر</span>
+                                    <?php if (!empty($asg['is_exempt'])): ?>
+                                        <span class="qc-exempt-badge">معاف توسط سوپروایزر</span>
+                                    <?php elseif (!empty($asg['deductions'])): ?>
+                                        <span class="qc-deduction-badge"><?= count($asg['deductions']) ?> مورد تأخیر</span>
                                     <?php else: ?>
                                         <span class="qc-perfect-badge">✓ کامل</span>
                                     <?php endif; ?>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 6. Voice Plan -->
+                        <?php $vp = $items['voice_plan']; ?>
                         <div class="col-md-2 col-6 d-flex flex-column">
-                            <div class="qc-item-pill <?= $items['voice_plan']['score'] >= 10 ? 'is-perfect' : 'has-deduction' ?>">
+                            <div class="qc-item-pill <?= !empty($vp['is_exempt']) ? 'is-exempt' : ($vp['score'] >= 10 ? 'is-perfect' : 'has-deduction') ?>">
                                 <div class="qc-pill-header">
                                     <span class="qc-pill-title">۶. ویس پلن کلی</span>
+                                    <?php if (!empty($vp['is_exempt'])): ?>
+                                        <span class="badge bg-secondary" style="font-size:0.65rem;">بی‌اثر</span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-body">
-                                    <span class="qc-pill-score"><?= $items['voice_plan']['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php if (!empty($vp['is_exempt'])): ?>
+                                        <span class="qc-pill-score text-warning" style="font-size:1.15rem;">بی‌اثر</span>
+                                        <small class="text-muted" style="font-size:0.65rem;">(توزیع نمره)</small>
+                                    <?php else: ?>
+                                        <span class="qc-pill-score"><?= $vp['score'] ?> <small class="text-muted fs-6">/ ۱۰</small></span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="qc-pill-footer">
-                                    <?php if ($items['voice_plan']['score'] >= 10): ?>
+                                    <?php if (!empty($vp['is_exempt'])): ?>
+                                        <span class="qc-exempt-badge">معاف توسط سوپروایزر</span>
+                                    <?php elseif ($vp['score'] >= 10): ?>
                                         <span class="qc-perfect-badge">✓ ثبت شده</span>
                                     <?php else: ?>
-                                        <span class="qc-deduction-badge"><?= ($items['voice_plan']['status'] ?? '') === 'pending' ? 'در انتظار ارسال' : 'عدم ارسال' ?></span>
+                                        <span class="qc-deduction-badge"><?= ($vp['status'] ?? '') === 'pending' ? 'در انتظار ارسال' : 'عدم ارسال' ?></span>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -463,30 +562,63 @@ if ($overall >= 90) {
                             <ul class="list-unstyled mb-0 small">
                                 <?php
                                 $has_any_deduction = false;
-                                foreach ($items['roll_call']['deductions'] as $d) {
-                                    $has_any_deduction = true;
-                                    echo "<li class='text-danger mb-1'>• رول‌کال: {$d['reason']} (-۱ نمره)</li>";
+
+                                // Roll call
+                                if (!empty($rc['is_exempt'])) {
+                                    echo "<li class='text-warning mb-1'>• رول‌کال: این پارامتر توسط سوپروایزر برای این کلاس بی‌اثر اعلام شده و نمره آن بین سایر پارامترها توزیع گردیده است.</li>";
+                                } else {
+                                    foreach ($rc['deductions'] as $d) {
+                                        $has_any_deduction = true;
+                                        echo "<li class='text-danger mb-1'>• رول‌کال: {$d['reason']} (-۱ نمره)</li>";
+                                    }
                                 }
-                                foreach ($items['quizzes']['deductions'] as $d) {
-                                    $has_any_deduction = true;
-                                    echo "<li class='text-danger mb-1'>• نمرات: {$d['reason']} (-۱ نمره)</li>";
+
+                                // Quizzes
+                                if (!empty($qz['is_exempt'])) {
+                                    echo "<li class='text-warning mb-1'>• نمره‌دهی‌ها: این پارامتر توسط سوپروایزر برای این کلاس بی‌اثر اعلام شده و نمره آن بین سایر پارامترها توزیع گردیده است.</li>";
+                                } else {
+                                    foreach ($qz['deductions'] as $d) {
+                                        $has_any_deduction = true;
+                                        echo "<li class='text-danger mb-1'>• نمرات: {$d['reason']} (-۱ نمره)</li>";
+                                    }
                                 }
-                                foreach ($items['session_plan']['deductions'] as $d) {
-                                    $has_any_deduction = true;
-                                    echo "<li class='text-danger mb-1'>• سشن پلن: {$d['reason']} (-۱ نمره)</li>";
+
+                                // Session plan
+                                if (!empty($sp['is_exempt'])) {
+                                    echo "<li class='text-warning mb-1'>• سشن پلن: این پارامتر توسط سوپروایزر برای این کلاس بی‌اثر اعلام شده و نمره آن بین سایر پارامترها توزیع گردیده است.</li>";
+                                } else {
+                                    foreach ($sp['deductions'] as $d) {
+                                        $has_any_deduction = true;
+                                        echo "<li class='text-danger mb-1'>• سشن پلن: {$d['reason']} (-۱ نمره)</li>";
+                                    }
                                 }
-                                if ($items['error_gravity']['score'] == 0) {
+
+                                // Error gravity
+                                if (!empty($eg['is_exempt'])) {
+                                    echo "<li class='text-warning mb-1'>• ارور گرویتی: این پارامتر توسط سوپروایزر برای این کلاس بی‌اثر اعلام شده و نمره آن بین سایر پارامترها توزیع گردیده است.</li>";
+                                } elseif ($eg['score'] == 0) {
                                     $has_any_deduction = true;
-                                    echo "<li class='text-danger mb-1'>• ارور گرویتی: {$items['error_gravity']['reason']} (۰ از ۱۰)</li>";
+                                    echo "<li class='text-danger mb-1'>• ارور گرویتی: {$eg['reason']} (۰ از ۱۰)</li>";
                                 }
-                                foreach ($items['assignments']['deductions'] as $d) {
+
+                                // Assignments
+                                if (!empty($asg['is_exempt'])) {
+                                    echo "<li class='text-warning mb-1'>• بررسی تکالیف: این پارامتر توسط سوپروایزر برای این کلاس بی‌اثر اعلام شده و نمره آن بین سایر پارامترها توزیع گردیده است.</li>";
+                                } else {
+                                    foreach ($asg['deductions'] as $d) {
+                                        $has_any_deduction = true;
+                                        echo "<li class='text-danger mb-1'>• بررسی تکالیف: {$d['reason']} (-۱ نمره)</li>";
+                                    }
+                                }
+
+                                // Voice plan
+                                if (!empty($vp['is_exempt'])) {
+                                    echo "<li class='text-warning mb-1'>• ویس پلن کلی: این پارامتر توسط سوپروایزر برای این کلاس بی‌اثر اعلام شده و نمره آن بین سایر پارامترها توزیع گردیده است.</li>";
+                                } elseif ($vp['score'] == 0) {
                                     $has_any_deduction = true;
-                                    echo "<li class='text-danger mb-1'>• بررسی تکالیف: {$d['reason']} (-۱ نمره)</li>";
+                                    echo "<li class='text-danger mb-1'>• ویس پلن کلی: {$vp['reason']} (۰ از ۱۰)</li>";
                                 }
-                                if ($items['voice_plan']['score'] == 0) {
-                                    $has_any_deduction = true;
-                                    echo "<li class='text-danger mb-1'>• ویس پلن کلی: {$items['voice_plan']['reason']} (۰ از ۱۰)</li>";
-                                }
+
                                 if (!$has_any_deduction) {
                                     echo "<li class='text-success'>✓ تبریک! هیچ کسر نمره‌ای در این کلاس ثبت نشده و تمام پارامترها سر وقت انجام شده‌اند.</li>";
                                 }
