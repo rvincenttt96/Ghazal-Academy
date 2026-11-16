@@ -964,6 +964,9 @@ function qc_calculate_teacher_overall(PDO $pdo, $teacher_id, $term_id = null) {
  * Restricted to Iranian daytime hours (08:00 to 22:30).
  */
 function qc_send_sms_alert(PDO $pdo, $teacher_id, $class_id, $item_key, $teacher_name, $class_title, $item_label, $phone) {
+    // EMERGENCY DISABLE: All automatic QC SMS alerts completely disabled
+    return false;
+
     qc_ensure_schema($pdo);
 
     $teacher_id = (int)$teacher_id;

@@ -127,9 +127,9 @@ try {
     error_log(date('[Y-m-d H:i:s] ') . "AloCom access sync: " . $e->getMessage() . "\n", 3, __DIR__ . '/cron_error_log.txt');
 }
 
-// 3. بررسی و ارسال خودکار پیامک‌های معوق ۶ پارامتر QC به اساتید (حداکثر ۱ بار برای هر مورد)
-try {
-    qc_check_and_dispatch_sms_alerts($pdo);
-} catch (Exception $e) {
-    error_log(date('[Y-m-d H:i:s] ') . "Cron QC SMS Check Error: " . $e->getMessage() . "\n", 3, __DIR__ . '/cron_error_log.txt');
-}
+// 3. بررسی و ارسال خودکار پیامک‌های معوق ۶ پارامتر QC به اساتید (غیرفعال شد)
+// try {
+//     qc_check_and_dispatch_sms_alerts($pdo);
+// } catch (Exception $e) {
+//     error_log(date('[Y-m-d H:i:s] ') . "Cron QC SMS Check Error: " . $e->getMessage() . "\n", 3, __DIR__ . '/cron_error_log.txt');
+// }
