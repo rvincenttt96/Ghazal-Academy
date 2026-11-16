@@ -57,7 +57,22 @@ function qc_ensure_schema(PDO $pdo) {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
         ");
 
-        // 2. Table for General Term Plan voice recordings/uploads
+        // 2. Table for QC SMS alerts log (prevent duplicate sends)
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS qc_sms_alerts_log (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                teacher_id INT NOT NULL,
+                class_id INT NOT NULL,
+                item_key VARCHAR(64) NOT NULL,
+                phone VARCHAR(32) NOT NULL,
+                sent_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE KEY uk_teacher_class_item (teacher_id, class_id, item_key),
+                KEY idx_teacher (teacher_id),
+                KEY idx_class (class_id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+        ");
+
+        // 3. Table for General Term Plan voice recordings/uploads
         $pdo->exec("
             CREATE TABLE IF NOT EXISTS term_plan_voice (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -851,4 +866,160 @@ function qc_calculate_teacher_overall(PDO $pdo, $teacher_id, $term_id = null) {
         'supervisor_total_40' => $sup_total_40,
         'overall_mark' => $overall_100, // out of 100
     ];
+}
+
+
+/**
+ * Send an SMS alert via Faraz SMS pattern 'cyedV1fZDy' if not already sent.
+ * Restricted to Iranian daytime hours (08:00 to 22:30).
+ */
+function qc_send_sms_alert(PDO $pdo, $teacher_id, $class_id, $item_key, $teacher_name, $class_title, $item_label, $phone) {
+    qc_ensure_schema($pdo);
+
+    $teacher_id = (int)$teacher_id;
+    $class_id = (int)$class_id;
+    $item_key = trim((string)$item_key);
+    $phone = trim((string)$phone);
+
+    if ($teacher_id <= 0 || empty($item_key) || empty($phone)) {
+        return false;
+    }
+
+    // Normalize phone number (ensure standard 09... format)
+    $phone = preg_replace('/[^0-9]/', '', $phone);
+    if (strlen($phone) === 10 && substr($phone, 0, 1) === '9') {
+        $phone = '0' . $phone;
+    }
+    if (strlen($phone) !== 11 || substr($phone, 0, 2) !== '09') {
+        return false;
+    }
+
+    // Check if alert was already sent
+    $st_check = $pdo->prepare("
+        SELECT id FROM qc_sms_alerts_log
+        WHERE teacher_id = ? AND class_id = ? AND item_key = ?
+    ");
+    $st_check->execute([$teacher_id, $class_id, $item_key]);
+    if ($st_check->fetchColumn()) {
+        return false; // Already notified
+    }
+
+    // Working hours constraint: 08:00 to 22:30 Asia/Tehran
+    date_default_timezone_set('Asia/Tehran');
+    $hour = (int)date('G');
+    $min = (int)date('i');
+    if ($hour < 8 || $hour > 22 || ($hour === 22 && $min > 30)) {
+        return false; // Outside allowed hours
+    }
+
+    // Clean strings and respect character limits
+    $clean_name = mb_substr(trim((string)$teacher_name), 0, 35, 'UTF-8');
+    $clean_item = mb_substr(trim((string)$item_label), 0, 35, 'UTF-8');
+    $clean_class = mb_substr(trim((string)$class_title), 0, 30, 'UTF-8');
+
+    if (!function_exists('sendFarazSMS')) {
+        require_once __DIR__ . '/sms.php';
+    }
+
+    $sms_res = sendFarazSMS($phone, 'cyedV1fZDy', [
+        'name' => $clean_name,
+        'item' => $clean_item,
+        'class' => $clean_class,
+    ]);
+
+    // Record in log to avoid duplicate sends
+    $st_ins = $pdo->prepare("
+        INSERT IGNORE INTO qc_sms_alerts_log (teacher_id, class_id, item_key, phone, sent_at)
+        VALUES (?, ?, ?, ?, NOW())
+    ");
+    $st_ins->execute([$teacher_id, $class_id, $item_key, $phone]);
+
+    return !empty($sms_res['http_code']) && $sms_res['http_code'] >= 200 && $sms_res['http_code'] < 300;
+}
+
+/**
+ * Scan active classes in teaching term for missing QC parameters and dispatch SMS alerts.
+ */
+function qc_check_and_dispatch_sms_alerts(PDO $pdo) {
+    qc_ensure_schema($pdo);
+
+    // Working hours check: 08:00 to 22:30 Asia/Tehran
+    date_default_timezone_set('Asia/Tehran');
+    $hour = (int)date('G');
+    $min = (int)date('i');
+    if ($hour < 8 || $hour > 22 || ($hour === 22 && $min > 30)) {
+        return ['skipped' => 'outside_working_hours', 'sent' => 0];
+    }
+
+    // Load active classes with teacher phone
+    $stmt = $pdo->prepare("
+        SELECT c.id, c.title, c.schedule, c.schedule_type, c.class_type, c.teacher_id, c.term_id,
+               u.full_name as teacher_name, u.phone as teacher_phone
+        FROM classes c
+        JOIN terms t ON c.term_id = t.id
+        JOIN users u ON c.teacher_id = u.id
+        WHERE c.is_deleted = 0 AND " . term_sql_teaching('t') . "
+          AND IFNULL(c.is_archived, 0) = 0
+          AND IFNULL(u.is_deleted, 0) = 0
+    ");
+    $stmt->execute();
+    $classes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $sent_count = 0;
+
+    foreach ($classes as $cl) {
+        $teacher_phone = trim((string)($cl['teacher_phone'] ?? ''));
+        if (empty($teacher_phone)) {
+            continue;
+        }
+
+        $calc = qc_calculate_class($pdo, $cl);
+        $cid = (int)$cl['id'];
+        $tid = (int)$cl['teacher_id'];
+        $tname = $cl['teacher_name'];
+        $ctitle = $cl['title'];
+
+        // 1. Missing Roll Call sessions
+        foreach ($calc['items']['roll_call']['deductions'] as $d) {
+            $sess_no = $d['session'] ?? 1;
+            $ok = qc_send_sms_alert($pdo, $tid, $cid, "rollcall_s{$sess_no}", $tname, $ctitle, "رول‌کال جلسه {$sess_no}", $teacher_phone);
+            if ($ok) $sent_count++;
+        }
+
+        // 2. Missing Quizzes / Final Marks
+        foreach ($calc['items']['quizzes']['deductions'] as $d) {
+            $col = $d['milestone'] ?? 'quiz';
+            $label = $d['label'] ?? 'کوییز';
+            $ok = qc_send_sms_alert($pdo, $tid, $cid, "quiz_{$col}", $tname, $ctitle, "نمرات {$label}", $teacher_phone);
+            if ($ok) $sent_count++;
+        }
+
+        // 3. Missing Session Plans
+        foreach ($calc['items']['session_plan']['deductions'] as $d) {
+            $sess_no = $d['session'] ?? 1;
+            $ok = qc_send_sms_alert($pdo, $tid, $cid, "sessionplan_s{$sess_no}", $tname, $ctitle, "سشن پلن جلسه {$sess_no}", $teacher_phone);
+            if ($ok) $sent_count++;
+        }
+
+        // 4. Missing Error Gravity (only if overdue and 0 score)
+        if (($calc['items']['error_gravity']['score'] ?? 0) === 0 && !empty($calc['items']['error_gravity']['deductions'])) {
+            $ok = qc_send_sms_alert($pdo, $tid, $cid, "error_gravity", $tname, $ctitle, "ارور گرویتی", $teacher_phone);
+            if ($ok) $sent_count++;
+        }
+
+        // 5. Missing Assignments
+        foreach ($calc['items']['assignment']['deductions'] as $d) {
+            $sess_no = $d['session'] ?? 1;
+            $ok = qc_send_sms_alert($pdo, $tid, $cid, "assignment_s{$sess_no}", $tname, $ctitle, "تکالیف جلسه {$sess_no}", $teacher_phone);
+            if ($ok) $sent_count++;
+        }
+
+        // 6. Missing Voice Plan
+        if (($calc['items']['voice_plan']['score'] ?? 0) === 0 && !empty($calc['items']['voice_plan']['deductions'])) {
+            $ok = qc_send_sms_alert($pdo, $tid, $cid, "voice_plan", $tname, $ctitle, "ویس پلن کلی ترم", $teacher_phone);
+            if ($ok) $sent_count++;
+        }
+    }
+
+    return ['sent' => $sent_count];
 }

@@ -12,6 +12,8 @@ require_once __DIR__ . '/../../includes/jdate.php';
 require_once __DIR__ . '/../../includes/rollcall.php';
 require_once __DIR__ . '/../../includes/alocom.php';
 require_once __DIR__ . '/../../includes/alocom-access.php';
+require_once __DIR__ . '/../../includes/sms.php';
+require_once __DIR__ . '/../../includes/qc.php';
 
 try {
     $due = alocom_sync_due_classes($pdo);
@@ -49,7 +51,7 @@ $now = time();
 try {
     // 2. پیدا کردن تمام کلاس‌های فعال امروز که حذف یا آرشیو نشده‌اند
     $stmt = $pdo->prepare("
-        SELECT c.id, c.title, c.schedule, u.full_name as teacher_name
+        SELECT c.id, c.title, c.schedule, c.teacher_id, u.full_name as teacher_name, u.phone as teacher_phone
         FROM classes c
         JOIN terms t ON c.term_id = t.id
         JOIN users u ON c.teacher_id = u.id
@@ -99,6 +101,20 @@ try {
         $msg .= "*More than 30 minutes have passed since the class started, but the attendance has not been submitted yet.*";
         if (!rollcall_send_mattermost($msg)) {
             rollcall_release_missing_alert($pdo, $class['id'], $today_date);
+        } else {
+            // Also send Faraz SMS alert to teacher if phone exists and not already sent
+            if (!empty($class['teacher_phone'])) {
+                qc_send_sms_alert(
+                    $pdo,
+                    (int)$class['teacher_id'],
+                    (int)$class['id'],
+                    "rollcall_{$today_date}",
+                    (string)$class['teacher_name'],
+                    (string)$class['title'],
+                    "رول‌کال امروز",
+                    (string)$class['teacher_phone']
+                );
+            }
         }
     }
 } catch (Exception $e) {
@@ -109,4 +125,11 @@ try {
     alocom_sync_class_access($pdo, false, false);
 } catch (Exception $e) {
     error_log(date('[Y-m-d H:i:s] ') . "AloCom access sync: " . $e->getMessage() . "\n", 3, __DIR__ . '/cron_error_log.txt');
+}
+
+// 3. بررسی و ارسال خودکار پیامک‌های معوق ۶ پارامتر QC به اساتید (حداکثر ۱ بار برای هر مورد)
+try {
+    qc_check_and_dispatch_sms_alerts($pdo);
+} catch (Exception $e) {
+    error_log(date('[Y-m-d H:i:s] ') . "Cron QC SMS Check Error: " . $e->getMessage() . "\n", 3, __DIR__ . '/cron_error_log.txt');
 }
