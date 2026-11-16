@@ -961,12 +961,13 @@ function qc_calculate_teacher_overall(PDO $pdo, $teacher_id, $term_id = null) {
 
 /**
  * Send an SMS alert via Faraz SMS pattern 'cyedV1fZDy' if not already sent.
- * Restricted to Iranian daytime hours (08:00 to 22:30).
+ * Protected by multi-layer rate limiting:
+ *  - Idempotent: 1 SMS per teacher per class per unique item_key ever.
+ *  - Cooldown: max 1 SMS to the same teacher within any 2-hour window.
+ *  - Daily Cap: max 2 SMS to the same teacher per calendar day.
+ *  - Working hours: 08:00 to 22:30 Asia/Tehran only.
  */
 function qc_send_sms_alert(PDO $pdo, $teacher_id, $class_id, $item_key, $teacher_name, $class_title, $item_label, $phone) {
-    // EMERGENCY DISABLE: All automatic QC SMS alerts completely disabled
-    return false;
-
     qc_ensure_schema($pdo);
 
     $teacher_id = (int)$teacher_id;
@@ -987,17 +988,37 @@ function qc_send_sms_alert(PDO $pdo, $teacher_id, $class_id, $item_key, $teacher
         return false;
     }
 
-    // Check if alert was already sent
+    // Guard 1: Check if alert was already sent for this exact item
     $st_check = $pdo->prepare("
         SELECT id FROM qc_sms_alerts_log
         WHERE teacher_id = ? AND class_id = ? AND item_key = ?
     ");
     $st_check->execute([$teacher_id, $class_id, $item_key]);
     if ($st_check->fetchColumn()) {
-        return false; // Already notified
+        return false; // Already sent!
     }
 
-    // Working hours constraint: 08:00 to 22:30 Asia/Tehran
+    // Guard 2: Cooldown - max 1 SMS per teacher per 2 hours (no rapid-fire)
+    $st_rate = $pdo->prepare("
+        SELECT COUNT(*) FROM qc_sms_alerts_log
+        WHERE teacher_id = ? AND sent_at >= DATE_SUB(NOW(), INTERVAL 2 HOUR)
+    ");
+    $st_rate->execute([$teacher_id]);
+    if ((int)$st_rate->fetchColumn() >= 1) {
+        return false;
+    }
+
+    // Guard 3: Daily cap - max 2 SMS per teacher per calendar day
+    $st_day = $pdo->prepare("
+        SELECT COUNT(*) FROM qc_sms_alerts_log
+        WHERE teacher_id = ? AND DATE(sent_at) = CURDATE()
+    ");
+    $st_day->execute([$teacher_id]);
+    if ((int)$st_day->fetchColumn() >= 2) {
+        return false;
+    }
+
+    // Guard 4: Working hours constraint: 08:00 to 22:30 Asia/Tehran
     date_default_timezone_set('Asia/Tehran');
     $hour = (int)date('G');
     $min = (int)date('i');
@@ -1005,7 +1026,7 @@ function qc_send_sms_alert(PDO $pdo, $teacher_id, $class_id, $item_key, $teacher
         return false; // Outside allowed hours
     }
 
-    // Clean strings and respect character limits
+    // Clean strings and respect character limits of pattern 'cyedV1fZDy'
     $clean_name = mb_substr(trim((string)$teacher_name), 0, 35, 'UTF-8');
     $clean_item = mb_substr(trim((string)$item_label), 0, 35, 'UTF-8');
     $clean_class = mb_substr(trim((string)$class_title), 0, 30, 'UTF-8');
@@ -1014,24 +1035,27 @@ function qc_send_sms_alert(PDO $pdo, $teacher_id, $class_id, $item_key, $teacher
         require_once __DIR__ . '/sms.php';
     }
 
-    $sms_res = sendFarazSMS($phone, 'cyedV1fZDy', [
-        'name' => $clean_name,
-        'item' => $clean_item,
-        'class' => $clean_class,
-    ]);
-
-    // Record in log to avoid duplicate sends
+    // Insert into log to reserve slot
     $st_ins = $pdo->prepare("
         INSERT IGNORE INTO qc_sms_alerts_log (teacher_id, class_id, item_key, phone, sent_at)
         VALUES (?, ?, ?, ?, NOW())
     ");
     $st_ins->execute([$teacher_id, $class_id, $item_key, $phone]);
 
+    $sms_res = sendFarazSMS($phone, 'cyedV1fZDy', [
+        'name' => $clean_name,
+        'item' => $clean_item,
+        'class' => $clean_class,
+    ]);
+
     return !empty($sms_res['http_code']) && $sms_res['http_code'] >= 200 && $sms_res['http_code'] < 300;
 }
 
 /**
- * Scan active classes in teaching term for missing QC parameters and dispatch SMS alerts.
+ * Event-Driven QC SMS Dispatcher:
+ * Sends an SMS alert ONLY when a deadline is reached TODAY for an active class,
+ * strictly verified against real database records.
+ * NEVER iterates past history or already passed days.
  */
 function qc_check_and_dispatch_sms_alerts(PDO $pdo) {
     qc_ensure_schema($pdo);
@@ -1044,12 +1068,19 @@ function qc_check_and_dispatch_sms_alerts(PDO $pdo) {
         return ['skipped' => 'outside_working_hours', 'sent' => 0];
     }
 
-    // Load active classes with teacher phone
+    $today_ymd = date('Y-m-d');
+    $now = time();
+
+    // Load active teaching classes with teacher phone
     $stmt = $pdo->prepare("
-        SELECT c.id, c.title, c.schedule, c.schedule_type, c.class_type, c.teacher_id, c.term_id,
+        SELECT c.*, t.starts_on, t.ends_on,
+               e.session_1, e.session_2, e.session_3, e.session_4,
+               e.session_5, e.session_6, e.session_7, e.session_8, e.session_9, e.session_10,
+               e.session_11, e.session_12, e.session_13, e.session_dates_json, e.makeup_sessions_json,
                u.full_name as teacher_name, u.phone as teacher_phone
         FROM classes c
         JOIN terms t ON c.term_id = t.id
+        LEFT JOIN eas_management e ON c.id = e.class_id
         JOIN users u ON c.teacher_id = u.id
         WHERE c.is_deleted = 0 AND " . term_sql_teaching('t') . "
           AND IFNULL(c.is_archived, 0) = 0
@@ -1061,64 +1092,225 @@ function qc_check_and_dispatch_sms_alerts(PDO $pdo) {
     $sent_count = 0;
 
     foreach ($classes as $cl) {
-        $teacher_phone = trim((string)($cl['teacher_phone'] ?? ''));
-        if (empty($teacher_phone)) {
+        $cid = (int)$cl['id'];
+        $tid = (int)$cl['teacher_id'];
+        $tname = trim((string)($cl['teacher_name'] ?? ''));
+        $ctitle = trim((string)($cl['title'] ?? ''));
+        $phone = trim((string)($cl['teacher_phone'] ?? ''));
+
+        if (empty($phone) || $tid <= 0 || $cid <= 0) {
             continue;
         }
 
-        $calc = qc_calculate_class($pdo, $cl);
-        $cid = (int)$cl['id'];
-        $tid = (int)$cl['teacher_id'];
-        $tname = $cl['teacher_name'];
-        $ctitle = $cl['title'];
+        // Exemptions for this class
+        $exemptions = qc_get_class_exemptions($pdo, $cid);
 
-        // 1. Missing Roll Call sessions (only if roll_call not exempt)
-        if (empty($calc['items']['roll_call']['is_exempt']) && !empty($calc['items']['roll_call']['deductions'])) {
-            foreach ($calc['items']['roll_call']['deductions'] as $d) {
-                $sess_no = $d['session'] ?? 1;
-                $ok = qc_send_sms_alert($pdo, $tid, $cid, "rollcall_s{$sess_no}", $tname, $ctitle, "رول‌کال جلسه {$sess_no}", $teacher_phone);
-                if ($ok) $sent_count++;
+        // Compute session schedule
+        $total_sessions = (strtolower(trim((string)($cl['class_type'] ?? ''))) === 'private') ? 10 : 13;
+        $sessions = eas_compute_class_session_dates($pdo, $cl, $total_sessions);
+
+        // Find which session is scheduled for TODAY (if any)
+        $today_session_no = null;
+        for ($i = 1; $i <= $total_sessions; $i++) {
+            if (isset($sessions[$i]) && $sessions[$i]['date_ymd'] === $today_ymd && empty($sessions[$i]['is_cancelled'])) {
+                $today_session_no = $i;
+                break;
             }
         }
 
-        // 2. Missing Quizzes / Final Marks (only if quizzes not exempt)
-        if (empty($calc['items']['quizzes']['is_exempt']) && !empty($calc['items']['quizzes']['deductions'])) {
-            foreach ($calc['items']['quizzes']['deductions'] as $d) {
-                $col = $d['milestone'] ?? 'quiz';
-                $label = $d['label'] ?? 'کوییز';
-                $ok = qc_send_sms_alert($pdo, $tid, $cid, "quiz_{$col}", $tname, $ctitle, "نمرات {$label}", $teacher_phone);
-                if ($ok) $sent_count++;
+        // If no session scheduled for today, skip this class entirely!
+        if ($today_session_no === null) {
+            continue;
+        }
+
+        $sess = $sessions[$today_session_no];
+        $sess_start = $sess['start_ts'];
+        $sess_end = $sess['end_ts'];
+
+        // -----------------------------------------------------------------
+        // 1. ROLL CALL (رول‌کال)
+        // Due 30 min after today's class starts. Alert window: T+30 to T+55.
+        // -----------------------------------------------------------------
+        if (!in_array('roll_call', $exemptions, true)) {
+            $rc_deadline = $sess_start + 30 * 60;
+            if ($now >= $rc_deadline && $now <= ($rc_deadline + 25 * 60)) {
+                // Direct database check: was attendance recorded today?
+                $st_rc = $pdo->prepare("SELECT COUNT(*) FROM attendance WHERE class_id = ? AND class_date = ?");
+                $st_rc->execute([$cid, $today_ymd]);
+                $has_att = (int)$st_rc->fetchColumn() > 0;
+
+                if (!$has_att) {
+                    $item_key = "rollcall_s{$today_session_no}_{$today_ymd}";
+                    $ok = qc_send_sms_alert($pdo, $tid, $cid, $item_key, $tname, $ctitle, "رول‌کال جلسه {$today_session_no}", $phone);
+                    if ($ok) $sent_count++;
+                }
             }
         }
 
-        // 3. Missing Session Plans (only if session_plan not exempt)
-        if (empty($calc['items']['session_plan']['is_exempt']) && !empty($calc['items']['session_plan']['deductions'])) {
-            foreach ($calc['items']['session_plan']['deductions'] as $d) {
-                $sess_no = $d['session'] ?? 1;
-                $ok = qc_send_sms_alert($pdo, $tid, $cid, "sessionplan_s{$sess_no}", $tname, $ctitle, "سشن پلن جلسه {$sess_no}", $teacher_phone);
-                if ($ok) $sent_count++;
+        // -----------------------------------------------------------------
+        // 2. SESSION PLAN (سشن‌پلن)
+        // Session plan for session (today_session_no - 1) was due before today's session starts.
+        // Alert window: 45 min before today's session starts until 20 min after start.
+        // -----------------------------------------------------------------
+        if (!in_array('session_plan', $exemptions, true) && $today_session_no > 1) {
+            $prev_sno = $today_session_no - 1;
+            if ($now >= ($sess_start - 45 * 60) && $now <= ($sess_start + 20 * 60)) {
+                $st_sp = $pdo->prepare("
+                    SELECT t.id, c.status
+                    FROM term_plan_tasks t
+                    LEFT JOIN term_plan_task_checks c ON t.id = c.task_id AND c.class_id = t.class_id
+                    WHERE t.class_id = ? AND t.session_no = ?
+                ");
+                $st_sp->execute([$cid, $prev_sno]);
+                $sp_tasks = $st_sp->fetchAll(PDO::FETCH_ASSOC);
+
+                if (!empty($sp_tasks)) {
+                    $incomplete = false;
+                    foreach ($sp_tasks as $task) {
+                        $stt = $task['status'] ?? 'pending';
+                        if (!in_array($stt, ['done', 'missed'], true)) {
+                            $incomplete = true;
+                            break;
+                        }
+                    }
+                    if ($incomplete) {
+                        $item_key = "sessionplan_s{$prev_sno}";
+                        $ok = qc_send_sms_alert($pdo, $tid, $cid, $item_key, $tname, $ctitle, "سشن‌پلن جلسه {$prev_sno}", $phone);
+                        if ($ok) $sent_count++;
+                    }
+                }
             }
         }
 
-        // 4. Missing Error Gravity (only if error_gravity not exempt and failed)
-        if (empty($calc['items']['error_gravity']['is_exempt']) && ($calc['items']['error_gravity']['status'] ?? '') === 'failed') {
-            $ok = qc_send_sms_alert($pdo, $tid, $cid, "error_gravity", $tname, $ctitle, "ارور گرویتی", $teacher_phone);
-            if ($ok) $sent_count++;
-        }
-
-        // 5. Missing Assignments (only if assignments not exempt)
-        if (empty($calc['items']['assignments']['is_exempt']) && !empty($calc['items']['assignments']['deductions'])) {
-            foreach ($calc['items']['assignments']['deductions'] as $d) {
-                $sess_no = $d['session'] ?? 1;
-                $ok = qc_send_sms_alert($pdo, $tid, $cid, "assignment_s{$sess_no}", $tname, $ctitle, "تکالیف جلسه {$sess_no}", $teacher_phone);
-                if ($ok) $sent_count++;
+        // -----------------------------------------------------------------
+        // 3. VOICE PLAN (ویس‌پلن کلی ترم)
+        // Due before Session 3 starts.
+        // Alert window: on the day of Session 3, from 1 hour before start until 20 min after start.
+        // -----------------------------------------------------------------
+        if (!in_array('voice_plan', $exemptions, true) && $today_session_no === 3) {
+            if ($now >= ($sess_start - 60 * 60) && $now <= ($sess_start + 20 * 60)) {
+                $st_v = $pdo->prepare("
+                    SELECT id FROM term_plan_voice
+                    WHERE class_id = ? AND teacher_id = ? AND IFNULL(is_deleted, 0) = 0
+                    LIMIT 1
+                ");
+                $st_v->execute([$cid, $tid]);
+                if (!$st_v->fetchColumn()) {
+                    $ok = qc_send_sms_alert($pdo, $tid, $cid, "voice_plan", $tname, $ctitle, "ویس‌پلن ترم", $phone);
+                    if ($ok) $sent_count++;
+                }
             }
         }
 
-        // 6. Missing Voice Plan (only if voice_plan not exempt and failed)
-        if (empty($calc['items']['voice_plan']['is_exempt']) && ($calc['items']['voice_plan']['status'] ?? '') === 'failed') {
-            $ok = qc_send_sms_alert($pdo, $tid, $cid, "voice_plan", $tname, $ctitle, "ویس پلن کلی ترم", $teacher_phone);
-            if ($ok) $sent_count++;
+        // -----------------------------------------------------------------
+        // 4. ERROR GRAVITY (ارور گرویتی)
+        // Due before Session 8 starts.
+        // Alert window: on the day of Session 8, from 1 hour before start until 20 min after start.
+        // -----------------------------------------------------------------
+        if (!in_array('error_gravity', $exemptions, true) && $today_session_no === 8) {
+            if ($now >= ($sess_start - 60 * 60) && $now <= ($sess_start + 20 * 60)) {
+                $st_eg = $pdo->prepare("
+                    SELECT id FROM error_gravity
+                    WHERE class_id = ? AND teacher_id = ? AND IFNULL(is_deleted, 0) = 0 AND TRIM(IFNULL(content, '')) != ''
+                    LIMIT 1
+                ");
+                $st_eg->execute([$cid, $tid]);
+                if (!$st_eg->fetchColumn()) {
+                    $ok = qc_send_sms_alert($pdo, $tid, $cid, "error_gravity", $tname, $ctitle, "ارور گرویتی", $phone);
+                    if ($ok) $sent_count++;
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------
+        // 5. QUIZZES & FINAL MARKS (کوییزها و نمرات)
+        // Milestones due before next session start:
+        // S.4 -> next S.5 (Quiz 1)
+        // S.6 -> next S.7 (Quiz 2)
+        // S.7 -> next S.8 (R/W 1)
+        // S.8 -> next S.9 (Quiz 3)
+        // S.11 -> next S.12 (Quiz 4)
+        // -----------------------------------------------------------------
+        if (!in_array('quizzes', $exemptions, true)) {
+            $quiz_targets = [
+                5  => ['col' => 'quiz_1', 'label' => 'کوییز ۱'],
+                7  => ['col' => 'quiz_2', 'label' => 'کوییز ۲'],
+                8  => ['col' => 'quiz_3', 'label' => 'R/W ۱'],
+                9  => ['col' => 'quiz_4', 'label' => 'کوییز ۳'],
+                12 => ['col' => 'quiz_5', 'label' => 'کوییز ۴'],
+            ];
+
+            if (isset($quiz_targets[$today_session_no])) {
+                $col_name = $quiz_targets[$today_session_no]['col'];
+                $quiz_label = $quiz_targets[$today_session_no]['label'];
+
+                // Window: 1 hour before today's session starts until 20 min after start
+                if ($now >= ($sess_start - 60 * 60) && $now <= ($sess_start + 20 * 60)) {
+                    // Check if marks exist for active students
+                    $st_qm = $pdo->prepare("
+                        SELECT COUNT(*)
+                        FROM class_students cs
+                        JOIN users u ON cs.user_id = u.id
+                        LEFT JOIN student_quizzes sq ON cs.class_id = sq.class_id AND cs.user_id = sq.user_id
+                        WHERE cs.class_id = ? AND u.role = 'student' AND IFNULL(u.is_deleted, 0) = 0
+                          AND (sq.{$col_name} IS NULL OR sq.{$col_name} = '')
+                    ");
+                    $st_qm->execute([$cid]);
+                    $missing_students = (int)$st_qm->fetchColumn();
+
+                    if ($missing_students > 0) {
+                        $item_key = "quiz_{$col_name}";
+                        $ok = qc_send_sms_alert($pdo, $tid, $cid, $item_key, $tname, $ctitle, "نمرات {$quiz_label}", $phone);
+                        if ($ok) $sent_count++;
+                    }
+                }
+            }
+
+            // Session 13 final marks (due before Session 13 ends)
+            if ($today_session_no === $total_sessions) {
+                // Window: from 15 min before class ends until 30 min after end
+                if ($now >= ($sess_end - 15 * 60) && $now <= ($sess_end + 30 * 60)) {
+                    $st_fin = $pdo->prepare("
+                        SELECT COUNT(*)
+                        FROM class_students cs
+                        JOIN users u ON cs.user_id = u.id
+                        LEFT JOIN student_quizzes sq ON cs.class_id = sq.class_id AND cs.user_id = sq.user_id
+                        WHERE cs.class_id = ? AND u.role = 'student' AND IFNULL(u.is_deleted, 0) = 0
+                          AND (sq.quiz_5 IS NULL OR sq.quiz_6 IS NULL OR sq.quiz_7 IS NULL OR sq.quiz_8 IS NULL)
+                    ");
+                    $st_fin->execute([$cid]);
+                    if ((int)$st_fin->fetchColumn() > 0) {
+                        $item_key = "final_marks_s{$total_sessions}";
+                        $ok = qc_send_sms_alert($pdo, $tid, $cid, $item_key, $tname, $ctitle, "نمرات پایانی ترم", $phone);
+                        if ($ok) $sent_count++;
+                    }
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------
+        // 6. ASSIGNMENTS REVIEW (بررسی تکالیف)
+        // Submissions for session (today_session_no - 1) due before today's session ends.
+        // Window: from 10 min before today's session ends until 30 min after end.
+        // -----------------------------------------------------------------
+        if (!in_array('assignments', $exemptions, true) && $today_session_no > 1) {
+            $prev_sno = $today_session_no - 1;
+            if ($now >= ($sess_end - 10 * 60) && $now <= ($sess_end + 30 * 60)) {
+                $st_asg = $pdo->prepare("
+                    SELECT sub.id
+                    FROM assignments a
+                    JOIN assignment_submissions sub ON a.id = sub.assignment_id
+                    WHERE a.class_id = ? AND a.session_no = ?
+                      AND (sub.score IS NULL AND sub.graded_at IS NULL AND (sub.feedback IS NULL OR TRIM(sub.feedback) = ''))
+                    LIMIT 1
+                ");
+                $st_asg->execute([$cid, $prev_sno]);
+                if ($st_asg->fetchColumn()) {
+                    $item_key = "assignment_s{$prev_sno}";
+                    $ok = qc_send_sms_alert($pdo, $tid, $cid, $item_key, $tname, $ctitle, "تکالیف جلسه {$prev_sno}", $phone);
+                    if ($ok) $sent_count++;
+                }
+            }
         }
     }
 

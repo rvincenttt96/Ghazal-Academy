@@ -101,20 +101,6 @@ try {
         $msg .= "*More than 30 minutes have passed since the class started, but the attendance has not been submitted yet.*";
         if (!rollcall_send_mattermost($msg)) {
             rollcall_release_missing_alert($pdo, $class['id'], $today_date);
-        } else {
-            // Also send Faraz SMS alert to teacher if phone exists and not already sent
-            if (!empty($class['teacher_phone'])) {
-                qc_send_sms_alert(
-                    $pdo,
-                    (int)$class['teacher_id'],
-                    (int)$class['id'],
-                    "rollcall_{$today_date}",
-                    (string)$class['teacher_name'],
-                    (string)$class['title'],
-                    "رول‌کال امروز",
-                    (string)$class['teacher_phone']
-                );
-            }
         }
     }
 } catch (Exception $e) {
@@ -127,9 +113,9 @@ try {
     error_log(date('[Y-m-d H:i:s] ') . "AloCom access sync: " . $e->getMessage() . "\n", 3, __DIR__ . '/cron_error_log.txt');
 }
 
-// 3. بررسی و ارسال خودکار پیامک‌های معوق ۶ پارامتر QC به اساتید (غیرفعال شد)
-// try {
-//     qc_check_and_dispatch_sms_alerts($pdo);
-// } catch (Exception $e) {
-//     error_log(date('[Y-m-d H:i:s] ') . "Cron QC SMS Check Error: " . $e->getMessage() . "\n", 3, __DIR__ . '/cron_error_log.txt');
-// }
+// 3. بررسی و ارسال زمان‌بندی‌شده و لحظه‌ای پیامک‌های QC (فقط جلسات امروز در موعد مقرر با محدودیت سخت‌گیرانه)
+try {
+    qc_check_and_dispatch_sms_alerts($pdo);
+} catch (Exception $e) {
+    error_log(date('[Y-m-d H:i:s] ') . "Cron QC SMS Check Error: " . $e->getMessage() . "\n", 3, __DIR__ . '/cron_error_log.txt');
+}
