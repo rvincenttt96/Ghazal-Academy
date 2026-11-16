@@ -26,3 +26,24 @@ Revoke any GitHub personal access token that was used to create this clone.
 ## Layout
 
 On every site branch, paths are relative to that site’s `public_html` (for example `index.php` is at the branch root).
+
+
+---
+
+## تازه ترین به‌روزرسانی‌ها (سیستم‌های فعال در برنچ education)
+
+### ۱. سیستم جامع کنترل کیفیت اساتید (Teacher QC - 100 نمره)
+- **موتور ارزیابی (includes/qc.php):** محاسبه خودکار نمرات کلاسی و ارزیابی سوپروایزر.
+- **داشبورد استاد (dashboard/teacher/qc.php):** نمایش نمره نهایی Overall، کارت‌های تفکیکی ۶ گانه هر کلاس با چیدمان فلکس یکدست (Equal Heights) و ریزگزارش بازشونده، به همراه بازخورد متنی سوپروایزر.
+- **داشبورد ارزیابی سوپروایزر (dashboard/supervisor/qc.php و jax_qc_save.php):** ثبت نمرات ۴ گانه ارزیابی مستقیم سوپروایزر (Observation, Poll, Subs, Courses & Attendance) و یادداشت بازخورد.
+- **ممیزی جلسات ۱۳ گانه (EAS):** در dashboard/supervisor/eas.php بر پایه تقویم روزهای زوج/فرد و روزهای لغوشده.
+- **سیستم صوتی ویس پلن ترم:** آپلود و استریم فایل‌های صوتی اساتید در جزئیات ترم‌پلن (	erm-plan-details.php).
+
+### ۲. یکپارچه‌سازی پیامک خدماتی فراز اس‌ام‌اس (Faraz SMS)
+- پترن اختصاصی بدون بلک‌لیست: کد cyedV1fZDy با متن محترمانه یادآوری عدم ثبت موارد آموزشی (%name%, %item%, %class%).
+- سیستم ضداسپم (Deduplication) با ثبت لاگ یکتا در qc_sms_alerts_log و محدودسازی ارسال تنها در ساعات مجاز ۰۸:۰۰ الی ۲۲:۳۰.
+
+### ۳. حساب‌های مترموست اساتید و هشدارهای رول‌کال
+- ساخت حساب کاربری رسمی برای تمامی ۲۲ استاد با یوزرنیم [first_initial].[lastname] در تیم ghazal-institute و کانال 
+oll-call.
+- مانیتورینگ خودکار رأس دقیقه ۳۰ پس از شروع کلاس در dashboard/supervisor/cron_rollcall_alert.php.
