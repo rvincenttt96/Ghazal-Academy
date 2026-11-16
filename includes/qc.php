@@ -961,10 +961,7 @@ function qc_calculate_teacher_overall(PDO $pdo, $teacher_id, $term_id = null) {
 
 /**
  * Send an SMS alert via Faraz SMS pattern 'cyedV1fZDy' if not already sent.
- * Protected by multi-layer rate limiting:
  *  - Idempotent: 1 SMS per teacher per class per unique item_key ever.
- *  - Cooldown: max 1 SMS to the same teacher within any 2-hour window.
- *  - Daily Cap: max 2 SMS to the same teacher per calendar day.
  *  - Working hours: 08:00 to 22:30 Asia/Tehran only.
  */
 function qc_send_sms_alert(PDO $pdo, $teacher_id, $class_id, $item_key, $teacher_name, $class_title, $item_label, $phone) {
@@ -988,37 +985,17 @@ function qc_send_sms_alert(PDO $pdo, $teacher_id, $class_id, $item_key, $teacher
         return false;
     }
 
-    // Guard 1: Check if alert was already sent for this exact item
+    // Check if alert was already sent for this exact item
     $st_check = $pdo->prepare("
         SELECT id FROM qc_sms_alerts_log
         WHERE teacher_id = ? AND class_id = ? AND item_key = ?
     ");
     $st_check->execute([$teacher_id, $class_id, $item_key]);
     if ($st_check->fetchColumn()) {
-        return false; // Already sent!
+        return false; // Already notified for this exact item
     }
 
-    // Guard 2: Cooldown - max 1 SMS per teacher per 2 hours (no rapid-fire)
-    $st_rate = $pdo->prepare("
-        SELECT COUNT(*) FROM qc_sms_alerts_log
-        WHERE teacher_id = ? AND sent_at >= DATE_SUB(NOW(), INTERVAL 2 HOUR)
-    ");
-    $st_rate->execute([$teacher_id]);
-    if ((int)$st_rate->fetchColumn() >= 1) {
-        return false;
-    }
-
-    // Guard 3: Daily cap - max 2 SMS per teacher per calendar day
-    $st_day = $pdo->prepare("
-        SELECT COUNT(*) FROM qc_sms_alerts_log
-        WHERE teacher_id = ? AND DATE(sent_at) = CURDATE()
-    ");
-    $st_day->execute([$teacher_id]);
-    if ((int)$st_day->fetchColumn() >= 2) {
-        return false;
-    }
-
-    // Guard 4: Working hours constraint: 08:00 to 22:30 Asia/Tehran
+    // Working hours constraint: 08:00 to 22:30 Asia/Tehran
     date_default_timezone_set('Asia/Tehran');
     $hour = (int)date('G');
     $min = (int)date('i');
