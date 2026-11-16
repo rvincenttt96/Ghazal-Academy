@@ -19,8 +19,57 @@ require_once 'layout.php';
 list($progress, $sessions) = term_plan_sessions_payload($pdo, $class);
 $badge = term_plan_day_badge($class);
 $time = term_plan_display_time($class);
+
+// Load General Term Plan voice if any
+require_once '../../includes/qc.php';
+qc_ensure_schema($pdo);
+$st_v = $pdo->prepare("SELECT * FROM term_plan_voice WHERE class_id = ? AND IFNULL(is_deleted, 0) = 0 ORDER BY id DESC LIMIT 1");
+$st_v->execute([(int)$class['id']]);
+$tp_voice = $st_v->fetch(PDO::FETCH_ASSOC);
 ?>
 <link href="../../assets/css/term-plan.css?v=tp2" rel="stylesheet">
+<style>
+.tp-voice-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.tp-voice-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+.tp-voice-head h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+}
+.tp-voice-pill {
+    background: rgba(225, 29, 72, 0.15);
+    color: #fb7185;
+    border: 1px solid rgba(225, 29, 72, 0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.tp-audio-player {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 30px;
+}
+</style>
 <div class="tp-page"
      data-tp-root
      data-role="supervisor"
@@ -42,6 +91,33 @@ $time = term_plan_display_time($class);
                 <span class="day-badge <?= $badge[0] ?>"><?= term_plan_h($badge[1]) ?></span>
                 <span class="time-badge"><?= term_plan_h($time) ?></span>
             </div>
+        </div>
+    </div>
+
+    <!-- General Term Plan Voice Section (QC Item) -->
+    <div class="tp-voice-card">
+        <div class="tp-voice-head">
+            <h2>🎙 General Term Plan Voice (ویس پلن کلی ترم معلم)</h2>
+            <div class="d-flex align-items-center gap-2">
+                <span class="tp-voice-pill">مهلت: قبل از جلسه ۳ (۱۰ نمره QC)</span>
+                <?php if ($tp_voice): ?>
+                    <span class="badge bg-success">✓ بارگذاری شده</span>
+                <?php else: ?>
+                    <span class="badge bg-danger">هنوز بارگذاری نشده</span>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div>
+            <?php if ($tp_voice): ?>
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                    <audio class="tp-audio-player" controls src="<?= htmlspecialchars($tp_voice['audio_path']) ?>"></audio>
+                    <?php if (!empty($tp_voice['recorded_at'])): ?>
+                        <small class="text-info">تاریخ ثبت: <?= htmlspecialchars($tp_voice['recorded_at']) ?></small>
+                    <?php endif; ?>
+                </div>
+            <?php else: ?>
+                <p class="text-muted small mb-0">معلم هنوز ویس پلن کلی را برای این کلاس آپلود/ضبط نکرده است.</p>
+            <?php endif; ?>
         </div>
     </div>
 

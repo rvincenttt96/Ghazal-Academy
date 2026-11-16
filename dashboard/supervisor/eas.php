@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 require_once '../../includes/auth.php';
 require_once '../../includes/db.php';
 require_once '../../includes/terms.php';
+require_once '../../includes/qc.php';
 require_role('supervisor'); 
 
 $current_page = 'eas.php';
@@ -22,7 +23,9 @@ try {
             u_teacher.full_name as teacher_name,
             e.*,
             c.teacher_id,
-            c.online_link as class_online_link
+            c.online_link as class_online_link,
+            t.starts_on,
+            t.ends_on
         FROM classes c
         JOIN terms t ON c.term_id = t.id
         LEFT JOIN users u_teacher ON c.teacher_id = u_teacher.id
@@ -929,11 +932,12 @@ require_once 'layout.php';
                 <div id="placeholder-<?= $class['main_class_id'] ?>">
                     <div class="sessions-grid" id="grid-<?= $class['main_class_id'] ?>">
                         <?php 
+                            $computed_sessions = eas_compute_class_session_dates($pdo, $class, $total_sessions);
                             for($i=1; $i<=$total_sessions; $i++) {
                                 $session_status = $class['session_'.$i] ?? 0;
                                 $status_class = ($session_status == 1) ? 'status-tick' : (($session_status == 2) ? 'status-cross' : '');
                                 $content = ($session_status == 1) ? '✔' : (($session_status == 2) ? '✖' : $i);
-                                $saved_date = $session_dates['date_'.$i] ?? '';
+                                $saved_date = $computed_sessions[$i]['date_jalali'] ?? ($session_dates['date_'.$i] ?? '');
                                 
                                 echo "<div class='session-item'>
                                         <div class='session-box {$status_class}' data-num='{$i}' onclick='toggleSession(this)'>{$content}</div>
@@ -1081,9 +1085,23 @@ require_once 'layout.php';
         fetch('ajax_eas_update.php', { method: 'POST', body: formData })
             .then(r => {
                 if (!r.ok) throw new Error('HTTP ' + r.status);
-                return r.text();
+                return r.json();
             })
-            .then(() => showEasToast('✓ تغییرات ذخیره شد', false))
+            .then(data => {
+                showEasToast('✓ تغییرات ذخیره شد', false);
+                if (data && data.new_dates) {
+                    const grid = document.getElementById('grid-' + classId);
+                    if (grid) {
+                        const inputs = grid.querySelectorAll('.regular-date');
+                        Object.keys(data.new_dates).forEach(num => {
+                            const idx = parseInt(num, 10) - 1;
+                            if (inputs[idx]) {
+                                inputs[idx].value = data.new_dates[num];
+                            }
+                        });
+                    }
+                }
+            })
             .catch(() => showEasToast('خطا در ذخیره‌سازی تغییرات', true));
     }
 

@@ -1,5 +1,5 @@
 <?php
-$title = 'Student Dashboard';
+$title = 'داشبورد دانش‌آموز';
 require_once 'layout.php';
 require_once '../../includes/db.php';
 require_once '../../includes/terms.php';
@@ -27,7 +27,7 @@ $stmt->execute([$user_id]);
 $classes = $stmt->fetchAll();
 ?>
 
-<link href="../../assets/css/student/student-dashboard.css?v=<?= time() ?>" rel="stylesheet">
+<link href="../../assets/css/student/student-dashboard.css?v=<?= @filemtime(__DIR__ . '/../../assets/css/student/student-dashboard.css') ?: 1 ?>" rel="stylesheet">
 
 
 <div class="row g-4">
@@ -83,7 +83,7 @@ $classes = $stmt->fetchAll();
                 <div class="card-icon">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path opacity=".4" fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-96 0c-17.7 0-32-14.3-32-32L256 0 64 0z"/><path fill="currentColor" d="M256 0l0 96c0 17.7 14.3 32 32 32l96 0L256 0zM136 240c-13.3 0-24 10.7-24 24s10.7 24 24 24l48 0 0 72c0 13.3 10.7 24 24 24s24-10.7 24-24l0-72 48 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-48 0 0-48c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 48-48 0z"/></svg>
 				</div>
-                <h5 class="mb-1">تکلیف‌ها</h5>
+                <h5 class="mb-1">تکالیف</h5>
                 <p class="mb-0">مشاهده و آپلود</p>
             </div>
         </a>

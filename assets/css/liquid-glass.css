@@ -29,6 +29,18 @@
     --text-light: #fca5a5;
     --primary: #dc2626;
     --primary-light: #f87171;
+    /* Standardized light-surface & performance tokens */
+    --lg-surface-light: #ffffff;
+    --lg-surface-light-soft: #f8fafc;
+    --lg-text-dark: #0f172a;
+    --lg-text-dark-muted: #475569;
+    --lg-border-light: #cbd5e1;
+    --lg-border-light-soft: #e2e8f0;
+    --lg-blur-sidebar: blur(20px) saturate(140%);
+    --lg-blur-modal: blur(18px) saturate(130%);
+    --lg-blur-card: blur(12px) saturate(130%);
+    --lg-radius-card: 1.25rem;
+    --lg-radius-input: 12px;
 }
 
 html {
@@ -473,17 +485,17 @@ body.lg-app {
 .classes-card,
 .supervisor-class-card {
     background: var(--lg-glass) !important;
-    backdrop-filter: blur(24px) saturate(140%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
+    backdrop-filter: var(--lg-blur-card) !important;
+    -webkit-backdrop-filter: var(--lg-blur-card) !important;
     border: 1px solid var(--lg-border) !important;
     box-shadow: var(--lg-shadow) !important;
     color: var(--lg-text) !important;
 }
 
 .dashboard-card {
-    backdrop-filter: blur(24px) saturate(140%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
-    border-radius: 1.25rem !important;
+    backdrop-filter: var(--lg-blur-card) !important;
+    -webkit-backdrop-filter: var(--lg-blur-card) !important;
+    border-radius: var(--lg-radius-card) !important;
     box-shadow: var(--lg-shadow) !important;
     color: #fff !important;
 }
@@ -2130,3 +2142,53 @@ select option {
     }
 }
 
+
+/* ==========================================================================
+   Opt-out light surface utility & mobile/reduced-motion GPU optimization
+   ========================================================================== */
+body.lg-app .lg-light-surface,
+body.lg-app .lg-light-surface .card {
+    background: var(--lg-surface-light) !important;
+    background-color: var(--lg-surface-light) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    color: var(--lg-text-dark) !important;
+    border: 1.5px solid var(--lg-border-light) !important;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.10) !important;
+}
+
+body.lg-app .lg-light-surface .form-control,
+body.lg-app .lg-light-surface .form-select,
+body.lg-app .lg-light-surface input[type="text"],
+body.lg-app .lg-light-surface input[type="search"],
+body.lg-app .lg-light-surface input[type="number"],
+body.lg-app .lg-light-surface select,
+body.lg-app .lg-light-surface textarea {
+    background: var(--lg-surface-light) !important;
+    color: var(--lg-text-dark) !important;
+    border: 1.5px solid var(--lg-border-light) !important;
+    border-radius: var(--lg-radius-input) !important;
+}
+
+body.lg-app .lg-light-surface label,
+body.lg-app .lg-light-surface .form-label {
+    color: var(--lg-text-dark) !important;
+}
+
+@media (max-width: 767.98px), (prefers-reduced-motion: reduce) {
+    .lg-orb {
+        animation: none !important;
+    }
+    .card,
+    .dashboard-card,
+    .si-card,
+    .eas-card,
+    .tp-card,
+    .tp-session,
+    .plc-card,
+    .classes-card,
+    .supervisor-class-card {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+}
