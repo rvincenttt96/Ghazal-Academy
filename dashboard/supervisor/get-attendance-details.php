@@ -6,6 +6,9 @@ require_once '../../includes/rollcall.php';
 require_role('supervisor');
 
 header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('Expires: 0');
 
 try {
     $class_id = (int)($_GET['class_id'] ?? 0);

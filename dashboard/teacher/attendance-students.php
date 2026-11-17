@@ -76,10 +76,14 @@ if (!empty($_GET['action']) && $_GET['action'] == 'get_data') {
     require_once '../../includes/db.php';
     require_once '../../includes/jdate.php';
     require_once '../../includes/rollcall.php';
-    header('Content-Type: application/json');
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    if (ob_get_length()) ob_clean();
     
     $class_id = (int)($_GET['class_id'] ?? 0);
-    $jalali_date = $_GET['date'] ?? '';
+    $jalali_date = trim((string)($_GET['date'] ?? ''));
     
     if (!$class_id || !$jalali_date) {
         echo json_encode(['success' => false, 'message' => 'داده نامعتبر']);
@@ -142,10 +146,14 @@ if (!empty($input_data['action']) && $input_data['action'] == 'save_edit') {
     require_once '../../includes/db.php';
     require_once '../../includes/jdate.php';
     require_once '../../includes/rollcall.php';
-    header('Content-Type: application/json');
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    if (ob_get_length()) ob_clean();
     
     $class_id = (int)($input_data['class_id'] ?? 0);
-    $jalali_date = $input_data['date'] ?? '';
+    $jalali_date = trim((string)($input_data['date'] ?? ''));
     $attendance = $input_data['attendance'] ?? [];
 
     if (!$class_id || !$jalali_date) {
@@ -221,6 +229,31 @@ $stmt->execute([$class_id]);
 $dates = $stmt->fetchAll();
 
 $today = date('Y-m-d');
+$today_jalali = jdate_format($today, 'Y/m/d');
+
+// بارگذاری حضور و غیاب ثبت‌شده امروز برای پیش‌فرض جدول اصلی
+$stmt = $pdo->prepare("
+    SELECT user_id, status, is_present
+    FROM attendance
+    WHERE class_id = ? AND class_date = ?
+");
+$stmt->execute([$class_id, $today]);
+$today_attendance = [];
+while ($row = $stmt->fetch()) {
+    $today_attendance[(int)$row['user_id']] = function_exists('rollcall_normalize_status')
+        ? rollcall_normalize_status($row['status'] ?? '', $row['is_present'] ?? null)
+        : ($row['status'] === 'present' || (int)($row['is_present'] ?? 0) === 1 ? 'present' : 'absent');
+}
+$today_already_recorded = !empty($today_attendance);
+
+// بارگذاری تکالیف ثبت‌شده امروز
+$stmt = $pdo->prepare("
+    SELECT user_id, status
+    FROM homework_status
+    WHERE class_id = ? AND homework_date = ?
+");
+$stmt->execute([$class_id, $today]);
+$today_homework = $stmt->fetchAll(PDO::FETCH_KEY_PAIR) ?: [];
 ?>
 
 
@@ -283,10 +316,16 @@ $today = date('Y-m-d');
 
         <form method="POST" action="save-attendance.php">
             <input type="hidden" name="class_id" value="<?= $class_id ?>">
+            <?php if ($today_already_recorded): ?>
+                <div class="alert alert-info py-2 px-3 mb-3 d-flex align-items-center justify-content-between">
+                    <span>ℹ️ حضور و غیاب امروز (<?= htmlspecialchars($today_jalali) ?>) قبلاً ثبت شده است و آخرین وضعیت در جدول زیر نمایش داده شده است.</span>
+                    <span class="badge bg-success">ثبت شده</span>
+                </div>
+            <?php endif; ?>
             <div class="mb-3">
                 <label class="form-label">Class Dates</label>
 				<input type="text" name="class_date" id="class_date" 
-				value="<?= jdate_format($today, 'Y/m/d') ?>" 
+				value="<?= $today_jalali ?>" 
 				class="form-control" 
 				placeholder="روز/ماه/سال شمسی" 
 				required>
@@ -305,12 +344,18 @@ $today = date('Y-m-d');
                         </thead>
                         <tbody>
                             <?php foreach ($students as $s): ?>
+                            <?php
+                                $student_id = (int)$s['id'];
+                                $current_att = $today_attendance[$student_id] ?? 'present';
+                                $is_present = ($current_att === 'present');
+                                $current_hw = $today_homework[$student_id] ?? 'complete';
+                            ?>
                             <tr>
                                 <td>
                                     <div class="learner-name-row">
                                         <span><?= htmlspecialchars($s['full_name']) ?></span>
                                         <button type="button" class="btn btn-sm late-sms-btn"
-                                                data-user="<?= (int)$s['id'] ?>"
+                                                data-user="<?= $student_id ?>"
                                                 data-name="<?= htmlspecialchars($s['full_name'], ENT_QUOTES, 'UTF-8') ?>">
                                             ثبت تاخیر
                                         </button>
@@ -319,48 +364,50 @@ $today = date('Y-m-d');
                                 <td><?= htmlspecialchars($s['student_code']) ?></td>
                                 <td>
                                     <div class="d-flex gap-2 flex-wrap">
-                                        <button type="button" class="btn btn-attendance btn-present active"
-                                                data-user="<?= (int)$s['id'] ?>" data-status="present"
-                                                onclick="setMainStatus(<?= (int)$s['id'] ?>, 'present')">
+                                        <button type="button" class="btn btn-attendance btn-present <?= $is_present ? 'active' : '' ?>"
+                                                data-user="<?= $student_id ?>" data-status="present"
+                                                onclick="setMainStatus(<?= $student_id ?>, 'present')">
                                             Present
                                         </button>
-                                        <button type="button" class="btn btn-attendance btn-absent"
-                                                data-user="<?= (int)$s['id'] ?>" data-status="absent"
-                                                onclick="setMainStatus(<?= (int)$s['id'] ?>, 'absent')">
+                                        <button type="button" class="btn btn-attendance btn-absent <?= !$is_present ? 'active' : '' ?>"
+                                                data-user="<?= $student_id ?>" data-status="absent"
+                                                onclick="setMainStatus(<?= $student_id ?>, 'absent')">
                                             Absent
                                         </button>
                                     </div>
-                                    <input type="hidden" name="attendance[<?= (int)$s['id'] ?>]" data-attendance-user="<?= (int)$s['id'] ?>" value="present">
+                                    <input type="hidden" name="attendance[<?= $student_id ?>]" data-attendance-user="<?= $student_id ?>" value="<?= $is_present ? 'present' : 'absent' ?>">
                                 </td>
                                 <td class="assignment-cell">
                                     <div class="d-flex gap-2 flex-wrap">
-                                        <button type="button" class="btn btn-homework btn-complete active"
-                                                data-student-id="<?= (int)$s['id'] ?>"
+                                        <button type="button" class="btn btn-homework btn-complete <?= $current_hw === 'complete' ? 'active' : '' ?>"
+                                                data-student-id="<?= $student_id ?>"
                                                 data-status="complete"
-                                                onclick="homework_setMainStatus(<?= (int)$s['id'] ?>, 'complete')">
+                                                onclick="homework_setMainStatus(<?= $student_id ?>, 'complete')">
                                             Completed
                                         </button>
-                                        <button type="button" class="btn btn-homework btn-incomplete"
-                                                data-student-id="<?= (int)$s['id'] ?>"
+                                        <button type="button" class="btn btn-homework btn-incomplete <?= $current_hw === 'incomplete' ? 'active' : '' ?>"
+                                                data-student-id="<?= $student_id ?>"
                                                 data-status="incomplete"
-                                                onclick="homework_setMainStatus(<?= (int)$s['id'] ?>, 'incomplete')">
+                                                onclick="homework_setMainStatus(<?= $student_id ?>, 'incomplete')">
                                             Incomplete
                                         </button>
-                                        <button type="button" class="btn btn-homework btn-not-submitted"
-                                                data-student-id="<?= (int)$s['id'] ?>"
+                                        <button type="button" class="btn btn-homework btn-not-submitted <?= $current_hw === 'not_submitted' ? 'active' : '' ?>"
+                                                data-student-id="<?= $student_id ?>"
                                                 data-status="not_submitted"
-                                                onclick="homework_setMainStatus(<?= (int)$s['id'] ?>, 'not_submitted')">
+                                                onclick="homework_setMainStatus(<?= $student_id ?>, 'not_submitted')">
                                             Not presented
                                         </button>
                                     </div>
-                                    <input type="hidden" name="homework[<?= (int)$s['id'] ?>]" data-homework-user="<?= (int)$s['id'] ?>" value="complete">
+                                    <input type="hidden" name="homework[<?= $student_id ?>]" data-homework-user="<?= $student_id ?>" value="<?= htmlspecialchars($current_hw) ?>">
                                 </td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
-                <button type="submit" class="btn attendance-action-btn btn-warning mt-3">Roll Call</button>
+                <button type="submit" class="btn attendance-action-btn <?= $today_already_recorded ? 'btn-info' : 'btn-warning' ?> mt-3">
+                    <?= $today_already_recorded ? 'ویرایش / ذخیره مجدد حضور و غیاب' : 'Roll Call' ?>
+                </button>
             <?php endif; ?>
             <a href="attendance.php" class="btn attendance-action-btn btn-secondary mt-3">Back</a>
         </form>
@@ -423,9 +470,10 @@ function setEditDate(date) {
     
     document.getElementById('delete-attendance-btn').onclick = () => deleteAttendanceDate(date);
 
+    const ts = Date.now();
     Promise.all([
-        fetch('?action=get_data&class_id=<?= $class_id ?>&date=' + encodeURIComponent(date)).then(r => r.json()),
-        fetch('homework-students.php?action=get_data&class_id=<?= $class_id ?>&date=' + encodeURIComponent(date)).then(r => r.json()).catch(() => ({ success: false }))
+        fetch('?action=get_data&class_id=<?= $class_id ?>&date=' + encodeURIComponent(date) + '&_t=' + ts, { cache: 'no-store' }).then(r => r.json()),
+        fetch('homework-students.php?action=get_data&class_id=<?= $class_id ?>&date=' + encodeURIComponent(date) + '&_t=' + ts, { cache: 'no-store' }).then(r => r.json()).catch(() => ({ success: false }))
     ]).then(([data, hwData]) => {
         if (!data.success) {
             return;
@@ -543,6 +591,12 @@ function homework_updateModalStatus(studentId, status) {
 }
 
 function saveEdit(date) {
+    const saveBtn = document.getElementById('save-attendance-btn');
+    if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saving...';
+    }
+
     const attendance = {};
     document.querySelectorAll('#modal-students-body input[id^="status-"]').forEach(input => {
         const studentId = input.id.replace('status-', '');
@@ -560,15 +614,28 @@ function saveEdit(date) {
     ])
     .then(([data]) => {
         if (data.success) {
-            alert('تغییرات ذخیره شد.');
-            bootstrap.Modal.getInstance(document.getElementById('editAttendanceModal')).hide();
+            alert('تغییرات با موفقیت ذخیره شد.');
+            const modalEl = document.getElementById('editAttendanceModal');
+            if (modalEl) {
+                const inst = bootstrap.Modal.getInstance(modalEl);
+                if (inst) inst.hide();
+            }
+            location.reload();
         } else {
-            alert('خطا: ' + (data.message || 'نا مشخص'));
+            alert('خطا: ' + (data.message || 'نامشخص'));
+            if (saveBtn) {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save';
+            }
         }
     })
     .catch(error => {
         console.error('خطا:', error);
         alert('خطا در ارتباط با سرور.');
+        if (saveBtn) {
+            saveBtn.disabled = false;
+            saveBtn.textContent = 'Save';
+        }
     });
 }
 

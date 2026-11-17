@@ -17,10 +17,14 @@ if ($raw_input && strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !==
 if (!empty($_GET['action']) && $_GET['action'] == 'get_data') {
     require_once '../../includes/db.php';
     require_once '../../includes/jdate.php';
-    header('Content-Type: application/json');
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    if (ob_get_length()) ob_clean();
     
     $class_id = (int)($_GET['class_id'] ?? 0);
-    $jalali_date = $_GET['date'] ?? '';
+    $jalali_date = trim((string)($_GET['date'] ?? ''));
     
     if (!$class_id || !$jalali_date) {
         echo json_encode(['success' => false, 'message' => 'داده نامعتبر']);
@@ -70,14 +74,25 @@ if (!empty($_GET['action']) && $_GET['action'] == 'get_data') {
 // AJAX: ذخیره ویرایش
 if (!empty($input_data['action']) && $input_data['action'] == 'save_edit') {
     require_once '../../includes/db.php';
-    header('Content-Type: application/json');
+    require_once '../../includes/jdate.php';
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    if (ob_get_length()) ob_clean();
     
     $class_id = (int)($input_data['class_id'] ?? 0);
-    $date = $input_data['date'] ?? '';
+    $date = trim((string)($input_data['date'] ?? ''));
     $homework = $input_data['homework'] ?? [];
 
     if (!$class_id || !$date) {
         echo json_encode(['success' => false, 'message' => 'class_id یا تاریخ نامعتبر']);
+        exit;
+    }
+
+    $gregorian_date = jdate_to_gregorian($date);
+    if (!$gregorian_date) {
+        echo json_encode(['success' => false, 'message' => 'تاریخ شمسی نامعتبر']);
         exit;
     }
 
@@ -94,7 +109,7 @@ if (!empty($input_data['action']) && $input_data['action'] == 'save_edit') {
                 VALUES (?, ?, ?, ?)
                 ON DUPLICATE KEY UPDATE status = ?
             ");
-            $stmt->execute([$class_id, $student_id, $date, $status, $status]);
+            $stmt->execute([$class_id, $student_id, $gregorian_date, $status, $status]);
         }
         $pdo->commit();
         echo json_encode(['success' => true]);
@@ -319,7 +334,7 @@ function homework_setEditDate(date) {
     // فعال کردن دکمه حذف
     document.getElementById('delete-homework-btn').onclick = () => deleteHomeworkDate(date);
     
-    fetch('?action=get_data&class_id=<?= $class_id ?>&date=' + encodeURIComponent(date))
+    fetch('?action=get_data&class_id=<?= $class_id ?>&date=' + encodeURIComponent(date) + '&_t=' + Date.now(), { cache: 'no-store' })
     .then(r => r.json())
     .then(data => {
         if (data.success) {
@@ -432,6 +447,7 @@ function homework_saveEdit() {
         if (data.success) {
             alert('تغییرات ذخیره شد.');
             bootstrap.Modal.getInstance(document.getElementById('editHomeworkModal')).hide();
+            location.reload();
         } else {
             alert('خطا: ' + (data.message || 'نا مشخص'));
         }

@@ -267,7 +267,7 @@ function applySessionStats(classId, date, present, total) {
 }
 
 function showAttendanceDetails(classId, date) {
-    fetch('get-attendance-details.php?class_id=' + encodeURIComponent(classId) + '&date=' + encodeURIComponent(date))
+    fetch('get-attendance-details.php?class_id=' + encodeURIComponent(classId) + '&date=' + encodeURIComponent(date) + '&_t=' + Date.now(), { cache: 'no-store' })
     .then(function (response) { return response.json(); })
     .then(function (data) {
         if (data.success) {
