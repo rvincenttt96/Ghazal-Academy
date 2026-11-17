@@ -1729,7 +1729,7 @@ function identity_sync_student_for_class(PDO $panel_pdo, $user_id, array $class,
         return;
     }
     $classType = accounting_class_type_label($class['class_type'] ?? '');
-    $level = accounting_match_level($class['title'] ?? '');
+    $level = accounting_match_level($class['title'] ?? '', $acc_term_id);
     if (!$level) {
         $acc->prepare("UPDATE students SET classType = ?, termId = ? WHERE id = ?")
             ->execute([$classType, $acc_term_id, $acc_id]);
@@ -1740,9 +1740,10 @@ function identity_sync_student_for_class(PDO $panel_pdo, $user_id, array $class,
     $paid = (int)$student['amountPaid'];
     $current_level = trim((string)($student['level'] ?? ''));
     $current_total = (int)$student['totalPayable'];
-    if ($current_total > 0 && strcasecmp($current_level, (string)$level['name']) === 0) {
-        $acc->prepare("UPDATE students SET classType = ?, termId = ? WHERE id = ?")
-            ->execute([$classType, $acc_term_id, $acc_id]);
+    $current_term = (string)($student['termId'] ?? '');
+    if ($current_total > 0 && strcasecmp($current_level, (string)$level['name']) === 0 && $current_term === (string)$acc_term_id) {
+        $acc->prepare("UPDATE students SET classType = ? WHERE id = ?")
+            ->execute([$classType, $acc_id]);
         return;
     }
     $debt = $total - $paid;

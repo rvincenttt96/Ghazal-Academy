@@ -113,7 +113,7 @@ function accounting_level_compact($raw) {
     return strtolower($t);
 }
 
-function accounting_match_level($title) {
+function accounting_match_level($title, $acc_term_id = null) {
     $title = trim(preg_replace('/\s+/u', ' ', (string)$title));
     if ($title === '') {
         return null;
@@ -122,6 +122,43 @@ function accounting_match_level($title) {
     $levels = $pdo->query('SELECT id, name, fee FROM levels')->fetchAll(PDO::FETCH_ASSOC);
     if (!$levels) {
         return null;
+    }
+
+    if (!empty($acc_term_id)) {
+        try {
+            $stmt = $pdo->prepare('SELECT level_id, level_name, fee FROM term_level_fees WHERE termId = ?');
+            $stmt->execute([(string)$acc_term_id]);
+            $termFees = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (!empty($termFees)) {
+                $feeMapById = [];
+                $feeMapByName = [];
+                foreach ($termFees as $tf) {
+                    if (!empty($tf['level_id'])) {
+                        $feeMapById[(int)$tf['level_id']] = (int)$tf['fee'];
+                    }
+                    if (!empty($tf['level_name'])) {
+                        $tNameKey = function_exists('mb_strtolower')
+                            ? mb_strtolower(trim((string)$tf['level_name']), 'UTF-8')
+                            : strtolower(trim((string)$tf['level_name']));
+                        $feeMapByName[$tNameKey] = (int)$tf['fee'];
+                    }
+                }
+                foreach ($levels as &$lvl) {
+                    $lvlId = (int)$lvl['id'];
+                    $lvlNameLower = function_exists('mb_strtolower')
+                        ? mb_strtolower(trim((string)$lvl['name']), 'UTF-8')
+                        : strtolower(trim((string)$lvl['name']));
+                    if (isset($feeMapById[$lvlId])) {
+                        $lvl['fee'] = $feeMapById[$lvlId];
+                    } elseif (isset($feeMapByName[$lvlNameLower])) {
+                        $lvl['fee'] = $feeMapByName[$lvlNameLower];
+                    }
+                }
+                unset($lvl);
+            }
+        } catch (Throwable $e) {
+            // Ignore if table does not exist or query fails
+        }
     }
     $len = function_exists('mb_strlen')
         ? static function ($s) { return mb_strlen((string)$s, 'UTF-8'); }
