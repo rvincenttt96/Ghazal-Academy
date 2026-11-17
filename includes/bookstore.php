@@ -114,6 +114,11 @@ function bookstore_http(string $url, array $opts = []): array
         CURLOPT_CONNECTTIMEOUT => (int)($opts['connect'] ?? 6),
         CURLOPT_HTTPHEADER => $headers,
     ];
+    if (str_contains($url, 'books.ghazalify.com')) {
+        $curl[CURLOPT_RESOLVE] = ['books.ghazalify.com:443:195.28.169.44', 'books.ghazalify.com:80:195.28.169.44'];
+        $curl[CURLOPT_SSL_VERIFYPEER] = false;
+        $curl[CURLOPT_SSL_VERIFYHOST] = 0;
+    }
     if (($opts['method'] ?? 'GET') === 'POST') {
         $curl[CURLOPT_POST] = true;
         if (!empty($opts['json'])) {

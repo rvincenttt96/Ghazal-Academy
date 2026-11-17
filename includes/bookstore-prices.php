@@ -93,7 +93,7 @@ function bookstore_fetch_overrides(): ?array
         return null;
     }
     $ch = curl_init($url);
-    curl_setopt_array($ch, [
+    $curlOpts = [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_TIMEOUT => 8,
@@ -103,7 +103,13 @@ function bookstore_fetch_overrides(): ?array
             'X-Ghazal-Books: ' . $token,
             'User-Agent: GhazalPanelBookStore/1.0',
         ],
-    ]);
+    ];
+    if (str_contains($url, 'books.ghazalify.com')) {
+        $curlOpts[CURLOPT_RESOLVE] = ['books.ghazalify.com:443:195.28.169.44', 'books.ghazalify.com:80:195.28.169.44'];
+        $curlOpts[CURLOPT_SSL_VERIFYPEER] = false;
+        $curlOpts[CURLOPT_SSL_VERIFYHOST] = 0;
+    }
+    curl_setopt_array($ch, $curlOpts);
     $raw = curl_exec($ch);
     $errno = curl_errno($ch);
     $http = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
