@@ -114,22 +114,20 @@ require_once 'layout.php';
     .day-even { background:rgba(52,152,219,.15); color:#3498db; border:1px solid rgba(52,152,219,.3); }
     .day-odd { background:rgba(155,89,182,.15); color:#9b59b6; border:1px solid rgba(155,89,182,.3); }
     .offcal-badge { background:rgba(233,69,96,.2); color:#ff6b81; border:1px solid rgba(233,69,96,.4); white-space:nowrap; display:inline-flex; align-items:center; height:26px; padding:0 10px; border-radius:8px; font-size:.75rem; font-weight:700; }
-    .plc-offcal-section { background:rgba(233,69,96,.06); border:1px solid rgba(233,69,96,.25); border-radius:14px; padding:12px; margin-top:4px; display:flex; flex-direction:column; gap:10px; }
+    .plc-offcal-section { background:rgba(233,69,96,.06); border:1px solid rgba(233,69,96,.25); border-radius:14px; padding:14px; margin-top:6px; display:flex; flex-direction:column; gap:12px; }
     .plc-offcal-check { display:flex; align-items:flex-start; gap:10px; color:#fecdd3; font-size:.9rem; font-weight:700; cursor:pointer; user-select:none; line-height:1.45; }
     .plc-offcal-check input { width:18px; height:18px; margin-top:2px; flex-shrink:0; accent-color:#e94560; }
     .plc-offcal-check small { display:block; font-weight:500; color:#fda4af; font-size:.78rem; margin-top:2px; }
     .plc-offcal-details { display:flex; flex-direction:column; gap:12px; }
-    .plc-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
-    @media (max-width: 700px) {
-        .plc-grid-3 { grid-template-columns:1fr; }
-    }
-    .plc-day-pills { display:flex; flex-wrap:wrap; gap:8px; }
-    .plc-day-pill { cursor:pointer; display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.06); padding:6px 12px; border-radius:20px; font-size:.82rem; border:1px solid rgba(255,255,255,.1); user-select:none; color:#cbd5e1; transition:all .15s ease; }
-    .plc-day-pill:hover { background:rgba(233,69,96,.15); }
-    .plc-day-pill input { accent-color:#e94560; margin:0; cursor:pointer; }
+    .plc-offcal-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .plc-day-pills { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; }
+    .plc-day-pill { cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px; background:rgba(255,255,255,.06); padding:8px 6px; border-radius:10px; font-size:.82rem; border:1px solid rgba(255,255,255,.1); user-select:none; color:#cbd5e1; transition:all .15s ease; box-sizing:border-box; min-height:38px; }
+    .plc-day-pill:hover { background:rgba(233,69,96,.15); border-color:rgba(233,69,96,.35); }
+    .plc-day-pill input { accent-color:#e94560; margin:0; cursor:pointer; width:16px; height:16px; }
     .plc-day-pill.active { background:rgba(233,69,96,.25); border-color:#e94560; color:#fff; font-weight:700; }
-    .plc-label { font-size:.8rem; color:#8e8e93; margin-bottom:8px; font-weight:700; display:flex; align-items:center; gap:6px; }
-    .plc-input, .plc-select { width:100%; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); color:#fff; padding:8px 12px; border-radius:8px; font-size:.85rem; outline:none; }
+    .plc-label { font-size:.8rem; color:#8e8e93; margin-bottom:8px; font-weight:700; display:flex; align-items:center; gap:6px; min-height:18px; white-space:nowrap; }
+    .plc-input, .plc-select { width:100%; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); color:#fff; padding:8px 12px; border-radius:8px; font-size:.85rem; outline:none; height:42px; min-height:42px; box-sizing:border-box; }
+    .plc-input[type="number"] { direction:ltr; text-align:center; font-weight:700; font-variant-numeric:tabular-nums; }
     .plc-input:focus, .plc-select:focus { border-color:#e94560; }
     .plc-input[type="time"] {
         color-scheme: dark;
@@ -334,7 +332,7 @@ require_once 'layout.php';
                     <span>کلاس آف‌کلندر (Off Calendar)<small>شروع مستقل از تقویم ترم · فوروارد خودکار به ترم بعد</small></span>
                 </label>
                 <div class="plc-offcal-details js-offcal-details" <?= $is_off_cal ? '' : 'style="display:none"' ?>>
-                    <div class="plc-grid-3">
+                    <div class="plc-offcal-grid">
                         <div>
                             <div class="plc-label">تاریخ شروع کلاس</div>
                             <input type="text" data-jdp readonly class="plc-input js-offcal-start" placeholder="تاریخ شروع" value="<?= placement_h($offcal_start) ?>">
@@ -343,14 +341,14 @@ require_once 'layout.php';
                             <div class="plc-label">تعداد کل جلسات (سقف ۱۳)</div>
                             <input type="number" min="1" max="13" class="plc-input js-offcal-total" value="<?= (int)$total_sess ?>" placeholder="13">
                         </div>
-                        <div>
-                            <div class="plc-label">تعداد جلسه در هفته</div>
-                            <select class="plc-select js-offcal-spw">
-                                <option value="1" <?= $spw === 1 ? 'selected' : '' ?>>۱ جلسه در هفته</option>
-                                <option value="2" <?= $spw === 2 ? 'selected' : '' ?>>۲ جلسه در هفته</option>
-                                <option value="3" <?= $spw === 3 ? 'selected' : '' ?>>۳ جلسه در هفته</option>
-                            </select>
-                        </div>
+                    </div>
+                    <div>
+                        <div class="plc-label">تعداد جلسه در هفته</div>
+                        <select class="plc-select js-offcal-spw">
+                            <option value="1" <?= $spw === 1 ? 'selected' : '' ?>>۱ جلسه در هفته</option>
+                            <option value="2" <?= $spw === 2 ? 'selected' : '' ?>>۲ جلسه در هفته</option>
+                            <option value="3" <?= $spw === 3 ? 'selected' : '' ?>>۳ جلسه در هفته</option>
+                        </select>
                     </div>
                     <div>
                         <div class="plc-label">روزهای برگزاری در هفته</div>
@@ -801,7 +799,7 @@ function buildCard(data) {
                     <span>کلاس آف‌کلندر (Off Calendar)<small>شروع مستقل از تقویم ترم · فوروارد خودکار به ترم بعد</small></span>
                 </label>
                 <div class="plc-offcal-details js-offcal-details" style="${isOffCal ? '' : 'display:none'}">
-                    <div class="plc-grid-3">
+                    <div class="plc-offcal-grid">
                         <div>
                             <div class="plc-label">تاریخ شروع کلاس</div>
                             <input type="text" data-jdp readonly class="plc-input js-offcal-start" placeholder="تاریخ شروع" value="${offcalStart}">
@@ -810,14 +808,14 @@ function buildCard(data) {
                             <div class="plc-label">تعداد کل جلسات (سقف ۱۳)</div>
                             <input type="number" min="1" max="13" class="plc-input js-offcal-total" value="${totalSess}" placeholder="13">
                         </div>
-                        <div>
-                            <div class="plc-label">تعداد جلسه در هفته</div>
-                            <select class="plc-select js-offcal-spw">
-                                <option value="1" ${spw === 1 ? 'selected' : ''}>۱ جلسه در هفته</option>
-                                <option value="2" ${spw === 2 ? 'selected' : ''}>۲ جلسه در هفته</option>
-                                <option value="3" ${spw === 3 ? 'selected' : ''}>۳ جلسه در هفته</option>
-                            </select>
-                        </div>
+                    </div>
+                    <div>
+                        <div class="plc-label">تعداد جلسه در هفته</div>
+                        <select class="plc-select js-offcal-spw">
+                            <option value="1" ${spw === 1 ? 'selected' : ''}>۱ جلسه در هفته</option>
+                            <option value="2" ${spw === 2 ? 'selected' : ''}>۲ جلسه در هفته</option>
+                            <option value="3" ${spw === 3 ? 'selected' : ''}>۳ جلسه در هفته</option>
+                        </select>
                     </div>
                     <div>
                         <div class="plc-label">روزهای برگزاری در هفته</div>
