@@ -42,9 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$class_id, $value]);
         }
 
-        // اگر وضعیت جلسه‌ای یا تاریخ جبرانی تغییر کرد، تاریخ جلسات مجدداً محاسبه و برگردانده شود
+        // اگر وضعیت جلسه‌ای، تاریخ جبرانی یا تاریخ‌های دستی تغییر کرد، تاریخ جلسات مجدداً محاسبه و برگردانده شود
         $new_dates = [];
-        if (strpos($field, 'session_') === 0 || $field === 'makeup_sessions_json') {
+        if (preg_match('/^session_\d+$/', $field) || $field === 'makeup_sessions_json' || $field === 'session_dates_json') {
             $st_cl = $pdo->prepare("
                 SELECT c.*, t.starts_on, t.ends_on, e.*
                 FROM classes c

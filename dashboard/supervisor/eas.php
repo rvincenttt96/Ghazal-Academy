@@ -20,6 +20,12 @@ try {
             c.class_type,
             c.schedule, 
             c.class_time,
+            c.is_off_calendar,
+            c.custom_start_date,
+            c.total_sessions,
+            c.sessions_per_week,
+            c.week_days,
+            c.forward_next,
             u_teacher.full_name as teacher_name,
             e.*,
             c.teacher_id,
@@ -851,7 +857,9 @@ require_once 'layout.php';
                 $dayKey = 'private';
             }
             
-            $total_sessions = ($classTypeKey === 'private') ? 10 : 13;
+            $total_sessions = !empty($class['total_sessions']) ? (int)$class['total_sessions'] : (($classTypeKey === 'private') ? 10 : 13);
+            if ($total_sessions > 13) $total_sessions = 13;
+            if ($total_sessions < 1) $total_sessions = 13;
             
             $students = $students_by_class[(int)$class['main_class_id']] ?? [];
             $online_link = trim((string)($class['class_online_link'] ?? ''));
@@ -895,6 +903,9 @@ require_once 'layout.php';
                 </div>
                 <div class="meta-info">
                     <div class="badges-wrapper">
+                        <?php if (!empty($class['is_off_calendar'])): ?>
+                            <span class="type-badge" style="background:rgba(233,69,96,0.18); color:#ff6b81; border:1px solid rgba(233,69,96,0.35);">آف‌کلندر</span>
+                        <?php endif; ?>
                         <?= $classTypeBadge ?>
                         <span class="day-badge <?= $badgeInfo[0] ?>" data-daytext="<?= $badgeInfo[1] ?>"><?= $badgeInfo[1] ?></span>
                     </div>

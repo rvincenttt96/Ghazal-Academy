@@ -314,6 +314,12 @@ function placement_load_term_classes(PDO $pdo, $term_id) {
             c.class_type,
             c.online_link,
             c.teacher_id,
+            c.is_off_calendar,
+            c.custom_start_date,
+            c.total_sessions,
+            c.sessions_per_week,
+            c.week_days,
+            c.forward_next,
             u.full_name AS teacher_name
             $eas_bits
         FROM classes c
@@ -366,6 +372,17 @@ function placement_load_term_classes(PDO $pdo, $term_id) {
         $class['interview_time'] = placement_normalize_time($class['interview_time'] ?? '');
         $class['teacher_id'] = (int)($class['teacher_id'] ?? 0);
         $class['interviewer_id'] = (int)($class['interviewer_id'] ?? 0);
+        $class['is_off_calendar'] = (int)($class['is_off_calendar'] ?? 0);
+        $class['custom_start_date'] = (string)($class['custom_start_date'] ?? '');
+        if ($class['custom_start_date'] !== '' && function_exists('qc_format_jalali')) {
+            $class['custom_start_date_jalali'] = qc_format_jalali($class['custom_start_date']);
+        } else {
+            $class['custom_start_date_jalali'] = '';
+        }
+        $class['total_sessions'] = !empty($class['total_sessions']) ? (int)$class['total_sessions'] : 13;
+        $class['sessions_per_week'] = !empty($class['sessions_per_week']) ? (int)$class['sessions_per_week'] : 2;
+        $class['week_days'] = (string)($class['week_days'] ?? '');
+        $class['forward_next'] = (int)($class['forward_next'] ?? 0);
     }
     unset($class);
     return $classes;
@@ -434,6 +451,13 @@ function placement_class_copy_payload(array $class) {
         'interview_time' => (string)($class['interview_time'] ?? ''),
         'interviewer_id' => (int)($class['interviewer_id'] ?? 0),
         'interviewer_name' => (string)($class['interviewer_name'] ?? ''),
+        'is_off_calendar' => (int)($class['is_off_calendar'] ?? 0),
+        'custom_start_date' => (string)($class['custom_start_date'] ?? ''),
+        'custom_start_date_jalali' => (string)($class['custom_start_date_jalali'] ?? ''),
+        'total_sessions' => (int)($class['total_sessions'] ?? 13),
+        'sessions_per_week' => (int)($class['sessions_per_week'] ?? 2),
+        'week_days' => (string)($class['week_days'] ?? ''),
+        'forward_next' => (int)($class['forward_next'] ?? 0),
     ];
 }
 
@@ -624,6 +648,31 @@ function placement_save_class(PDO $pdo, array $input) {
     $interviewer_id = (int)($input['interviewer_id'] ?? 0);
     $interviewer_name = trim((string)($input['interviewer_name'] ?? ''));
 
+    $is_off_calendar = !empty($input['is_off_calendar']) ? 1 : 0;
+    $custom_start_date = null;
+    if ($is_off_calendar && !empty($input['custom_start_date'])) {
+        $cs_raw = trim((string)$input['custom_start_date']);
+        if (function_exists('term_plan_parse_date_value')) {
+            $custom_start_date = term_plan_parse_date_value($cs_raw);
+        } elseif (function_exists('jalali_parse_any_date')) {
+            $custom_start_date = jalali_parse_any_date($cs_raw);
+        }
+    }
+    $total_sessions = isset($input['total_sessions']) ? (int)$input['total_sessions'] : ($class_type === 'private' ? 10 : 13);
+    if ($total_sessions < 1 || $total_sessions > 13) {
+        $total_sessions = 13;
+    }
+    $sessions_per_week = isset($input['sessions_per_week']) ? (int)$input['sessions_per_week'] : null;
+    $week_days_raw = $input['week_days'] ?? null;
+    $week_days = null;
+    if (is_array($week_days_raw)) {
+        $week_days = implode(',', array_filter(array_map('trim', $week_days_raw), 'strlen'));
+    } elseif ($week_days_raw !== null) {
+        $week_days = trim((string)$week_days_raw);
+    }
+    // Auto forward if off calendar
+    $forward_next = $is_off_calendar ? 1 : (isset($input['forward_next']) ? (int)$input['forward_next'] : null);
+
     if ($title === '' || $teacher_id <= 0 || !in_array($class_type, ['online', 'offline', 'private'], true) || !in_array($schedule_type, ['odd', 'even'], true)) {
         throw new Exception('لول، مدرس، نوع و روز برگزاری لازم است.');
     }
@@ -650,9 +699,15 @@ function placement_save_class(PDO $pdo, array $input) {
         $old_students = placement_class_student_ids($pdo, $class_id);
         $pdo->prepare("
             UPDATE classes
-            SET title = ?, class_type = ?, online_link = ?, schedule = ?, schedule_type = ?, teacher_id = ?
+            SET title = ?, class_type = ?, online_link = ?, schedule = ?, schedule_type = ?, teacher_id = ?,
+                is_off_calendar = ?, custom_start_date = ?, total_sessions = ?, sessions_per_week = ?, week_days = ?,
+                forward_next = COALESCE(?, forward_next)
             WHERE id = ?
-        ")->execute([$title, $class_type, $online_link, $schedule, $schedule_type, $teacher_id, $class_id]);
+        ")->execute([
+            $title, $class_type, $online_link, $schedule, $schedule_type, $teacher_id,
+            $is_off_calendar, $custom_start_date, $total_sessions, $sessions_per_week, $week_days,
+            $forward_next, $class_id
+        ]);
         if (!$student_ids && $old_students && empty($input['roster_ready']) && empty($input['clear_roster'])) {
             $student_ids = $old_students;
         }
@@ -680,9 +735,13 @@ function placement_save_class(PDO $pdo, array $input) {
         }
         $created_by = (int)($input['created_by'] ?? 0);
         $pdo->prepare("
-            INSERT INTO classes (title, term_id, class_type, online_link, schedule, schedule_type, teacher_id, created_by, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())
-        ")->execute([$title, $term_id, $class_type, $online_link, $schedule, $schedule_type, $teacher_id, $created_by]);
+            INSERT INTO classes (title, term_id, class_type, online_link, schedule, schedule_type, teacher_id, created_by, created_at,
+                                 is_off_calendar, custom_start_date, total_sessions, sessions_per_week, week_days, forward_next)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?)
+        ")->execute([
+            $title, $term_id, $class_type, $online_link, $schedule, $schedule_type, $teacher_id, $created_by,
+            $is_off_calendar, $custom_start_date, $total_sessions, $sessions_per_week, $week_days, $forward_next ?? 0
+        ]);
         $class_id = (int)$pdo->lastInsertId();
         placement_set_students($pdo, $class_id, $student_ids);
         placement_upsert_interview($pdo, $class_id, $interview_date, $interview_time, $interviewer_id, $interviewer_name);
@@ -718,6 +777,13 @@ function placement_save_class(PDO $pdo, array $input) {
         'interview_time' => $interview_time,
         'interviewer_id' => $interviewer_id,
         'interviewer_name' => $interviewer_name,
+        'is_off_calendar' => $is_off_calendar,
+        'custom_start_date' => $custom_start_date,
+        'custom_start_date_jalali' => ($custom_start_date && function_exists('qc_format_jalali')) ? qc_format_jalali($custom_start_date) : '',
+        'total_sessions' => $total_sessions,
+        'sessions_per_week' => $sessions_per_week,
+        'week_days' => $week_days,
+        'forward_next' => $forward_next ?? 0,
         'student_ids' => $student_ids,
         'term_id' => $term_id,
         'created' => $created,

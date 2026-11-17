@@ -148,11 +148,20 @@ function term_plan_class_type_key($class) {
 }
 
 function term_plan_session_total($class) {
+    if (!empty($class['total_sessions']) && (int)$class['total_sessions'] > 0) {
+        $tot = (int)$class['total_sessions'];
+        return ($tot > 13) ? 13 : $tot;
+    }
     return term_plan_class_type_key($class) === 'private' ? 10 : 13;
 }
 
 function term_plan_day_matches($class, $ts) {
     $w = (int)date('w', $ts);
+    if (!empty($class['is_off_calendar']) && isset($class['week_days']) && trim((string)$class['week_days']) !== '') {
+        $allowed = is_array($class['week_days']) ? $class['week_days'] : explode(',', (string)$class['week_days']);
+        $allowed = array_map('intval', array_map('trim', $allowed));
+        return in_array($w, $allowed, true);
+    }
     if ($w === 5) {
         return false;
     }

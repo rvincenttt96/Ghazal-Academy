@@ -158,22 +158,42 @@ function qc_format_jalali($ymd) {
 function eas_compute_class_session_dates(PDO $pdo, array $class, $total_sessions = null) {
     $class_type = strtolower(trim((string)($class['class_type'] ?? '')));
     if ($total_sessions === null) {
-        $total_sessions = ($class_type === 'private') ? 10 : 13;
+        if (!empty($class['total_sessions']) && (int)$class['total_sessions'] > 0) {
+            $total_sessions = (int)$class['total_sessions'];
+        } else {
+            $total_sessions = ($class_type === 'private') ? 10 : 13;
+        }
+    }
+    if ($total_sessions > 13) {
+        $total_sessions = 13;
+    }
+    if ($total_sessions < 1) {
+        $total_sessions = 13;
     }
 
-    $start = trim((string)($class['starts_on'] ?? $class['term_starts_on'] ?? ''));
-    if ($start === '' || $start === '0000-00-00' || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $start)) {
-        if (!empty($class['term_id'])) {
-            $st = $pdo->prepare("SELECT starts_on FROM terms WHERE id = ?");
-            $st->execute([(int)$class['term_id']]);
-            $start = trim((string)($st->fetchColumn() ?: ''));
+    $is_off_cal = !empty($class['is_off_calendar']);
+    $start = '';
+    if ($is_off_cal && !empty($class['custom_start_date'])) {
+        $custom_ymd = term_plan_parse_date_value($class['custom_start_date']);
+        if ($custom_ymd && preg_match('/^\d{4}-\d{2}-\d{2}$/', $custom_ymd)) {
+            $start = $custom_ymd;
+        }
+    }
+    if ($start === '' || $start === '0000-00-00') {
+        $start = trim((string)($class['starts_on'] ?? $class['term_starts_on'] ?? ''));
+        if ($start === '' || $start === '0000-00-00' || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $start)) {
+            if (!empty($class['term_id'])) {
+                $st = $pdo->prepare("SELECT starts_on FROM terms WHERE id = ?");
+                $st->execute([(int)$class['term_id']]);
+                $start = trim((string)($st->fetchColumn() ?: ''));
+            }
         }
     }
     if ($start === '' || $start === '0000-00-00' || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $start)) {
         $start = date('Y-m-d');
     }
 
-    // Generate class calendar dates according to schedule_type (even: Sat/Mon/Wed, odd: Sun/Tue/Thu)
+    // Generate class calendar dates according to schedule_type or off-calendar days
     $class_days = [];
     $ts = strtotime($start . ' 12:00:00');
     $guard = 0;
@@ -225,6 +245,16 @@ function eas_compute_class_session_dates(PDO $pdo, array $class, $total_sessions
         }
 
         $jalali_date = qc_format_jalali($session_ymd);
+
+        // Check if supervisor explicitly edited/saved the date for this session
+        $saved_raw = trim((string)($saved_dates['date_' . $i] ?? ''));
+        if ($saved_raw !== '') {
+            $manual_ymd = term_plan_parse_date_value($saved_raw);
+            if ($manual_ymd) {
+                $session_ymd = $manual_ymd;
+                $jalali_date = $saved_raw;
+            }
+        }
 
         $day_ts = strtotime($session_ymd . ' 12:00:00');
         $window = class_live_parse_schedule($sched_str, $day_ts);

@@ -51,17 +51,25 @@ $now = time();
 try {
     // 2. پیدا کردن تمام کلاس‌های فعال امروز که حذف یا آرشیو نشده‌اند
     $stmt = $pdo->prepare("
-        SELECT c.id, c.title, c.schedule, c.teacher_id, u.full_name as teacher_name, u.phone as teacher_phone
+        SELECT c.id, c.title, c.schedule, c.schedule_type, c.teacher_id, c.is_off_calendar, c.week_days,
+               u.full_name as teacher_name, u.phone as teacher_phone
         FROM classes c
         JOIN terms t ON c.term_id = t.id
         JOIN users u ON c.teacher_id = u.id
-        WHERE c.schedule_type = ? AND c.is_deleted = 0 AND " . term_sql_teaching('t') . "
+        WHERE ((IFNULL(c.is_off_calendar, 0) = 0 AND c.schedule_type = ?) OR (IFNULL(c.is_off_calendar, 0) = 1))
+          AND c.is_deleted = 0 AND " . term_sql_teaching('t') . "
           AND IFNULL(c.is_archived, 0) = 0
     ");
     $stmt->execute([$today_type]);
     $classes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($classes as $class) {
+        if (!empty($class['is_off_calendar'])) {
+            $allowed = array_map('intval', explode(',', (string)($class['week_days'] ?? '')));
+            if (!in_array((int)$today_eng_weekday, $allowed, true)) {
+                continue;
+            }
+        }
         if (empty($class['schedule']) || $class['schedule'] == 'تنظیم نشده') {
             continue;
         }

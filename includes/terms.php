@@ -186,6 +186,46 @@ function classes_ensure_schema(PDO $pdo) {
     } catch (Exception $e) {
         error_log('classes origin_term_id: ' . $e->getMessage());
     }
+    try {
+        $col = $pdo->query("SHOW COLUMNS FROM classes LIKE 'is_off_calendar'")->fetch();
+        if (!$col) {
+            $pdo->exec("ALTER TABLE classes ADD COLUMN is_off_calendar TINYINT(1) NOT NULL DEFAULT 0");
+        }
+    } catch (Exception $e) {
+        error_log('classes is_off_calendar: ' . $e->getMessage());
+    }
+    try {
+        $col = $pdo->query("SHOW COLUMNS FROM classes LIKE 'custom_start_date'")->fetch();
+        if (!$col) {
+            $pdo->exec("ALTER TABLE classes ADD COLUMN custom_start_date DATE NULL DEFAULT NULL");
+        }
+    } catch (Exception $e) {
+        error_log('classes custom_start_date: ' . $e->getMessage());
+    }
+    try {
+        $col = $pdo->query("SHOW COLUMNS FROM classes LIKE 'total_sessions'")->fetch();
+        if (!$col) {
+            $pdo->exec("ALTER TABLE classes ADD COLUMN total_sessions TINYINT NOT NULL DEFAULT 13");
+        }
+    } catch (Exception $e) {
+        error_log('classes total_sessions: ' . $e->getMessage());
+    }
+    try {
+        $col = $pdo->query("SHOW COLUMNS FROM classes LIKE 'sessions_per_week'")->fetch();
+        if (!$col) {
+            $pdo->exec("ALTER TABLE classes ADD COLUMN sessions_per_week TINYINT NULL DEFAULT NULL");
+        }
+    } catch (Exception $e) {
+        error_log('classes sessions_per_week: ' . $e->getMessage());
+    }
+    try {
+        $col = $pdo->query("SHOW COLUMNS FROM classes LIKE 'week_days'")->fetch();
+        if (!$col) {
+            $pdo->exec("ALTER TABLE classes ADD COLUMN week_days VARCHAR(50) NULL DEFAULT NULL");
+        }
+    } catch (Exception $e) {
+        error_log('classes week_days: ' . $e->getMessage());
+    }
 }
 
 function class_billing_term_id(PDO $pdo, array $class) {

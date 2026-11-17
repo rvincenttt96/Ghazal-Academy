@@ -113,6 +113,21 @@ require_once 'layout.php';
     .type-private { background:rgba(155,89,182,.2); color:#9b59b6; border:1px solid #9b59b6; }
     .day-even { background:rgba(52,152,219,.15); color:#3498db; border:1px solid rgba(52,152,219,.3); }
     .day-odd { background:rgba(155,89,182,.15); color:#9b59b6; border:1px solid rgba(155,89,182,.3); }
+    .offcal-badge { background:rgba(233,69,96,.2); color:#ff6b81; border:1px solid rgba(233,69,96,.4); white-space:nowrap; display:inline-flex; align-items:center; height:26px; padding:0 10px; border-radius:8px; font-size:.75rem; font-weight:700; }
+    .plc-offcal-section { background:rgba(233,69,96,.06); border:1px solid rgba(233,69,96,.25); border-radius:14px; padding:12px; margin-top:4px; display:flex; flex-direction:column; gap:10px; }
+    .plc-offcal-check { display:flex; align-items:flex-start; gap:10px; color:#fecdd3; font-size:.9rem; font-weight:700; cursor:pointer; user-select:none; line-height:1.45; }
+    .plc-offcal-check input { width:18px; height:18px; margin-top:2px; flex-shrink:0; accent-color:#e94560; }
+    .plc-offcal-check small { display:block; font-weight:500; color:#fda4af; font-size:.78rem; margin-top:2px; }
+    .plc-offcal-details { display:flex; flex-direction:column; gap:12px; }
+    .plc-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+    @media (max-width: 700px) {
+        .plc-grid-3 { grid-template-columns:1fr; }
+    }
+    .plc-day-pills { display:flex; flex-wrap:wrap; gap:8px; }
+    .plc-day-pill { cursor:pointer; display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.06); padding:6px 12px; border-radius:20px; font-size:.82rem; border:1px solid rgba(255,255,255,.1); user-select:none; color:#cbd5e1; transition:all .15s ease; }
+    .plc-day-pill:hover { background:rgba(233,69,96,.15); }
+    .plc-day-pill input { accent-color:#e94560; margin:0; cursor:pointer; }
+    .plc-day-pill.active { background:rgba(233,69,96,.25); border-color:#e94560; color:#fff; font-weight:700; }
     .plc-label { font-size:.8rem; color:#8e8e93; margin-bottom:8px; font-weight:700; display:flex; align-items:center; gap:6px; }
     .plc-input, .plc-select { width:100%; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.1); color:#fff; padding:8px 12px; border-radius:8px; font-size:.85rem; outline:none; }
     .plc-input:focus, .plc-select:focus { border-color:#e94560; }
@@ -250,6 +265,11 @@ require_once 'layout.php';
             $is_private = $type[0] === 'private';
             $is_inperson = !$is_online && !$is_private;
             $alocom_checked = $is_online || (($is_private || $is_inperson) && $online_link !== '');
+            $is_off_cal = !empty($class['is_off_calendar']);
+            $offcal_start = $class['custom_start_date_jalali'] ?? '';
+            $total_sess = !empty($class['total_sessions']) ? (int)$class['total_sessions'] : 13;
+            $spw = !empty($class['sessions_per_week']) ? (int)$class['sessions_per_week'] : 2;
+            $week_days_arr = array_map('trim', explode(',', (string)($class['week_days'] ?? '')));
         ?>
         <article class="plc-card" data-classid="<?= (int)$class['id'] ?>" data-teacher="<?= placement_h($class['teacher_name'] ?? '') ?>">
             <div class="plc-card-head">
@@ -258,6 +278,7 @@ require_once 'layout.php';
                     <input class="plc-title js-title" list="levelList" value="<?= placement_h($class['title']) ?>" placeholder="مثلاً FCE 2">
                 </div>
                 <div class="plc-badges">
+                    <span class="offcal-badge js-offcal-badge" <?= $is_off_cal ? '' : 'style="display:none"' ?>>آف‌کلندر</span>
                     <span class="type-badge <?= $type[2] ?>"><?= $type[1] ?></span>
                     <span class="day-badge <?= $day[2] ?>"><?= $day[1] ?></span>
                     <button type="button" class="plc-x js-delete-x" title="حذف کلاس">×</button>
@@ -304,6 +325,62 @@ require_once 'layout.php';
                 <div>
                     <div class="plc-label">ساعت کلاس</div>
                     <input type="time" class="plc-input js-schedule" value="<?= placement_h(placement_schedule_for_time_input($class['schedule'] ?? '')) ?>" step="60" dir="ltr">
+                </div>
+            </div>
+
+            <div class="plc-offcal-section">
+                <label class="plc-offcal-check">
+                    <input type="checkbox" class="js-offcal-check" <?= $is_off_cal ? 'checked' : '' ?> onchange="toggleOffCal(this)">
+                    <span>کلاس آف‌کلندر (Off Calendar)<small>شروع مستقل از تقویم ترم · فوروارد خودکار به ترم بعد</small></span>
+                </label>
+                <div class="plc-offcal-details js-offcal-details" <?= $is_off_cal ? '' : 'style="display:none"' ?>>
+                    <div class="plc-grid-3">
+                        <div>
+                            <div class="plc-label">تاریخ شروع کلاس</div>
+                            <input type="text" data-jdp readonly class="plc-input js-offcal-start" placeholder="تاریخ شروع" value="<?= placement_h($offcal_start) ?>">
+                        </div>
+                        <div>
+                            <div class="plc-label">تعداد کل جلسات (سقف ۱۳)</div>
+                            <input type="number" min="1" max="13" class="plc-input js-offcal-total" value="<?= (int)$total_sess ?>" placeholder="13">
+                        </div>
+                        <div>
+                            <div class="plc-label">تعداد جلسه در هفته</div>
+                            <select class="plc-select js-offcal-spw">
+                                <option value="1" <?= $spw === 1 ? 'selected' : '' ?>>۱ جلسه در هفته</option>
+                                <option value="2" <?= $spw === 2 ? 'selected' : '' ?>>۲ جلسه در هفته</option>
+                                <option value="3" <?= $spw === 3 ? 'selected' : '' ?>>۳ جلسه در هفته</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="plc-label">روزهای برگزاری در هفته</div>
+                        <div class="plc-day-pills">
+                            <label class="plc-day-pill <?= in_array('6', $week_days_arr, true) ? 'active' : '' ?>">
+                                <input type="checkbox" class="js-offcal-day" value="6" <?= in_array('6', $week_days_arr, true) ? 'checked' : '' ?> onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>شنبه</span>
+                            </label>
+                            <label class="plc-day-pill <?= in_array('0', $week_days_arr, true) ? 'active' : '' ?>">
+                                <input type="checkbox" class="js-offcal-day" value="0" <?= in_array('0', $week_days_arr, true) ? 'checked' : '' ?> onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>یکشنبه</span>
+                            </label>
+                            <label class="plc-day-pill <?= in_array('1', $week_days_arr, true) ? 'active' : '' ?>">
+                                <input type="checkbox" class="js-offcal-day" value="1" <?= in_array('1', $week_days_arr, true) ? 'checked' : '' ?> onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>دوشنبه</span>
+                            </label>
+                            <label class="plc-day-pill <?= in_array('2', $week_days_arr, true) ? 'active' : '' ?>">
+                                <input type="checkbox" class="js-offcal-day" value="2" <?= in_array('2', $week_days_arr, true) ? 'checked' : '' ?> onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>سه‌شنبه</span>
+                            </label>
+                            <label class="plc-day-pill <?= in_array('3', $week_days_arr, true) ? 'active' : '' ?>">
+                                <input type="checkbox" class="js-offcal-day" value="3" <?= in_array('3', $week_days_arr, true) ? 'checked' : '' ?> onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>چهارشنبه</span>
+                            </label>
+                            <label class="plc-day-pill <?= in_array('4', $week_days_arr, true) ? 'active' : '' ?>">
+                                <input type="checkbox" class="js-offcal-day" value="4" <?= in_array('4', $week_days_arr, true) ? 'checked' : '' ?> onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>پنجشنبه</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="js-alocom-wrap">
@@ -660,6 +737,12 @@ function buildCard(data) {
     const dMeta = dayMeta(day);
     const isNew = !Number(data.id || 0);
     const sourceId = Number(data.source_id || 0);
+    const isOffCal = Boolean(Number(data.is_off_calendar || 0));
+    const offcalStart = escapeHtml(data.custom_start_date_jalali || data.custom_start_date || '');
+    const totalSess = Math.min(13, Math.max(1, Number(data.total_sessions || 13)));
+    const spw = Number(data.sessions_per_week || 2);
+    const weekDaysArr = String(data.week_days || '').split(',').map(s => s.trim());
+    const hasDay = d => weekDaysArr.includes(String(d));
     const sourceNote = sourceId
         ? `<div class="plc-source js-source">کپی از ${escapeHtml(PREVIOUS.title || 'ترم قبل')} — با ذخیره در ${escapeHtml(TERM_TITLE || 'این ترم')} ثبت می‌شود. اتاق الوکام ترم قبل کپی نمی‌شود.</div>`
         : '';
@@ -672,6 +755,7 @@ function buildCard(data) {
                     <input class="plc-title js-title" list="levelList" placeholder="مثلاً FCE 2" value="${escapeHtml(data.title || '')}">
                 </div>
                 <div class="plc-badges">
+                    <span class="offcal-badge js-offcal-badge" style="${isOffCal ? '' : 'display:none'}">آف‌کلندر</span>
                     <span class="type-badge ${tMeta[1]}">${tMeta[0]}</span>
                     <span class="day-badge ${dMeta[1]}">${dMeta[0]}</span>
                     <button type="button" class="plc-x js-delete-x" title="حذف کارت">×</button>
@@ -709,6 +793,61 @@ function buildCard(data) {
                 <div>
                     <div class="plc-label">ساعت کلاس</div>
                     <input type="time" class="plc-input js-schedule" value="${escapeHtml(scheduleTime(data.schedule || ''))}" step="60" dir="ltr">
+                </div>
+            </div>
+            <div class="plc-offcal-section">
+                <label class="plc-offcal-check">
+                    <input type="checkbox" class="js-offcal-check" ${isOffCal ? 'checked' : ''} onchange="toggleOffCal(this)">
+                    <span>کلاس آف‌کلندر (Off Calendar)<small>شروع مستقل از تقویم ترم · فوروارد خودکار به ترم بعد</small></span>
+                </label>
+                <div class="plc-offcal-details js-offcal-details" style="${isOffCal ? '' : 'display:none'}">
+                    <div class="plc-grid-3">
+                        <div>
+                            <div class="plc-label">تاریخ شروع کلاس</div>
+                            <input type="text" data-jdp readonly class="plc-input js-offcal-start" placeholder="تاریخ شروع" value="${offcalStart}">
+                        </div>
+                        <div>
+                            <div class="plc-label">تعداد کل جلسات (سقف ۱۳)</div>
+                            <input type="number" min="1" max="13" class="plc-input js-offcal-total" value="${totalSess}" placeholder="13">
+                        </div>
+                        <div>
+                            <div class="plc-label">تعداد جلسه در هفته</div>
+                            <select class="plc-select js-offcal-spw">
+                                <option value="1" ${spw === 1 ? 'selected' : ''}>۱ جلسه در هفته</option>
+                                <option value="2" ${spw === 2 ? 'selected' : ''}>۲ جلسه در هفته</option>
+                                <option value="3" ${spw === 3 ? 'selected' : ''}>۳ جلسه در هفته</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="plc-label">روزهای برگزاری در هفته</div>
+                        <div class="plc-day-pills">
+                            <label class="plc-day-pill ${hasDay('6') ? 'active' : ''}">
+                                <input type="checkbox" class="js-offcal-day" value="6" ${hasDay('6') ? 'checked' : ''} onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>شنبه</span>
+                            </label>
+                            <label class="plc-day-pill ${hasDay('0') ? 'active' : ''}">
+                                <input type="checkbox" class="js-offcal-day" value="0" ${hasDay('0') ? 'checked' : ''} onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>یکشنبه</span>
+                            </label>
+                            <label class="plc-day-pill ${hasDay('1') ? 'active' : ''}">
+                                <input type="checkbox" class="js-offcal-day" value="1" ${hasDay('1') ? 'checked' : ''} onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>دوشنبه</span>
+                            </label>
+                            <label class="plc-day-pill ${hasDay('2') ? 'active' : ''}">
+                                <input type="checkbox" class="js-offcal-day" value="2" ${hasDay('2') ? 'checked' : ''} onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>سه‌شنبه</span>
+                            </label>
+                            <label class="plc-day-pill ${hasDay('3') ? 'active' : ''}">
+                                <input type="checkbox" class="js-offcal-day" value="3" ${hasDay('3') ? 'checked' : ''} onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>چهارشنبه</span>
+                            </label>
+                            <label class="plc-day-pill ${hasDay('4') ? 'active' : ''}">
+                                <input type="checkbox" class="js-offcal-day" value="4" ${hasDay('4') ? 'checked' : ''} onchange="this.closest('.plc-day-pill').classList.toggle('active', this.checked)">
+                                <span>پنجشنبه</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="js-alocom-wrap">
@@ -912,6 +1051,18 @@ function fieldValue(card, selector) {
     return el ? String(el.value || '').trim() : '';
 }
 
+function toggleOffCal(el) {
+    const card = el.closest('.plc-card');
+    if (!card) return;
+    const details = card.querySelector('.js-offcal-details');
+    const badge = card.querySelector('.js-offcal-badge');
+    if (details) details.style.display = el.checked ? '' : 'none';
+    if (badge) badge.style.display = el.checked ? '' : 'none';
+    if (el.checked && window.jalaliDatepicker) {
+        jalaliDatepicker.startWatch({ minDate: "attr", maxDate: "attr", time: false });
+    }
+}
+
 function payloadOf(card) {
     const selected = selectedOf(card);
     const teacherSel = card.querySelector('select.js-teacher');
@@ -923,6 +1074,14 @@ function payloadOf(card) {
     const interviewerOpt = interviewerSel && interviewerSel.selectedIndex >= 0
         ? interviewerSel.options[interviewerSel.selectedIndex]
         : null;
+
+    const offcalCheck = card.querySelector('.js-offcal-check');
+    const isOffCal = offcalCheck ? (offcalCheck.checked ? 1 : 0) : 0;
+    const offcalStart = fieldValue(card, '.js-offcal-start');
+    const offcalTotal = Math.min(13, Math.max(1, parseInt(fieldValue(card, '.js-offcal-total'), 10) || 13));
+    const offcalSpw = parseInt(fieldValue(card, '.js-offcal-spw'), 10) || 2;
+    const weekDaysArr = Array.from(card.querySelectorAll('.js-offcal-day:checked')).map(el => el.value);
+
     return {
         action: Number(card.getAttribute('data-classid') || 0) > 0 ? 'save' : 'create',
         class_id: Number(card.getAttribute('data-classid') || 0),
@@ -933,6 +1092,11 @@ function payloadOf(card) {
         create_alocom: wantsAlocom(card),
         schedule_type: fieldValue(card, 'select.js-days') || 'odd',
         schedule: fieldValue(card, '.js-schedule'),
+        is_off_calendar: isOffCal,
+        custom_start_date: offcalStart,
+        total_sessions: offcalTotal,
+        sessions_per_week: offcalSpw,
+        week_days: weekDaysArr.join(','),
         student_ids: selected.map(st => Number(st.id)),
         interview_date: fieldValue(card, '.js-int-date'),
         interview_time: fieldValue(card, '.js-int-time'),
