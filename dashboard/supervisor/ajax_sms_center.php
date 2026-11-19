@@ -6,8 +6,11 @@ require_once '../../includes/sms.php';
 header('Content-Type: application/json; charset=utf-8');
 
 // Ensure supervisor authentication
-if (!function_exists('has_role') || !has_role('supervisor')) {
-    echo json_encode(['ok' => false, 'error' => 'دسترسی غیرمجاز'], JSON_UNESCAPED_UNICODE);
+if (empty($_SESSION['logged_in']) && function_exists('check_remember_me')) {
+    check_remember_me($pdo);
+}
+if (empty($_SESSION['logged_in']) || ($_SESSION['role'] ?? '') !== 'supervisor') {
+    echo json_encode(['ok' => false, 'error' => 'دسترسی غیرمجاز (لطفاً مجدداً وارد شوید)'], JSON_UNESCAPED_UNICODE);
     exit;
 }
 

@@ -1096,7 +1096,7 @@ async function loadLogs(page = 1) {
             renderLogsTable(data.items);
             renderLogsPagination(data.page, data.total_pages);
         } else {
-            tbody.innerHTML = '<tr><td colspan="6" class="text-center text-danger py-4">خطا در دریافت لاگ‌ها</td></tr>';
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center text-danger py-4">خطا در دریافت لاگ‌ها: ${data.error || 'ناشناخته'}</td></tr>`;
         }
     } catch (e) {
         tbody.innerHTML = '<tr><td colspan="6" class="text-center text-danger py-4">خطای ارتباطی</td></tr>';
