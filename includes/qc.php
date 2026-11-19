@@ -1273,10 +1273,10 @@ function qc_check_and_dispatch_sms_alerts(PDO $pdo) {
                 }
             }
 
-            // Session 13 final marks (due before Session 13 ends)
+            // Session 13 final marks (due at the end of Session 13)
             if ($today_session_no === $total_sessions) {
-                // Window: from 15 min before class ends until 30 min after end
-                if ($now >= ($sess_end - 15 * 60) && $now <= ($sess_end + 30 * 60)) {
+                // Window: from 15 min after class ends until 45 min after end (15 min buffer after class)
+                if ($now >= ($sess_end + 15 * 60) && $now <= ($sess_end + 45 * 60)) {
                     $st_fin = $pdo->prepare("
                         SELECT COUNT(*)
                         FROM class_students cs
