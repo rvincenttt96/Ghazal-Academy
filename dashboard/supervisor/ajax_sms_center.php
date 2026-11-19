@@ -395,7 +395,7 @@ try {
                 $total_count = (int)$st_c->fetchColumn();
 
                 $st = $pdo->prepare("
-                    SELECT a.id, a.phone, u.full_name as recipient, 'parent' as role,
+                    SELECT 0 as id, IFNULL(u.phone, u.username) as phone, u.full_name as recipient, 'parent' as role,
                            'pattern' as send_type, 'aX3d0ttYHc' as pattern_code,
                            CONCAT('اعلام غیبت تاریخ ', a.class_date, ' (کلاس ', IFNULL(c.title, a.class_id), ')') as message_text,
                            'sent' as status, a.sent_at,
@@ -403,7 +403,7 @@ try {
                     FROM attendance_sms_log a
                     LEFT JOIN users u ON a.user_id = u.id
                     LEFT JOIN classes c ON a.class_id = c.id
-                    ORDER BY a.id DESC
+                    ORDER BY a.sent_at DESC
                     LIMIT ? OFFSET ?
                 ");
                 $st->bindValue(1, $limit, PDO::PARAM_INT);
@@ -416,7 +416,7 @@ try {
                 $total_count = (int)$st_c->fetchColumn();
 
                 $st = $pdo->prepare("
-                    SELECT l.id, l.phone, u.full_name as recipient, 'parent' as role,
+                    SELECT 0 as id, IFNULL(u.phone, u.username) as phone, u.full_name as recipient, 'parent' as role,
                            'pattern' as send_type, '188246' as pattern_code,
                            CONCAT('اعلام تأخیر تاریخ ', l.class_date, ' (کلاس ', IFNULL(c.title, l.class_id), ')') as message_text,
                            'sent' as status, l.sent_at,
@@ -424,7 +424,7 @@ try {
                     FROM attendance_late_sms_log l
                     LEFT JOIN users u ON l.user_id = u.id
                     LEFT JOIN classes c ON l.class_id = c.id
-                    ORDER BY l.id DESC
+                    ORDER BY l.sent_at DESC
                     LIMIT ? OFFSET ?
                 ");
                 $st->bindValue(1, $limit, PDO::PARAM_INT);
@@ -449,7 +449,7 @@ try {
                      LEFT JOIN users u ON q.teacher_id = u.id
                      LEFT JOIN classes c ON q.class_id = c.id)
                     UNION ALL
-                    (SELECT a.id, a.phone, u.full_name as recipient, 'parent' as role,
+                    (SELECT 0 as id, IFNULL(u.phone, u.username) as phone, u.full_name as recipient, 'parent' as role,
                             'pattern' as send_type, 'aX3d0ttYHc' as pattern_code,
                             CONCAT('اعلام غیبت تاریخ ', a.class_date, ' (کلاس ', IFNULL(c.title, a.class_id), ')') as message_text,
                             'sent' as status, a.sent_at,
@@ -458,7 +458,7 @@ try {
                      LEFT JOIN users u ON a.user_id = u.id
                      LEFT JOIN classes c ON a.class_id = c.id)
                     UNION ALL
-                    (SELECT l.id, l.phone, u.full_name as recipient, 'parent' as role,
+                    (SELECT 0 as id, IFNULL(u.phone, u.username) as phone, u.full_name as recipient, 'parent' as role,
                             'pattern' as send_type, '188246' as pattern_code,
                             CONCAT('اعلام تأخیر تاریخ ', l.class_date, ' (کلاس ', IFNULL(c.title, l.class_id), ')') as message_text,
                             'sent' as status, l.sent_at,
