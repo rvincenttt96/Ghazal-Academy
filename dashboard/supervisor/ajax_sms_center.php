@@ -429,49 +429,77 @@ try {
                 $items = $st->fetchAll(PDO::FETCH_ASSOC);
 
             } else {
-                // ALL COMBINED (Union query for latest entries)
-                $union_sql = "
-                    (SELECT id, recipient_phone as phone, recipient_name as recipient, recipient_role as role,
-                            send_type, pattern_code, message_text, status, created_at as sent_at,
-                            'دستی سوپروایزر' as source_label
-                     FROM sms_manual_logs)
-                    UNION ALL
-                    (SELECT q.id, q.phone, u.full_name as recipient, 'teacher' as role,
-                            'pattern' as send_type, 'cyedV1fZDy' as pattern_code,
-                            CONCAT('کنترل کیفیت: ', q.item_key, ' (کلاس ', IFNULL(c.title, q.class_id), ')') as message_text,
-                            'sent' as status, q.sent_at,
-                            'هشدار هوشمند QC' as source_label
-                     FROM qc_sms_alerts_log q
-                     LEFT JOIN users u ON q.teacher_id = u.id
-                     LEFT JOIN classes c ON q.class_id = c.id)
-                    UNION ALL
-                    (SELECT 0 as id, IFNULL(u.phone, u.username) as phone, u.full_name as recipient, 'parent' as role,
-                            'pattern' as send_type, 'aX3d0ttYHc' as pattern_code,
-                            CONCAT('اعلام غیبت تاریخ ', a.class_date, ' (کلاس ', IFNULL(c.title, a.class_id), ')') as message_text,
-                            'sent' as status, a.sent_at,
-                            'غیبت دانش‌آموز' as source_label
-                     FROM attendance_sms_log a
-                     LEFT JOIN users u ON a.user_id = u.id
-                     LEFT JOIN classes c ON a.class_id = c.id)
-                    UNION ALL
-                    (SELECT 0 as id, IFNULL(u.phone, u.username) as phone, u.full_name as recipient, 'parent' as role,
-                            'pattern' as send_type, '188246' as pattern_code,
-                            CONCAT('اعلام تأخیر تاریخ ', l.class_date, ' (کلاس ', IFNULL(c.title, l.class_id), ')') as message_text,
-                            'sent' as status, l.sent_at,
-                            'تأخیر دانش‌آموز' as source_label
-                     FROM attendance_late_sms_log l
-                     LEFT JOIN users u ON l.user_id = u.id
-                     LEFT JOIN classes c ON l.class_id = c.id)
-                    ORDER BY sent_at DESC
-                    LIMIT ? OFFSET ?
-                ";
-                $st = $pdo->prepare($union_sql);
-                $st->bindValue(1, $limit, PDO::PARAM_INT);
-                $st->bindValue(2, $offset, PDO::PARAM_INT);
-                $st->execute();
-                $items = $st->fetchAll(PDO::FETCH_ASSOC);
+                // ALL COMBINED (Query each table safely to prevent collation conflicts)
+                $fetch_limit = $limit * $page + 10;
 
-                // Approximate total count
+                $st1 = $pdo->prepare("
+                    SELECT id, recipient_phone as phone, recipient_name as recipient, recipient_role as role,
+                           send_type, pattern_code, message_text, status, created_at as sent_at,
+                           'دستی سوپروایزر' as source_label
+                    FROM sms_manual_logs
+                    ORDER BY id DESC
+                    LIMIT ?
+                ");
+                $st1->bindValue(1, $fetch_limit, PDO::PARAM_INT);
+                $st1->execute();
+                $r1 = $st1->fetchAll(PDO::FETCH_ASSOC);
+
+                $st2 = $pdo->prepare("
+                    SELECT q.id, q.phone, u.full_name as recipient, 'teacher' as role,
+                           'pattern' as send_type, 'cyedV1fZDy' as pattern_code,
+                           CONCAT('کنترل کیفیت: ', q.item_key, ' (کلاس ', IFNULL(c.title, q.class_id), ')') as message_text,
+                           'sent' as status, q.sent_at,
+                           'هشدار هوشمند QC' as source_label
+                    FROM qc_sms_alerts_log q
+                    LEFT JOIN users u ON q.teacher_id = u.id
+                    LEFT JOIN classes c ON q.class_id = c.id
+                    ORDER BY q.id DESC
+                    LIMIT ?
+                ");
+                $st2->bindValue(1, $fetch_limit, PDO::PARAM_INT);
+                $st2->execute();
+                $r2 = $st2->fetchAll(PDO::FETCH_ASSOC);
+
+                $st3 = $pdo->prepare("
+                    SELECT 0 as id, IFNULL(u.phone, u.username) as phone, u.full_name as recipient, 'parent' as role,
+                           'pattern' as send_type, 'aX3d0ttYHc' as pattern_code,
+                           CONCAT('اعلام غیبت تاریخ ', a.class_date, ' (کلاس ', IFNULL(c.title, a.class_id), ')') as message_text,
+                           'sent' as status, a.sent_at,
+                           'غیبت دانش‌آموز' as source_label
+                    FROM attendance_sms_log a
+                    LEFT JOIN users u ON a.user_id = u.id
+                    LEFT JOIN classes c ON a.class_id = c.id
+                    ORDER BY a.sent_at DESC
+                    LIMIT ?
+                ");
+                $st3->bindValue(1, $fetch_limit, PDO::PARAM_INT);
+                $st3->execute();
+                $r3 = $st3->fetchAll(PDO::FETCH_ASSOC);
+
+                $st4 = $pdo->prepare("
+                    SELECT 0 as id, IFNULL(u.phone, u.username) as phone, u.full_name as recipient, 'parent' as role,
+                           'pattern' as send_type, '188246' as pattern_code,
+                           CONCAT('اعلام تأخیر تاریخ ', l.class_date, ' (کلاس ', IFNULL(c.title, l.class_id), ')') as message_text,
+                           'sent' as status, l.sent_at,
+                           'تأخیر دانش‌آموز' as source_label
+                    FROM attendance_late_sms_log l
+                    LEFT JOIN users u ON l.user_id = u.id
+                    LEFT JOIN classes c ON l.class_id = c.id
+                    ORDER BY l.sent_at DESC
+                    LIMIT ?
+                ");
+                $st4->bindValue(1, $fetch_limit, PDO::PARAM_INT);
+                $st4->execute();
+                $r4 = $st4->fetchAll(PDO::FETCH_ASSOC);
+
+                $all_merged = array_merge($r1, $r2, $r3, $r4);
+                usort($all_merged, function($a, $b) {
+                    return strcmp((string)$b['sent_at'], (string)$a['sent_at']);
+                });
+
+                $items = array_slice($all_merged, $offset, $limit);
+
+                // Total count
                 $c1 = (int)$pdo->query("SELECT COUNT(*) FROM sms_manual_logs")->fetchColumn();
                 $c2 = (int)$pdo->query("SELECT COUNT(*) FROM qc_sms_alerts_log")->fetchColumn();
                 $c3 = (int)$pdo->query("SELECT COUNT(*) FROM attendance_sms_log")->fetchColumn();
