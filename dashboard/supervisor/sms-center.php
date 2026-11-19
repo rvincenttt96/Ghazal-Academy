@@ -654,8 +654,8 @@ async function loadBalance() {
         if (data.ok) {
             const amountRial = Number(data.amount || 0);
             const amountToman = Math.floor(amountRial / 10);
-            document.getElementById('balanceAmountText').textContent = amountRial.toLocaleString('fa-IR') + ' ریال';
-            document.getElementById('tomanAmountText').textContent = '(' + amountToman.toLocaleString('fa-IR') + ' تومان)';
+            document.getElementById('balanceAmountText').textContent = amountToman.toLocaleString('fa-IR') + ' تومان';
+            document.getElementById('tomanAmountText').textContent = '(' + amountRial.toLocaleString('fa-IR') + ' ریال)';
             document.getElementById('balanceCountBadge').textContent = '~ ' + Number(data.count || 0).toLocaleString('fa-IR') + ' پیامک';
 
             if (data.count < 500) {
