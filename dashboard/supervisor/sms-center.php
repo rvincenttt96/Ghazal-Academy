@@ -1,4 +1,8 @@
 <?php
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('Expires: 0');
+
 require_once '../../includes/auth.php';
 require_once '../../includes/db.php';
 require_once '../../includes/sms.php';
@@ -645,7 +649,7 @@ async function loadBalance() {
     if (icon) icon.classList.add('spin-anim');
 
     try {
-        const res = await fetch('ajax_sms_center.php?action=get_balance&_t=' + Date.now());
+        const res = await fetch('ajax_sms_center.php?action=get_balance&_t=' + Date.now(), { cache: 'no-store' });
         const data = await res.json();
         if (data.ok) {
             const amountRial = Number(data.amount || 0);
@@ -681,7 +685,7 @@ async function loadPatterns() {
     grid.style.display = 'none';
 
     try {
-        const res = await fetch('ajax_sms_center.php?action=get_patterns&_t=' + Date.now());
+        const res = await fetch('ajax_sms_center.php?action=get_patterns&_t=' + Date.now(), { cache: 'no-store' });
         const data = await res.json();
         if (data.ok && Array.isArray(data.patterns)) {
             globalPatterns = data.patterns;
@@ -853,7 +857,7 @@ async function handleCreatePattern(e) {
 // =========================================================
 async function loadAudienceMeta() {
     try {
-        const res = await fetch('ajax_sms_center.php?action=get_audience_meta&_t=' + Date.now());
+        const res = await fetch('ajax_sms_center.php?action=get_audience_meta&_t=' + Date.now(), { cache: 'no-store' });
         const data = await res.json();
         if (data.ok) {
             audienceClasses = data.classes || [];
@@ -959,7 +963,7 @@ async function handleSendSms(e) {
 async function loadAutomations() {
     const list = document.getElementById('automationsList');
     try {
-        const res = await fetch('ajax_sms_center.php?action=get_automations&_t=' + Date.now());
+        const res = await fetch('ajax_sms_center.php?action=get_automations&_t=' + Date.now(), { cache: 'no-store' });
         const data = await res.json();
         if (data.ok && Array.isArray(data.automations)) {
             renderAutomations(data.automations);
@@ -1096,7 +1100,7 @@ async function loadLogs(page = 1) {
     tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-white-50">در حال دریافت تاریخچه پیامک‌ها...</td></tr>';
 
     try {
-        const res = await fetch(`ajax_sms_center.php?action=get_logs&log_type=${encodeURIComponent(filter)}&page=${page}&_t=${Date.now()}`);
+        const res = await fetch(`ajax_sms_center.php?action=get_logs&log_type=${encodeURIComponent(filter)}&page=${page}&_t=${Date.now()}`, { cache: 'no-store' });
         const data = await res.json();
         if (data.ok && Array.isArray(data.items)) {
             renderLogsTable(data.items);
