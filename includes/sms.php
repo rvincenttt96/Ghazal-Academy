@@ -3,6 +3,33 @@
  * پیامک فراز — همان تابع پنل اعلان‌ها (announcement.ghazalify.com/services.php)
  */
 
+/**
+ * Universal Iranian phone number normalizer (converts Persian/Arabic digits, handles +98/0098/9...)
+ */
+function sms_normalize_phone($phone) {
+    $phone = trim((string)$phone);
+    if ($phone === '') return '';
+    $phone = strtr($phone, [
+        '۰' => '0', '۱' => '1', '۲' => '2', '۳' => '3', '۴' => '4',
+        '۵' => '5', '۶' => '6', '۷' => '7', '۸' => '8', '۹' => '9',
+        '٠' => '0', '١' => '1', '٢' => '2', '٣' => '3', '٤' => '4',
+        '٥' => '5', '٦' => '6', '٧' => '7', '٨' => '8', '٩' => '9',
+    ]);
+    $phone = preg_replace('/\D+/', '', $phone);
+    if (substr($phone, 0, 4) === '0098') {
+        $phone = substr($phone, 4);
+    } elseif (substr($phone, 0, 2) === '98' && strlen($phone) > 10) {
+        $phone = substr($phone, 2);
+    }
+    if (strlen($phone) === 10 && substr($phone, 0, 1) === '9') {
+        $phone = '0' . $phone;
+    }
+    if (strlen($phone) === 11 && substr($phone, 0, 2) === '09') {
+        return $phone;
+    }
+    return '';
+}
+
 function sms_faraz_config() {
     $config = function_exists('rollcall_config') ? rollcall_config() : [];
     $sms = is_array($config['sms'] ?? null) ? $config['sms'] : [];

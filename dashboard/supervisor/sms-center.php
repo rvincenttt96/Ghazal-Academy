@@ -901,6 +901,12 @@ function updateCharCount() {
     document.getElementById('charCountLabel').textContent = `${len} کاراکتر (${parts} پارت پیامک)`;
 }
 
+function normalizeDigits(str) {
+    if (!str) return '';
+    return str.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+              .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+}
+
 // =========================================================
 // 5. DISPATCH SMS
 // =========================================================
@@ -917,7 +923,7 @@ async function handleSendSms(e) {
     fd.append('send_type', document.getElementById('sendType').value);
     fd.append('target_type', document.getElementById('targetType').value);
     fd.append('class_id', document.getElementById('targetClassSelect').value);
-    fd.append('manual_phones', document.getElementById('manualPhones').value);
+    fd.append('manual_phones', normalizeDigits(document.getElementById('manualPhones').value));
     fd.append('pattern_code', document.getElementById('selectPatternCode').value);
     fd.append('message_text', document.getElementById('simpleMessageText').value);
 

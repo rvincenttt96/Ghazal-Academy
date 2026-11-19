@@ -116,9 +116,8 @@ try {
                 }
                 $lines = preg_split('/[\r\n,;]+/', $raw_manual_phones);
                 foreach ($lines as $line) {
-                    $p = preg_replace('/[^0-9]/', '', trim($line));
-                    if (strlen($p) === 10 && substr($p, 0, 1) === '9') $p = '0' . $p;
-                    if (strlen($p) === 11 && substr($p, 0, 2) === '09') {
+                    $p = sms_normalize_phone($line);
+                    if ($p !== '') {
                         $recipients[] = ['phone' => $p, 'name' => 'گیرنده دستی', 'role' => 'manual'];
                     }
                 }
@@ -126,9 +125,8 @@ try {
                 $st = $pdo->query("SELECT id, full_name, username, phone FROM users WHERE role = 'teacher' AND IFNULL(is_deleted, 0) = 0");
                 while ($r = $st->fetch(PDO::FETCH_ASSOC)) {
                     $phone = !empty($r['phone']) ? $r['phone'] : $r['username'];
-                    $p = preg_replace('/[^0-9]/', '', (string)$phone);
-                    if (strlen($p) === 10 && substr($p, 0, 1) === '9') $p = '0' . $p;
-                    if (strlen($p) === 11 && substr($p, 0, 2) === '09') {
+                    $p = sms_normalize_phone($phone);
+                    if ($p !== '') {
                         $recipients[] = ['phone' => $p, 'name' => $r['full_name'], 'role' => 'teacher'];
                     }
                 }
@@ -136,9 +134,8 @@ try {
                 $st = $pdo->query("SELECT id, full_name, username, phone FROM users WHERE role = 'student' AND IFNULL(is_deleted, 0) = 0");
                 while ($r = $st->fetch(PDO::FETCH_ASSOC)) {
                     $phone = !empty($r['phone']) ? $r['phone'] : $r['username'];
-                    $p = preg_replace('/[^0-9]/', '', (string)$phone);
-                    if (strlen($p) === 10 && substr($p, 0, 1) === '9') $p = '0' . $p;
-                    if (strlen($p) === 11 && substr($p, 0, 2) === '09') {
+                    $p = sms_normalize_phone($phone);
+                    if ($p !== '') {
                         $recipients[] = ['phone' => $p, 'name' => $r['full_name'], 'role' => 'student'];
                     }
                 }
@@ -155,9 +152,8 @@ try {
                 $st->execute([$class_id]);
                 while ($r = $st->fetch(PDO::FETCH_ASSOC)) {
                     $phone = !empty($r['phone']) ? $r['phone'] : $r['username'];
-                    $p = preg_replace('/[^0-9]/', '', (string)$phone);
-                    if (strlen($p) === 10 && substr($p, 0, 1) === '9') $p = '0' . $p;
-                    if (strlen($p) === 11 && substr($p, 0, 2) === '09') {
+                    $p = sms_normalize_phone($phone);
+                    if ($p !== '') {
                         $recipients[] = ['phone' => $p, 'name' => $r['full_name'], 'role' => 'student'];
                     }
                 }
