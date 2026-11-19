@@ -4,6 +4,9 @@ require_once '../../includes/db.php';
 require_once '../../includes/sms.php';
 
 header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('Expires: 0');
 
 // Ensure supervisor authentication
 if (empty($_SESSION['logged_in']) && function_exists('check_remember_me')) {
