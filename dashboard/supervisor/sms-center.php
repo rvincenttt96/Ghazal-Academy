@@ -652,8 +652,8 @@ async function loadBalance() {
         const res = await fetch('ajax_sms_center.php?action=get_balance&_t=' + Date.now(), { cache: 'no-store' });
         const data = await res.json();
         if (data.ok) {
-            const amountRial = Number(data.amount || 0);
-            const amountToman = Math.floor(amountRial / 10);
+            const amountToman = Number(data.amount || 0);
+            const amountRial = amountToman * 10;
             document.getElementById('balanceAmountText').textContent = amountToman.toLocaleString('fa-IR') + ' تومان';
             document.getElementById('tomanAmountText').textContent = '(' + amountRial.toLocaleString('fa-IR') + ' ریال)';
             document.getElementById('balanceCountBadge').textContent = '~ ' + Number(data.count || 0).toLocaleString('fa-IR') + ' پیامک';
